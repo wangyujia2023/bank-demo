@@ -1,0 +1,98 @@
+# ================================================================
+# FileBeat 配置 - 银行用户操作日志采集
+# 推送目标：CDP 后端 /api/log/collect 接口
+# ================================================================
+
+filebeat.inputs:
+  # ── 银行 APP 操作日志 ────────────────────────────────────────
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/bank-app/*.log
+      - /var/log/bank-app/access*.log
+    tags: ["app-log"]
+    fields:
+      source: APP
+      env: production
+    fields_under_root: false
+    multiline.pattern: '^\d{4}-\d{2}-\d{2}'
+    multiline.negate: true
+    multiline.match: after
+    json.keys_under_root: true
+    json.add_error_key: true
+
+  # ── 核心银行系统日志 ─────────────────────────────────────────
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/core-bank/*.log
+    tags: ["core-bank-log"]
+    fields:
+      source: CORE_BANK
+    fields_under_root: false
+
+  # ── ATM 操作日志 ─────────────────────────────────────────────
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/atm/*.log
+    tags: ["atm-log"]
+    fields:
+      source: ATM
+    fields_under_root: false
+
+  # ── 模拟测试日志（本地开发用） ─────────────────────────────────
+  - type: log
+    enabled: true
+    paths:
+      - /tmp/bank-test-logs/*.log
+    tags: ["test-log"]
+    fields:
+      source: TEST
+
+# ── 处理器（预处理日志字段） ─────────────────────────────────────
+processors:
+  - decode_json_fields:
+      fields: ["message"]
+      target: "parsed"
+      overwrite_keys: false
+      add_error_key: true
+
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+
+  - add_cloud_metadata: ~
+
+  - drop_fields:
+      fields: ["agent.ephemeral_id", "agent.id", "agent.version"]
+      ignore_missing: true
+
+# ── 输出到 CDP 后端 HTTP 接口 ────────────────────────────────────
+output.http:
+  enabled: true
+  hosts: ["http://localhost:8000"]
+  path: "/api/log/collect"
+  method: "POST"
+  headers:
+    Content-Type: "application/json"
+  # 批量发送
+  batch_size: 100
+  # 重试策略
+  retry.initial_interval: 1s
+  retry.max_interval: 60s
+  retry.max_elapsed_time: 300s
+
+# ── 日志级别 ────────────────────────────────────────────────────
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat.log
+  keepfiles: 7
+  permissions: 0644
+
+# ── 监控 ────────────────────────────────────────────────────────
+monitoring.enabled: false
+
+# ── 测试脚本（生成模拟日志） ────────────────────────────────────
+# 运行: bash filebeat/gen_test_logs.sh

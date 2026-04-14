@@ -1,0 +1,20 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.env
+.env
+
+# Node / Vue
+node_modules/
+dist/
+.vuepress/dist
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Claude
+.claude/
