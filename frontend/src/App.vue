@@ -16,6 +16,9 @@
         <el-menu-item index="/dashboard">
           <el-icon><Odometer /></el-icon><span>首页大盘</span>
         </el-menu-item>
+        <el-menu-item index="/management">
+          <el-icon><DataAnalysis /></el-icon><span>经营管理大屏</span>
+        </el-menu-item>
         <el-menu-item-group title="用户画像">
           <el-menu-item index="/user">
             <el-icon><User /></el-icon><span>用户宽表查询</span>
@@ -30,11 +33,6 @@
         <el-menu-item index="/log-classify">
           <el-icon><Cpu /></el-icon><span>AI 日志标签分析</span>
         </el-menu-item>
-        <el-menu-item-group title="HASP 向量场景">
-          <el-menu-item index="/vector">
-            <el-icon><Coin /></el-icon><span>图片识别标签检索</span>
-          </el-menu-item>
-        </el-menu-item-group>
         <el-menu-item-group title="数据能力展示">
           <el-menu-item index="/report">
             <el-icon><Document /></el-icon><span>银行报表</span>
