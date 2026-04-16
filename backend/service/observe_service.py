@@ -1,203 +1,203 @@
-"""日志可观测性 & 链路追踪服务"""
-import hashlib
-from backend.doris.connect import execute_query, execute_one
-
-# event_type → log level
-LEVEL_MAP = {
-    "LOGIN": "INFO",  "LOGOUT": "INFO",  "REGISTER": "INFO",
-    "VIEW": "DEBUG",
-    "PAYMENT": "INFO", "DEPOSIT": "INFO",
-    "TRANSFER": "WARN", "WITHDRAW": "WARN",
-    "ANOMALY": "ERROR",
-}
-
-# event_type → 微服务名
-SERVICE_MAP = {
-    "LOGIN": "auth-service",      "LOGOUT": "auth-service",
-    "REGISTER": "user-service",   "VIEW": "portal-service",
-    "PAYMENT": "payment-service", "TRANSFER": "payment-service",
-    "DEPOSIT": "account-service", "WITHDRAW": "account-service",
-    "ANOMALY": "risk-engine",
-}
-
-LEVEL_ORDER = {"DEBUG": 0, "INFO": 1, "WARN": 2, "ERROR": 3}
-
-
-def _trace_id(user_id, event_time, event_type):
-    raw = f"{user_id}{event_time}{event_type}"
-    return hashlib.md5(raw.encode()).hexdigest()[:16]
-
-
-def _build_message(evt, user_id, channel, amount):
-    uid, ch, amt = user_id, channel or "-", float(amount or 0)
-    templates = {
-        "LOGIN":    f"User {uid} authenticated via {ch} session_id={uid % 9999:04x}c3f2",
-        "LOGOUT":   f"User {uid} session terminated channel={ch}",
-        "REGISTER": f"Registration complete user_id={uid} channel={ch}",
-        "VIEW":     f"Page view user={uid} module=dashboard latency=12ms",
-        "PAYMENT":  f"Payment OK user={uid} amount={amt:.2f} channel={ch} txn_id={uid % 9999:04x}",
-        "TRANSFER": f"Transfer initiated user={uid} amount={amt:.2f} compliance_check=PASS",
-        "DEPOSIT":  f"Deposit received user={uid} amount={amt:.2f} channel={ch}",
-        "WITHDRAW": f"Withdrawal user={uid} amount={amt:.2f} channel={ch}",
-        "ANOMALY":  f"[ALERT] Anomaly detected user={uid} risk_score=0.87 channel={ch} action=BLOCKED",
-    }
-    return templates.get(evt, f"event={evt} user={uid}")
-
-
-# Span 模版：[service, operation, offset_ms, duration_ms]
-SPAN_TEMPLATES = {
-    "LOGIN":    [("api-gateway","HTTP POST /auth/login",0,50),("auth-service","validateCredentials",8,30),("doris-connector","SELECT user_wide",20,12),("cache-layer","setSessionCache",42,8)],
-    "PAYMENT":  [("api-gateway","HTTP POST /payment",0,150),("auth-service","verifyToken",5,15),("payment-service","processPayment",25,80),("doris-connector","INSERT user_behavior",60,20),("risk-engine","realtimeRiskCheck",90,50),("cache-layer","updateBalance",145,10)],
-    "TRANSFER": [("api-gateway","HTTP POST /transfer",0,240),("auth-service","verifyToken",5,15),("payment-service","initiateTransfer",25,100),("doris-connector","INSERT user_behavior",70,25),("risk-engine","complianceCheck",100,120),("doris-connector","UPDATE account",225,15)],
-    "ANOMALY":  [("api-gateway","HTTP POST /behavior",0,320),("auth-service","verifyToken",5,15),("risk-engine","anomalyDetect",25,250),("doris-connector","SELECT user_behavior",50,30),("risk-engine","scoreModel",90,180),("doris-connector","UPDATE anomaly_flag",275,25),("portal-service","sendAlert",305,18)],
-    "DEPOSIT":  [("api-gateway","HTTP POST /deposit",0,120),("account-service","processDeposit",10,70),("doris-connector","INSERT user_behavior",45,20),("doris-connector","UPDATE account",75,30),("cache-layer","refreshBalance",110,12)],
-    "WITHDRAW": [("api-gateway","HTTP POST /withdraw",0,180),("auth-service","verifyToken",5,15),("account-service","processWithdrawal",25,100),("risk-engine","limitCheck",60,40),("doris-connector","INSERT user_behavior",110,20),("doris-connector","UPDATE account",140,30)],
-}
-DEFAULT_SPANS = [("api-gateway","HTTP GET /api",0,80),("user-service","handleRequest",8,50),("doris-connector","SELECT query",20,25),("cache-layer","cacheRead",55,12)]
+import asyncio
+from backend.log_store import log_store, db_call_store
+from backend.doris.connect import execute_query, execute_one, execute_write
 
 
 class ObserveService:
 
-    # ─── 日志查询 ────────────────────────────────────────────────
-
-    async def query_logs(self, search=None, level=None, service=None, page=1, size=50):
-        conditions = ["1=1"]
-        if search:
-            safe = search.replace("'", "''")
-            conditions.append(f"(event_type LIKE '%{safe}%' OR channel LIKE '%{safe}%')")
-
-        if level == "ERROR":
-            conditions.append("event_type IN ('ANOMALY')")
-        elif level == "WARN":
-            conditions.append("event_type IN ('TRANSFER','WITHDRAW','ANOMALY')")
-        elif level == "INFO":
-            conditions.append("event_type IN ('LOGIN','LOGOUT','PAYMENT','DEPOSIT','REGISTER')")
-        elif level == "DEBUG":
-            conditions.append("event_type = 'VIEW'")
-
-        if service and service in SERVICE_MAP.values():
-            evts = [k for k, v in SERVICE_MAP.items() if v == service]
-            types_str = "','".join(evts)
-            conditions.append(f"event_type IN ('{types_str}')")
-
+    async def logs(self, path=None, level=None, service=None, page=1, size=100):
+        try:
+            where, args = "WHERE 1=1", []
+            if path:
+                where += " AND path LIKE %s"; args.append(f"%{path}%")
+            if level:
+                where += " AND level = %s"; args.append(level.upper())
+            if service:
+                where += " AND service = %s"; args.append(service)
+            offset = (page - 1) * size
+            cnt = await execute_one(f"SELECT COUNT(*) AS cnt FROM sys_logs {where}", tuple(args) or None)
+            total = cnt.get("cnt", 0) if cnt else 0
+            rows = await execute_query(
+                f"SELECT trace_id,log_time AS timestamp,level,service,method,path,"
+                f"status_code,duration_ms,db_time_ms,message,log_tag "
+                f"FROM sys_logs {where} ORDER BY log_time DESC LIMIT %s OFFSET %s",
+                tuple(args + [size, offset])
+            )
+            if total > 0 or rows:
+                return {"logs": rows, "total": total, "source": "doris"}
+        except Exception:
+            pass
+        all_logs = log_store.get_all()
+        if path: all_logs = [l for l in all_logs if path in l.get("path", "")]
+        if level: all_logs = [l for l in all_logs if l.get("level") == level.upper()]
+        if service: all_logs = [l for l in all_logs if l.get("service") == service]
         offset = (page - 1) * size
-        rows = await execute_query(
-            f"SELECT user_id, event_type, event_time, channel, amount "
-            f"FROM user_behavior WHERE {' AND '.join(conditions)} "
-            f"ORDER BY event_time DESC LIMIT {size} OFFSET {offset}"
-        )
+        return {"logs": all_logs[offset:offset+size], "total": len(all_logs), "source": "memory"}
 
-        logs = []
-        for r in rows:
-            evt = r.get("event_type", "")
-            uid = r.get("user_id")
-            ch  = r.get("channel", "")
-            amt = float(r.get("amount") or 0)
-            logs.append({
-                "trace_id":  _trace_id(uid, r.get("event_time", ""), evt),
-                "timestamp": str(r.get("event_time", "")),
-                "level":     LEVEL_MAP.get(evt, "INFO"),
-                "service":   SERVICE_MAP.get(evt, "api-gateway"),
-                "event":     evt,
-                "user_id":   uid,
-                "channel":   ch,
-                "amount":    amt,
-                "message":   _build_message(evt, uid, ch, amt),
-            })
-        return logs
+    async def stats(self):
+        try:
+            summary, level_rows, svc_rows, top_paths = await asyncio.gather(
+                execute_one("SELECT COUNT(*) AS total,"
+                    "SUM(CASE WHEN level='ERROR' THEN 1 ELSE 0 END) AS errors,"
+                    "SUM(CASE WHEN level='WARN' THEN 1 ELSE 0 END) AS warns,"
+                    "SUM(CASE WHEN log_tag LIKE '%slow%' THEN 1 ELSE 0 END) AS slow,"
+                    "ROUND(AVG(duration_ms),2) AS avg_duration_ms,"
+                    "ROUND(AVG(db_time_ms),2) AS avg_db_ms FROM sys_logs"),
+                execute_query("SELECT level, COUNT(*) AS cnt FROM sys_logs GROUP BY level ORDER BY cnt DESC"),
+                execute_query("SELECT service, COUNT(*) AS cnt FROM sys_logs GROUP BY service ORDER BY cnt DESC"),
+                execute_query("SELECT path, COUNT(*) AS count, ROUND(AVG(duration_ms),2) AS avg_duration "
+                              "FROM sys_logs GROUP BY path ORDER BY count DESC LIMIT 10"),
+            )
+            if summary and summary.get("total", 0) > 0:
+                return {"total": summary.get("total",0), "errors": summary.get("errors",0),
+                        "warns": summary.get("warns",0), "slow": summary.get("slow",0),
+                        "avg_duration_ms": summary.get("avg_duration_ms",0),
+                        "avg_db_ms": summary.get("avg_db_ms",0),
+                        "level_counts": level_rows or [], "svc_counts": svc_rows or [],
+                        "top_paths": top_paths or [], "source": "doris"}
+        except Exception:
+            pass
+        return {**log_store.get_stats(), "source": "memory"}
 
-    async def log_stats(self):
-        """各 level / service 的计数（用于侧边栏 facets）"""
-        rows = await execute_query(
-            "SELECT event_type, COUNT(*) AS cnt FROM user_behavior GROUP BY event_type"
-        )
-        level_counts = {}
-        svc_counts   = {}
-        for r in rows:
-            evt = r["event_type"]
-            cnt = int(r["cnt"])
-            lv  = LEVEL_MAP.get(evt, "INFO")
-            svc = SERVICE_MAP.get(evt, "api-gateway")
-            level_counts[lv]  = level_counts.get(lv, 0)  + cnt
-            svc_counts[svc]   = svc_counts.get(svc, 0)   + cnt
-
-        histogram = await execute_query(
-            "SELECT event_type, COUNT(*) AS cnt FROM user_behavior GROUP BY event_type ORDER BY cnt DESC"
-        )
-        return {
-            "level_counts": [{"level": k, "cnt": v} for k, v in sorted(level_counts.items(), key=lambda x: -LEVEL_ORDER.get(x[0],0))],
-            "svc_counts":   [{"service": k, "cnt": v} for k, v in sorted(svc_counts.items(), key=lambda x: -x[1])],
-            "histogram":    histogram,
-            "services":     sorted(set(SERVICE_MAP.values())),
-        }
-
-    # ─── 链路追踪 ────────────────────────────────────────────────
-
-    async def trace_list(self, service=None, status=None, page=1, size=20):
-        conditions = ["1=1"]
-        if service and service in SERVICE_MAP.values():
-            evts = [k for k, v in SERVICE_MAP.items() if v == service]
-            types_str = "','".join(evts)
-            conditions.append(f"event_type IN ('{types_str}')")
-        if status == "ERROR":
-            conditions.append("event_type = 'ANOMALY'")
-
+    async def traces(self, page=1, size=20):
+        try:
+            offset = (page - 1) * size
+            rows = await execute_query(
+                "SELECT trace_id,service,method,path,status_code,duration_ms,"
+                "db_time_ms,level,log_time AS start_time "
+                "FROM sys_logs ORDER BY log_time DESC LIMIT %s OFFSET %s", (size, offset)
+            )
+            if rows is not None:
+                tids = [r["trace_id"] for r in rows]
+                span_counts = {}
+                if tids:
+                    ph = ",".join(["%s"]*len(tids))
+                    sc = await execute_query(
+                        f"SELECT trace_id, COUNT(*) AS cnt FROM sys_spans "
+                        f"WHERE trace_id IN ({ph}) GROUP BY trace_id", tuple(tids))
+                    span_counts = {r["trace_id"]: r["cnt"] for r in sc}
+                return [{
+                    "trace_id": r.get("trace_id",""),
+                    "operation": f"{r.get('method','')} {r.get('path','')}",
+                    "service": r.get("service","CDP后台"),
+                    "duration_ms": r.get("duration_ms",0),
+                    "db_time_ms": r.get("db_time_ms",0),
+                    "status": "ERROR" if r.get("level")=="ERROR" else "OK",
+                    "span_count": span_counts.get(r.get("trace_id",""), 1),
+                    "start_time": str(r.get("start_time","")),
+                } for r in rows]
+        except Exception:
+            pass
+        all_logs = log_store.get_all()
+        db_counts = db_call_store.count_by_trace()
         offset = (page - 1) * size
-        rows = await execute_query(
-            f"SELECT user_id, event_type, event_time, channel, amount "
-            f"FROM user_behavior WHERE {' AND '.join(conditions)} "
-            f"ORDER BY event_time DESC LIMIT {size} OFFSET {offset}"
-        )
-
-        traces = []
-        for r in rows:
-            evt   = r.get("event_type", "")
-            uid   = r.get("user_id")
-            tid   = _trace_id(uid, r.get("event_time", ""), evt)
-            spans = SPAN_TEMPLATES.get(evt, DEFAULT_SPANS)
-            total = max(s[2] + s[3] for s in spans) + int(tid[:2], 16) % 30
-            traces.append({
-                "trace_id":     tid,
-                "root_service": SERVICE_MAP.get(evt, "api-gateway"),
-                "operation":    evt.lower().replace("_", "-"),
-                "start_time":   str(r.get("event_time", "")),
-                "duration_ms":  total,
-                "status":       "ERROR" if evt == "ANOMALY" else "OK",
-                "span_count":   len(spans),
-                "user_id":      uid,
-                "channel":      r.get("channel", ""),
-            })
-        return traces
+        return [{"trace_id": r.get("trace_id",""),
+                 "operation": f"{r.get('method','')} {r.get('path','')}",
+                 "service": r.get("service","CDP后台"),
+                 "duration_ms": r.get("duration_ms",0), "db_time_ms": r.get("db_time_ms",0),
+                 "status": "ERROR" if r.get("level")=="ERROR" else "OK",
+                 "span_count": 1+db_counts.get(r.get("trace_id",""),0),
+                 "start_time": r.get("timestamp","")}
+                for r in all_logs[offset:offset+size]]
 
     async def trace_detail(self, trace_id: str):
-        """根据 trace_id 确定性还原 span 时间线"""
-        seed = int(trace_id[:4], 16)
-
-        # 用 seed 推算是什么 event_type（在已知模版中选择）
-        evt_list = list(SPAN_TEMPLATES.keys())
-        evt = evt_list[seed % len(evt_list)]
-        spans_tpl = SPAN_TEMPLATES.get(evt, DEFAULT_SPANS)
-
-        jitter = seed % 15
+        try:
+            spans = await execute_query(
+                "SELECT span_id,parent_span_id,service,operation,"
+                "offset_ms,duration_ms,status,db_query "
+                "FROM sys_spans WHERE trace_id=%s ORDER BY offset_ms", (trace_id,)
+            )
+            if spans is not None:
+                total_ms = max((s.get("duration_ms",0)+s.get("offset_ms",0) for s in spans), default=0)
+                return {"trace_id": trace_id, "total_duration_ms": total_ms,
+                        "services": list(dict.fromkeys(s["service"] for s in spans)),
+                        "spans": [{"span_id": s.get("span_id",""),
+                                   "parent_span_id": s.get("parent_span_id",""),
+                                   "service": s.get("service",""),
+                                   "operation": s.get("operation",""),
+                                   "offset_ms": s.get("offset_ms",0),
+                                   "duration_ms": s.get("duration_ms",0),
+                                   "status": s.get("status","OK"),
+                                   "db": bool(s.get("db_query","")),
+                                   "detail": s.get("db_query","")[:200]} for s in spans]}
+        except Exception:
+            pass
+        svc_rows = log_store.get_by_trace(trace_id)
+        db_rows = sorted(db_call_store.get_by_trace(trace_id), key=lambda x: x.get("offset_ms",0))
         spans = []
-        for i, (svc, op, offset, dur) in enumerate(spans_tpl):
-            j = (seed * (i + 3)) % 20 - 8
-            spans.append({
-                "span_id":        f"{trace_id[:8]}-{i:02d}",
-                "parent_span_id": f"{trace_id[:8]}-00" if i > 0 else None,
-                "service":        svc,
-                "operation":      op,
-                "offset_ms":      max(0, offset + j),
-                "duration_ms":    max(1, dur + jitter),
-                "status":         "ERROR" if (evt == "ANOMALY" and i == 4) else "OK",
-                "db":             "doris" if "doris" in svc else None,
-            })
+        total_ms = 0
+        for r in svc_rows:
+            dur = r.get("duration_ms",0); total_ms = max(total_ms, dur)
+            spans.append({"span_id": r.get("span_id",""), "parent_span_id": "",
+                          "service": r.get("service","CDP后台"),
+                          "operation": f"{r.get('method','')} {r.get('path','')}",
+                          "offset_ms": 0, "duration_ms": dur,
+                          "status": "ERROR" if r.get("status_code",0)>=400 else "OK",
+                          "db": False, "detail": ""})
+        for r in db_rows:
+            spans.append({"span_id": r.get("span_id",""), "parent_span_id": "",
+                          "service": "Doris", "operation": r.get("operation",""),
+                          "offset_ms": r.get("offset_ms",0), "duration_ms": r.get("duration_ms",0),
+                          "status": r.get("status","OK"), "db": True,
+                          "detail": r.get("db_query","")})
+        return {"trace_id": trace_id, "total_duration_ms": total_ms,
+                "services": list(dict.fromkeys(s["service"] for s in spans)), "spans": spans}
 
-        total_ms = max(s["offset_ms"] + s["duration_ms"] for s in spans)
-        return {
-            "trace_id":        trace_id,
-            "operation":       evt,
-            "total_duration_ms": total_ms,
-            "spans":           spans,
-            "services":        list(dict.fromkeys(s["service"] for s in spans)),
-        }
+    async def classify_logs(self):
+        """用 AI_CLASSIFY(qwen_llm) 对未打标签的 sys_logs.message 打标签，写回 log_tag"""
+        try:
+            sql = """UPDATE sys_logs
+                SET log_tag = AI_CLASSIFY('qwen_llm', message,
+                    ARRAY('慢请求','服务异常','正常请求','数据库超时','认证失败','业务错误','高频访问','安全告警'))
+                WHERE log_tag IS NULL OR log_tag = ''"""
+            affected = await execute_write(sql)
+            return {"status": "success", "updated": affected}
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
+
+    async def tag_stats(self):
+        """对 sys_logs.log_tag 做统计分析"""
+        try:
+            tag_dist, level_tag, svc_tag, perf_tag = await asyncio.gather(
+                execute_query(
+                    "SELECT log_tag, COUNT(*) AS cnt,"
+                    "ROUND(COUNT(*)*100.0/SUM(COUNT(*)) OVER(),2) AS pct "
+                    "FROM sys_logs WHERE log_tag IS NOT NULL AND log_tag!='' "
+                    "GROUP BY log_tag ORDER BY cnt DESC"),
+                execute_query(
+                    "SELECT log_tag, level, COUNT(*) AS cnt "
+                    "FROM sys_logs WHERE log_tag IS NOT NULL AND log_tag!='' "
+                    "GROUP BY log_tag, level ORDER BY log_tag, cnt DESC"),
+                execute_query(
+                    "SELECT log_tag, service, COUNT(*) AS cnt "
+                    "FROM sys_logs WHERE log_tag IS NOT NULL AND log_tag!='' "
+                    "GROUP BY log_tag, service ORDER BY log_tag, cnt DESC"),
+                execute_query(
+                    "SELECT log_tag,ROUND(AVG(duration_ms),2) AS avg_ms,"
+                    "MAX(duration_ms) AS max_ms, COUNT(*) AS cnt "
+                    "FROM sys_logs WHERE log_tag IS NOT NULL AND log_tag!='' "
+                    "GROUP BY log_tag ORDER BY avg_ms DESC"),
+            )
+            total_tagged = await execute_one(
+                "SELECT COUNT(*) AS tagged, "
+                "(SELECT COUNT(*) FROM sys_logs) AS total FROM sys_logs "
+                "WHERE log_tag IS NOT NULL AND log_tag!=''")
+            return {
+                "tag_distribution": tag_dist,
+                "level_by_tag": level_tag,
+                "svc_by_tag": svc_tag,
+                "perf_by_tag": perf_tag,
+                "tagged": total_tagged.get("tagged", 0) if total_tagged else 0,
+                "total": total_tagged.get("total", 0) if total_tagged else 0,
+            }
+        except Exception as e:
+            return {"tag_distribution": [], "level_by_tag": [], "svc_by_tag": [], "perf_by_tag": [], "tagged": 0, "total": 0}
+
+    async def query_logs(self, search=None, level=None, service=None, page=1, size=50):
+        return await self.logs(path=search, level=level, service=service, page=page, size=size)
+
+    async def log_stats(self):
+        return await self.stats()
+
+    async def trace_list(self, service=None, status=None, page=1, size=20):
+        return await self.traces(page=page, size=size)

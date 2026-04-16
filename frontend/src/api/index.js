@@ -86,8 +86,10 @@ export const metricsApi = {
 
 // ── 日志可观测性 ───────────────────────────────────────────────────
 export const observeApi = {
-  logs:  (params) => http.get('/observe/logs', { params }),
-  stats: () => http.get('/observe/stats'),
+  logs:     (params) => http.get('/observe/logs', { params }),
+  stats:    () => http.get('/observe/stats'),
+  classify: () => http.post('/observe/classify'),
+  tagStats: () => http.get('/observe/tag-stats'),
 }
 
 // ── 链路追踪 ──────────────────────────────────────────────────────
@@ -100,7 +102,16 @@ export const traceApi = {
 const httpBench = axios.create({ baseURL: '/api', timeout: 120000 })
 httpBench.interceptors.response.use(res => res.data, err => { ElMessage.error(err.response?.data?.detail || err.message || '请求失败'); return Promise.reject(err) })
 export const benchmarkApi = {
-  run: (data) => httpBench.post('/benchmark/run', data),
+  run:        (data) => httpBench.post('/benchmark/run', data),
+  auditStats: (limit = 300) => http.get('/benchmark/audit-stats', { params: { limit } }),
+}
+
+// ── 卫星数据采集 ──────────────────────────────────────────────────
+export const satelliteApi = {
+  init:     () => http.post('/satellite/init'),
+  overview: () => http.get('/satellite/overview'),
+  charts:   () => http.get('/satellite/charts'),
+  query:    (params) => http.get('/satellite/query', { params }),
 }
 
 // ── 系统 ─────────────────────────────────────────────────────────

@@ -48,8 +48,14 @@
           <el-menu-item index="/observe">
             <el-icon><Monitor /></el-icon><span>日志可观测性</span>
           </el-menu-item>
+          <el-menu-item index="/log-tag-stats">
+            <el-icon><PriceTag /></el-icon><span>日志标签分析</span>
+          </el-menu-item>
           <el-menu-item index="/trace">
             <el-icon><Share /></el-icon><span>链路追踪</span>
+          </el-menu-item>
+          <el-menu-item index="/satellite">
+            <el-icon><Promotion /></el-icon><span>卫星数据分析</span>
           </el-menu-item>
           <el-menu-item index="/benchmark">
             <el-icon><Histogram /></el-icon><span>高并发点查</span>

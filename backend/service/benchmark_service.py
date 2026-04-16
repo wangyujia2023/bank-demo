@@ -31,7 +31,7 @@ class BenchmarkService:
                     if query_type == "point":
                         await execute_one(
                             f"SELECT user_id, user_name, asset_level, aum_total, log_tags "
-                            f"FROM user_wide WHERE user_id = {uid}"
+                            f"FROM user_wide_point_query WHERE user_id = {uid}"
                         )
                     elif query_type == "range":
                         await execute_query(
@@ -94,6 +94,49 @@ class BenchmarkService:
             "histogram":    self._histogram(all_lats),
             "comparison":   comparison,
             "thread_qps":   round(qps / threads, 1),
+        }
+
+    async def audit_log_stats(self, limit: int = 300):
+        stmt_prefix = (
+            "SELECT user_id, user_name, asset_level, aum_total, log_tags "
+            "FROM user_wide_point_query WHERE user_id%"
+        )
+        summary = await execute_one(f"""
+            SELECT COUNT(*) AS total,
+                ROUND(AVG(query_time),2) AS avg_ms, MAX(query_time) AS max_ms, MIN(query_time) AS min_ms,
+                PERCENTILE_APPROX(query_time,0.50) AS p50_ms,
+                PERCENTILE_APPROX(query_time,0.95) AS p95_ms,
+                PERCENTILE_APPROX(query_time,0.99) AS p99_ms,
+                SUM(CASE WHEN state!='EOF' THEN 1 ELSE 0 END) AS error_cnt,
+                MIN(`time`) AS first_time, MAX(`time`) AS last_time
+            FROM (SELECT query_time,`time`,state FROM __internal_schema.audit_log
+                  WHERE stmt LIKE '{stmt_prefix}' ORDER BY `time` DESC LIMIT {limit}) t
+        """)
+        recent = await execute_query(f"""
+            SELECT `time`,query_time,state,client_ip FROM __internal_schema.audit_log
+            WHERE stmt LIKE '{stmt_prefix}' ORDER BY `time` DESC LIMIT 20
+        """)
+        if not summary:
+            return {"total": 0, "records": []}
+        total = summary.get("total", 0) or 0
+        qps = 0.0
+        try:
+            from datetime import datetime as _dt
+            t1 = _dt.strptime(str(summary.get("first_time",""))[:19], "%Y-%m-%d %H:%M:%S")
+            t2 = _dt.strptime(str(summary.get("last_time",""))[:19], "%Y-%m-%d %H:%M:%S")
+            secs = abs((t2 - t1).total_seconds()) or 1
+            qps = round(total / secs, 2)
+        except Exception:
+            pass
+        return {
+            "total": total, "avg_ms": summary.get("avg_ms",0), "max_ms": summary.get("max_ms",0),
+            "min_ms": summary.get("min_ms",0), "p50_ms": summary.get("p50_ms",0),
+            "p95_ms": summary.get("p95_ms",0), "p99_ms": summary.get("p99_ms",0),
+            "error_cnt": summary.get("error_cnt",0), "qps": qps,
+            "first_time": str(summary.get("first_time","")), "last_time": str(summary.get("last_time","")),
+            "records": [{"time": str(r.get("time","")), "query_time": r.get("query_time",0),
+                         "state": r.get("state",""), "client_ip": r.get("client_ip","")}
+                        for r in (recent or [])],
         }
 
     def _histogram(self, lats: list, buckets: int = 12) -> list:

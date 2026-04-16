@@ -11,6 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.settings import settings
 from backend.doris.connect import get_pool, close_pool
 from backend.api.routes import router
+from backend.middleware.request_logger import RequestLoggerMiddleware
+from backend.telemetry.collector import start_writer, stop_writer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -21,11 +23,15 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("🚀 CDP 平台启动，初始化 Doris 连接池...")
-    await get_pool()
-    logger.info("✅ Doris 连接池就绪（HASP 会话变量已注入）")
+    try:
+        await get_pool()
+        logger.info("✅ Doris 连接池就绪")
+    except Exception as e:
+        logger.warning(f"⚠️ Doris 连接失败: {e}")
+
+    start_writer()
     yield
-    logger.info("🛑 关闭 Doris 连接池")
+    stop_writer()
     await close_pool()
 
 
@@ -36,6 +42,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(RequestLoggerMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,

@@ -1,25 +1,413 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [29043] using WatchFiles
-INFO:     Started server process [29063]
+INFO:     Started reloader process [48013] using WatchFiles
+INFO:     Started server process [48033]
 INFO:     Waiting for application startup.
-2026-04-16 13:29:31,550 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:29:35,895 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+2026-04-16 15:31:14,960 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:31:14,960 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-INFO:     127.0.0.1:52923 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52921 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52922 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52917 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52975 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52973 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52974 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52969 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52989 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53761 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53769 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54472 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54503 - "GET /api/dashboard HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62591 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62589 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62611 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62616 - "POST /api/observe/classify HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [48033]
+INFO:     Started server process [48882]
+INFO:     Waiting for application startup.
+2026-04-16 15:31:55,777 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:31:55,777 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:64953 - "POST /api/observe/classify HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [48882]
+INFO:     Started server process [51964]
+INFO:     Waiting for application startup.
+2026-04-16 15:34:22,217 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:34:22,218 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+2026-04-16 15:35:06,365 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = \nno viable alternative at input '['慢请求','(line 3, pos 31)\n")
+INFO:     127.0.0.1:49559 - "POST /api/observe/classify HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49565 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49729 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49735 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49738 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [51964]
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Started server process [58780]
+INFO:     Waiting for application startup.
+2026-04-16 15:39:47,596 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:39:47,596 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [58888]
+INFO:     Waiting for application startup.
+2026-04-16 15:39:53,208 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:39:53,209 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51313 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51310 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51331 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 15:39:55,157 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = \nno viable alternative at input '['慢请求','(line 3, pos 31)\n")
+INFO:     127.0.0.1:51351 - "POST /api/observe/classify HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51353 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 15:39:57,153 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = \nno viable alternative at input '['慢请求','(line 3, pos 31)\n")
+INFO:     127.0.0.1:51363 - "POST /api/observe/classify HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51366 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [58888]
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Started server process [60830]
+INFO:     Waiting for application startup.
+2026-04-16 15:41:26,851 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:41:26,852 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Started server process [60968]
+INFO:     Waiting for application startup.
+2026-04-16 15:41:32,064 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:41:32,065 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [61073]
+INFO:     Waiting for application startup.
+2026-04-16 15:41:37,247 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:41:37,247 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:52352 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52349 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52398 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52388 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52394 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52348 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52395 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52413 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52350 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52396 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52420 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52426 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52435 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52438 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 15:41:49,101 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = \nno viable alternative at input '['慢请求','(line 3, pos 31)\n")
+INFO:     127.0.0.1:52447 - "POST /api/observe/classify HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52450 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52351 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52397 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [61073]
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Started server process [65640]
+INFO:     Waiting for application startup.
+2026-04-16 15:45:12,816 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:45:12,816 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
+INFO:     Started server process [65739]
+INFO:     Waiting for application startup.
+2026-04-16 15:45:18,666 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:45:18,666 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [65862]
+INFO:     Waiting for application startup.
+2026-04-16 15:45:24,125 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 15:45:24,126 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:54062 - "POST /api/observe/classify HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49874 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50124 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50126 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50144 - "POST /api/observe/classify HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50189 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50216 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50242 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50256 - "GET /api/segment/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50289 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50336 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50350 - "GET /api/trace/f869254e77534b79 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50420 - "GET /api/trace/2f2af676fe754ee0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50434 - "GET /api/trace/89cd80a7c0a74251 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50446 - "GET /api/trace/314d5a7d18204f26 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50499 - "GET /api/trace/e07a2c63524c41e3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50516 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50527 - "GET /api/trace/17438765c6594f65 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50536 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50577 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50621 - "GET /api/trace/f869254e77534b79 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50668 - "GET /api/trace/2f2af676fe754ee0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50679 - "GET /api/trace/f869254e77534b79 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50966 - "POST /api/benchmark/run HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [65862]
+INFO:     Started server process [89986]
+INFO:     Waiting for application startup.
+2026-04-16 16:04:40,494 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:04:40,494 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [89986]
+INFO:     Started server process [90170]
+INFO:     Waiting for application startup.
+2026-04-16 16:04:46,871 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:04:46,872 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55486 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55469 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55489 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55497 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55491 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55499 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56019 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56961 - "POST /api/benchmark/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57110 - "GET /api/benchmark/audit-stats?limit=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57388 - "GET /api/report/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57390 - "GET /api/report/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57393 - "GET /api/report/risk HTTP/1.1" 200 OK
+2026-04-16 16:08:21,513 [WARNING] backend.doris.connect: execute_query: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
+INFO:     127.0.0.1:57472 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57474 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+2026-04-16 16:08:31,111 [WARNING] backend.doris.connect: execute_query: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
+INFO:     127.0.0.1:57606 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57603 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57607 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57624 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57622 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57626 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57647 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58110 - "GET /api/management HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/satellite_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [90170]
+INFO:     Started server process [96418]
+INFO:     Waiting for application startup.
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+2026-04-16 16:09:52,205 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:09:52,206 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [96543]
+INFO:     Waiting for application startup.
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+2026-04-16 16:09:58,151 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:09:58,153 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [96651]
+INFO:     Waiting for application startup.
+2026-04-16 16:10:04,099 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:10:04,101 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96651]
+INFO:     Started server process [96826]
+INFO:     Waiting for application startup.
+2026-04-16 16:10:13,131 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:10:13,132 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:58656 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58660 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58659 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58688 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58696 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58697 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58700 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58731 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58729 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58737 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58734 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58755 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58763 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59654 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59651 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59656 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59665 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59667 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59669 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59676 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59679 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59692 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59690 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59694 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59711 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59727 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59713 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59733 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59736 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60041 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60037 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60063 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 16:11:52,424 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 26)')
+2026-04-16 16:11:52,429 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 40)')
+2026-04-16 16:11:52,430 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 63)')
+2026-04-16 16:11:52,430 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 199)')
+2026-04-16 16:11:52,431 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 43)')
+2026-04-16 16:11:52,431 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 38)')
+INFO:     127.0.0.1:60073 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60074 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+2026-04-16 16:11:52,635 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [satellite_collect_data] does not exist in database [bank_cdp].(line 1, pos 127)')
+INFO:     127.0.0.1:60075 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60199 - "POST /api/satellite/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60207 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60211 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60209 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60223 - "POST /api/satellite/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60232 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60234 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60235 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62716 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62750 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62761 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62764 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62765 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62870 - "POST /api/satellite/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62902 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62905 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62915 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62944 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62950 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62978 - "GET /api/satellite/query?page=1&size=20&satellite_name=%E9%AB%98%E5%88%86 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62990 - "GET /api/satellite/query?page=1&size=20&satellite_name=%E9%AB%98%E5%88%86 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63010 - "GET /api/satellite/query?page=1&size=20&satellite_type=%E9%9B%B7%E8%BE%BE HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63073 - "GET /api/satellite/query?page=1&size=20&satellite_type=%E9%9B%B7%E8%BE%BE&data_type=%E6%88%90%E5%83%8F HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63135 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63136 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63131 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63137 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63163 - "GET /api/satellite/query?page=1&size=20&satellite_type=%E9%9B%B7%E8%BE%BE HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63215 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63211 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63212 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63213 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63244 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63214 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63424 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63326 - "POST /api/benchmark/run HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96826]
+INFO:     Started server process [10889]
+INFO:     Waiting for application startup.
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+2026-04-16 16:21:09,629 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:21:09,631 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Started server process [11024]
+INFO:     Waiting for application startup.
+2026-04-16 16:21:14,608 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:21:14,608 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [11114]
+INFO:     Waiting for application startup.
+2026-04-16 16:21:20,524 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:21:20,527 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:50464 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/middleware/request_logger.py", line 29, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 404, in benchmark_audit_stats
+    |     return await bench_svc.audit_log_stats(limit)
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+    | AttributeError: 'BenchmarkService' object has no attribute 'audit_log_stats'
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
@@ -37,6 +425,23 @@ Traceback (most recent call last):
     await self.app(scope, receive, _send)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
     await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/middleware/request_logger.py", line 29, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
@@ -64,56 +469,104 @@ Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
     return await dependant.call(**values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 167, in dashboard
-    return await dash_svc.get_overview()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 10, in get_overview
-    user_data, log_data, segment_data = await asyncio.gather(
-                                        ^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 56, in _get_log_data
-    results = await execute_query(
-              ^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
-INFO:     127.0.0.1:54505 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/service/behavior_service.py'. Reloading...
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 404, in benchmark_audit_stats
+    return await bench_svc.audit_log_stats(limit)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BenchmarkService' object has no attribute 'audit_log_stats'
+INFO:     127.0.0.1:50461 - "GET /api/system/health HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
 INFO:     Shutting down
+INFO:     Waiting for connections to close. (CTRL+C to force quit)
+INFO:     127.0.0.1:50488 - "POST /api/benchmark/run HTTP/1.1" 200 OK
 INFO:     Waiting for application shutdown.
-2026-04-16 13:34:03,018 [INFO] backend.app: 🛑 关闭 Doris 连接池
 INFO:     Application shutdown complete.
-INFO:     Finished server process [29063]
-INFO:     Started server process [34869]
+INFO:     Finished server process [11114]
+INFO:     Started server process [11480]
 INFO:     Waiting for application startup.
-2026-04-16 13:34:03,728 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:34:08,562 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+2026-04-16 16:21:36,558 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:21:36,562 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-INFO:     127.0.0.1:55457 - "GET /api/management HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55465 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55504 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55628 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55616 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55623 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55622 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55636 - "GET /api/dashboard HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:50707 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/middleware/request_logger.py", line 29, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 404, in benchmark_audit_stats
+    |     return await bench_svc.audit_log_stats(limit)
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+    | AttributeError: 'BenchmarkService' object has no attribute 'audit_log_stats'
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
@@ -131,6 +584,23 @@ Traceback (most recent call last):
     await self.app(scope, receive, _send)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
     await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/middleware/request_logger.py", line 29, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
@@ -158,316 +628,91 @@ Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
     return await dependant.call(**values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 167, in dashboard
-    return await dash_svc.get_overview()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 10, in get_overview
-    user_data, log_data, segment_data = await asyncio.gather(
-                                        ^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 56, in _get_log_data
-    results = await execute_query(
-              ^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
-INFO:     127.0.0.1:55639 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55629 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55625 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/context.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:41:14,004 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [34869]
-INFO:     Started server process [43867]
-INFO:     Waiting for application startup.
-2026-04-16 13:41:14,688 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:41:20,349 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/log_store.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:41:37,266 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [43867]
-INFO:     Started server process [44378]
-INFO:     Waiting for application startup.
-2026-04-16 13:41:37,810 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:41:42,441 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58236 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58239 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/doris/connect.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:41:57,862 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [44378]
-INFO:     Started server process [44792]
-INFO:     Waiting for application startup.
-2026-04-16 13:41:58,534 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:42:05,276 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/doris/connect.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:42:23,224 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [44792]
-INFO:     Started server process [45324]
-INFO:     Waiting for application startup.
-2026-04-16 13:42:23,836 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:42:28,104 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58538 - "GET /api/management HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58545 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58553 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58560 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58563 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58569 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58572 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/middleware/request_logger.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:42:50,465 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [45324]
-INFO:     Started server process [45889]
-INFO:     Waiting for application startup.
-2026-04-16 13:42:51,113 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:42:56,055 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/service/observe_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:43:40,392 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [45889]
-INFO:     Started server process [46930]
-INFO:     Waiting for application startup.
-2026-04-16 13:43:41,035 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:43:45,325 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/app.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:43:53,171 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [46930]
-INFO:     Started server process [47213]
-INFO:     Waiting for application startup.
-2026-04-16 13:43:53,797 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:43:58,724 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-16 13:43:59,030 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [47213]
-INFO:     Started server process [47328]
-INFO:     Waiting for application startup.
-2026-04-16 13:43:59,720 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-16 13:44:05,240 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:60117 - "POST /api/behavior/funnel HTTP/1.1" 500 Internal Server Error
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 404, in benchmark_audit_stats
+    return await bench_svc.audit_log_stats(limit)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BenchmarkService' object has no attribute 'audit_log_stats'
+INFO:     127.0.0.1:50736 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 657, in _read_bytes
-    data = await self._reader.readexactly(num_bytes)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 752, in readexactly
-    await self._wait_for_data('readexactly')
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
-    await self._waiter
-TimeoutError: [Errno 60] Operation timed out
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(value)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/middleware/request_logger.py", line 29, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 404, in benchmark_audit_stats
+    |     return await bench_svc.audit_log_stats(limit)
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+    | AttributeError: 'BenchmarkService' object has no attribute 'audit_log_stats'
+    +------------------------------------
 
-The above exception was the direct cause of the following exception:
+During handling of the above exception, another exception occurred:
 
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 144, in funnel_analysis
-    return await beh_svc.funnel_analysis(req.steps, req.window_seconds, req.channel, req.segment_id)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/behavior_service.py", line 63, in funnel_analysis
-    rows = await execute_query(sql)
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 609, in _read_packet
-    packet_header = await self._read_bytes(4)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 665, in _read_bytes
-    raise OperationalError(CR.CR_SERVER_LOST, msg) from e
-pymysql.err.OperationalError: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
-INFO:     127.0.0.1:60225 - "POST /api/behavior/funnel HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 657, in _read_bytes
-    data = await self._reader.readexactly(num_bytes)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 752, in readexactly
-    await self._wait_for_data('readexactly')
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
-    await self._waiter
-OSError: [Errno 49] Can't assign requested address
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 144, in funnel_analysis
-    return await beh_svc.funnel_analysis(req.steps, req.window_seconds, req.channel, req.segment_id)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/behavior_service.py", line 63, in funnel_analysis
-    rows = await execute_query(sql)
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 609, in _read_packet
-    packet_header = await self._read_bytes(4)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 665, in _read_bytes
-    raise OperationalError(CR.CR_SERVER_LOST, msg) from e
-pymysql.err.OperationalError: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
-2026-04-16 13:48:51,031 [ERROR] backend.doris.connect: Doris ping 失败: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
-INFO:     127.0.0.1:60477 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61608 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61777 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61784 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
-2026-04-16 13:50:31,729 [ERROR] backend.doris.connect: Doris ping 失败: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
-INFO:     127.0.0.1:60114 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61798 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61829 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61845 - "GET /api/dashboard HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
 Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
@@ -485,6 +730,23 @@ Traceback (most recent call last):
     await self.app(scope, receive, _send)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
     await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/middleware/request_logger.py", line 29, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
@@ -512,33 +774,292 @@ Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
     return await dependant.call(**values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 167, in dashboard
-    return await dash_svc.get_overview()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 10, in get_overview
-    user_data, log_data, segment_data = await asyncio.gather(
-                                        ^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 56, in _get_log_data
-    results = await execute_query(
-              ^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
-INFO:     127.0.0.1:61846 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 404, in benchmark_audit_stats
+    return await bench_svc.audit_log_stats(limit)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BenchmarkService' object has no attribute 'audit_log_stats'
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11480]
+INFO:     Started server process [11748]
+INFO:     Waiting for application startup.
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+2026-04-16 16:21:50,472 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:21:50,473 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Started server process [11892]
+INFO:     Waiting for application startup.
+2026-04-16 16:21:57,854 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:21:57,855 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     Started server process [12067]
+INFO:     Waiting for application startup.
+2026-04-16 16:22:03,487 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:22:03,488 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:50921 - "POST /api/benchmark/run HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12067]
+INFO:     Started server process [12545]
+INFO:     Waiting for application startup.
+2026-04-16 16:22:26,850 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:22:26,850 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12545]
+INFO:     Started server process [12951]
+INFO:     Waiting for application startup.
+2026-04-16 16:22:48,481 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-16 16:22:48,483 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51613 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51611 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51721 - "POST /api/benchmark/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52004 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+2026-04-16 16:24:16,705 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:24:26,297 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-16 16:24:26,726 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:24:30,058 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-16 16:25:02,043 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-16 16:25:06,398 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:52520 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 16:25:08,869 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-16 16:25:56,069 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:52088 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 16:26:11,302 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:52526 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 16:26:19,895 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-16 16:26:29,900 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:52298 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+2026-04-16 16:26:36,827 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:52523 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 16:26:39,908 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:26:51,913 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:27:01,917 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:29:35,547 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:52094 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 16:34:29,428 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:57763 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 16:34:39,433 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:34:49,439 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:34:59,445 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:35:09,449 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:57770 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 16:35:19,459 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:35:29,462 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:57966 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 16:35:39,467 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:58122 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 16:35:49,473 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:35:59,478 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:36:09,483 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:36:19,487 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:58144 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 16:36:29,492 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:57772 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+2026-04-16 16:36:39,496 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:36:51,502 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 16:37:01,505 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:55872 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56301 - "GET /api/report/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56302 - "GET /api/report/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56303 - "GET /api/report/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56350 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56351 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56712 - "GET /api/satellite/query?page=6&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56895 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56938 - "GET /api/segment/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56953 - "GET /api/segment/1776248128420/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56984 - "GET /api/segment/1776248089366/users?page=1&size=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57007 - "GET /api/segment/1776248128420/users?page=1&size=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57225 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57339 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57357 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57433 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57436 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57437 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 17:25:32,800 [WARNING] backend.doris.connect: execute_query: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
+INFO:     127.0.0.1:62664 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62669 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62667 - "GET /api/dashboard HTTP/1.1" 200 OK
+2026-04-16 17:51:04,123 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,126 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,141 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,142 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:63679 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+2026-04-16 17:51:04,307 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,308 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,308 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,309 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,309 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,310 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:04,310 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:63697 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63699 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63698 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+2026-04-16 17:51:05,380 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 17:51:05,381 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:07:46,081 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:51127 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:07:46,164 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:51149 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:07:46,269 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:07:46,270 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:07:46,270 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:07:46,270 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:51161 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 18:07:46,284 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:07:46,285 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:51168 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:09:34,382 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-16 18:09:37,059 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:63645 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:09:52,226 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:63649 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:10:12,547 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-16 18:10:13,728 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:63678 - "GET /api/dashboard HTTP/1.1" 200 OK
+2026-04-16 18:10:32,560 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-16 18:11:10,060 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:63676 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 18:21:48,663 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62004 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:21:49,361 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62005 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:21:49,495 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:50,868 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:51,231 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62011 - "GET /api/dashboard HTTP/1.1" 200 OK
+2026-04-16 18:21:51,386 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:51,505 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:53,494 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:54,075 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:54,352 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62014 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 18:21:54,835 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62046 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+2026-04-16 18:21:54,964 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,052 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,151 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,235 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62047 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+2026-04-16 18:21:55,315 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,394 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62278 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:21:55,523 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,594 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62012 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+2026-04-16 18:21:55,644 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,715 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,794 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:55,983 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62399 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 18:21:56,116 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:56,323 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62048 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:21:56,457 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62428 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:21:56,565 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62402 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:21:56,648 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:56,724 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62464 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:21:57,635 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:21:57,696 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:15,235 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53743 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:34:15,357 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53745 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:34:15,524 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:15,563 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:16,756 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:17,136 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53751 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 18:34:17,338 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:17,513 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:17,686 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53754 - "GET /api/dashboard HTTP/1.1" 200 OK
+2026-04-16 18:34:17,865 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:17,922 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:17,963 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,002 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,043 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53759 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+2026-04-16 18:34:18,083 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,122 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53763 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+2026-04-16 18:34:18,161 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53766 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:34:18,206 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,243 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,289 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,327 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53904 - "GET /api/observe/stats HTTP/1.1" 200 OK
+2026-04-16 18:34:18,367 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,402 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53755 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+2026-04-16 18:34:18,442 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53761 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:34:18,482 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:54007 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-16 18:34:18,523 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:53907 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:34:18,562 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,604 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,658 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-16 18:34:18,698 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:54023 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-16 18:34:20,747 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:63669 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63675 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63691 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63701 - "GET /api/segment/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63706 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63718 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63719 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63726 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63732 - "GET /api/vector/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63738 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63735 - "GET /api/vector/labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63745 - "GET /api/report/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63747 - "GET /api/report/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63758 - "GET /api/report/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63720 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63766 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63771 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63773 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63785 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63794 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63799 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63801 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63845 - "GET /api/system/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63803 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63954 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63722 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+2026-04-16 19:37:56,986 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-16 19:38:00,902 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:63667 - "GET /api/dashboard HTTP/1.1" 200 OK
+2026-04-16 19:43:01,517 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:63664 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58921 - "GET /api/scenarios HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58944 - "GET /api/scenarios HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58974 - "GET /api/scenarios HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58974 - "GET /api/scenarios HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60968 - "GET /api/report/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60969 - "GET /api/report/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60970 - "GET /api/report/overview HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12951]
+INFO:     Stopping reloader process [48013]

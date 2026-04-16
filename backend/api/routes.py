@@ -14,6 +14,7 @@ from backend.service.report_service import ReportService
 from backend.service.metrics_service import MetricsService
 from backend.service.observe_service import ObserveService
 from backend.service.benchmark_service import BenchmarkService
+from backend.service.satellite_service import SatelliteService
 from backend.doris.connect import ping, get_doris_version
 
 router = APIRouter()
@@ -28,6 +29,7 @@ rpt_svc   = ReportService()
 met_svc   = MetricsService()
 obs_svc   = ObserveService()
 bench_svc = BenchmarkService()
+sat_svc   = SatelliteService()
 
 
 # ================================================================
@@ -349,17 +351,25 @@ async def metrics_query(req: MetricsQueryReq):
 # ================================================================
 @router.get("/observe/logs")
 async def observe_logs(
-    search:  Optional[str] = None,
+    path:    Optional[str] = None,
     level:   Optional[str] = None,
     service: Optional[str] = None,
     page:    int = Query(1, ge=1),
-    size:    int = Query(50, ge=1, le=200),
+    size:    int = Query(20, ge=1, le=200),
 ):
-    return await obs_svc.query_logs(search, level, service, page, size)
+    return await obs_svc.logs(path, level, service, page, size)
 
 @router.get("/observe/stats")
 async def observe_stats():
-    return await obs_svc.log_stats()
+    return await obs_svc.stats()
+
+@router.post("/observe/classify")
+async def observe_classify():
+    return await obs_svc.classify_logs()
+
+@router.get("/observe/tag-stats")
+async def observe_tag_stats():
+    return await obs_svc.tag_stats()
 
 
 # ================================================================
@@ -367,12 +377,10 @@ async def observe_stats():
 # ================================================================
 @router.get("/trace/list")
 async def trace_list(
-    service: Optional[str] = None,
-    status:  Optional[str] = None,
-    page:    int = Query(1, ge=1),
-    size:    int = Query(20, ge=1, le=100),
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
 ):
-    return await obs_svc.trace_list(service, status, page, size)
+    return await obs_svc.traces(page, size)
 
 @router.get("/trace/{trace_id}")
 async def trace_detail(trace_id: str):
@@ -390,3 +398,38 @@ class BenchmarkReq(BaseModel):
 @router.post("/benchmark/run")
 async def benchmark_run(req: BenchmarkReq):
     return await bench_svc.run(req.threads, req.iterations, req.query_type)
+
+@router.get("/benchmark/audit-stats")
+async def benchmark_audit_stats(limit: int = Query(300, ge=100, le=500)):
+    return await bench_svc.audit_log_stats(limit)
+
+
+# ================================================================
+# 卫星数据采集分析
+# ================================================================
+@router.post("/satellite/init")
+async def satellite_init():
+    return await sat_svc.init_table()
+
+@router.get("/satellite/overview")
+async def satellite_overview():
+    return await sat_svc.overview()
+
+@router.get("/satellite/charts")
+async def satellite_charts():
+    return await sat_svc.charts()
+
+@router.get("/satellite/query")
+async def satellite_query(
+    satellite_id:   Optional[str] = None,
+    satellite_name: Optional[str] = None,
+    satellite_type: Optional[str] = None,
+    data_type:      Optional[str] = None,
+    target_type:    Optional[str] = None,
+    quality_min:    Optional[int] = None,
+    status:         Optional[str] = None,
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
+):
+    return await sat_svc.query(satellite_id, satellite_name, satellite_type,
+                               data_type, target_type, quality_min, status, page, size)

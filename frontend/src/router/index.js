@@ -12,7 +12,9 @@ const routes = [
   { path: '/report',        component: () => import('@/views/BankReport.vue'),          meta: { title: '银行报表' } },
   { path: '/metrics',       component: () => import('@/views/MetricsPlatform.vue'),     meta: { title: '指标平台' } },
   { path: '/observe',       component: () => import('@/views/LogObserve.vue'),          meta: { title: '日志可观测性' } },
+  { path: '/log-tag-stats', component: () => import('@/views/LogTagStats.vue'),         meta: { title: '日志标签分析' } },
   { path: '/trace',         component: () => import('@/views/TraceView.vue'),           meta: { title: '链路追踪' } },
+  { path: '/satellite',     component: () => import('@/views/Satellite.vue'),           meta: { title: '卫星数据分析' } },
   { path: '/benchmark',     component: () => import('@/views/Benchmark.vue'),           meta: { title: '高并发点查' } },
   { path: '/config',        component: () => import('@/views/SysConfig.vue'),           meta: { title: '系统配置' } },
 ]
