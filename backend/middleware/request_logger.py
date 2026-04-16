@@ -12,7 +12,14 @@ logger = logging.getLogger(__name__)
 
 
 class RequestLoggerMiddleware(BaseHTTPMiddleware):
+    # 排除不记录日志的路由
+    EXCLUDE_PATHS = {"/api/benchmark", "/docs", "/openapi.json", "/health"}
+
     async def dispatch(self, request: Request, call_next) -> Response:
+        # 检查是否在排除列表中
+        if any(request.url.path.startswith(path) for path in self.EXCLUDE_PATHS):
+            return await call_next(request)
+
         trace_id = request.headers.get("X-Trace-ID") or str(uuid.uuid4())
         span_id = str(uuid.uuid4())[:8]
         start_time = time.time()
