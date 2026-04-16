@@ -1,68 +1,46 @@
-"""银行经营管理大屏 - 并行查询所有数据"""
-import asyncio
-from backend.doris.connect import execute_query, execute_one
+"""银行经营管理大屏 - 演示数据"""
 
 
 class ManagementDashboard:
     """经营管理大屏"""
 
     async def get_overview(self):
-        """并行获取所有大屏数据"""
-        biz, aum, risk, position, products, trend = await asyncio.gather(
-            execute_one("""
-                SELECT
-                    ROUND(SUM(amount), 0) as revenue
-                FROM user_behavior
-                WHERE event_type IN ('PAYMENT', 'DEPOSIT')
-                AND event_date = CURDATE()
-            """),
-            execute_query("""
-                SELECT 'VIP' as product_type, COUNT(*) as aum_amount, 0 as client_count, 0 as yoy_growth
-                FROM user_wide WHERE asset_level LIKE 'VIP%'
-                UNION ALL
-                SELECT '普通', COUNT(*) as aum_amount, 0, 0
-                FROM user_wide WHERE asset_level = '普通'
-                LIMIT 5
-            """),
-            execute_query("""
-                SELECT '低' as risk_level, COUNT(*) as exposure_amount, 0 as default_count
-                FROM user_wide WHERE risk_level = 1
-                UNION ALL
-                SELECT '中', COUNT(*) as exposure_amount, 0
-                FROM user_wide WHERE risk_level = 2
-                UNION ALL
-                SELECT '高', COUNT(*) as exposure_amount, 0
-                FROM user_wide WHERE risk_level IN (3,4,5)
-            """),
-            execute_query("""
-                SELECT asset_level as asset_class, COUNT(*) as position_amount, 0 as position_ratio, 0 as profit_loss, 0 as pl_ratio
-                FROM user_wide
-                GROUP BY asset_level
-                LIMIT 5
-            """),
-            execute_query("""
-                SELECT '产品A' as product_name, '理财' as category, 100000 as sales_amount, 50 as sales_count, 90 as success_rate, 10 as customer_acquisition, 4.5 as rating
-                UNION ALL
-                SELECT '产品B', '基金', 80000, 40, 85, 8, 4.3
-                UNION ALL
-                SELECT '产品C', '保险', 60000, 30, 80, 6, 4.0
-            """),
-            execute_query("""
-                SELECT DATE_SUB(CURDATE(), INTERVAL n DAY) as metric_date,
-                       ROUND(RAND() * 1000000, 0) as revenue,
-                       ROUND(RAND() * 500000, 0) as profit
-                FROM (
-                    SELECT 0 as n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3
-                    UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6
-                ) t
-            """)
-        )
-
+        """获取经营管理大屏数据"""
         return {
-            'biz': biz or {"revenue": 0, "cost": 0, "profit": 0},
-            'aum': aum,
-            'risk': risk,
-            'position': position,
-            'products': products,
-            'trend': trend
+            'biz': {
+                'revenue': 1250000,
+                'cost': 620000,
+                'profit': 630000
+            },
+            'aum': [
+                {'product_type': '理财产品', 'aum_amount': 5200000000, 'client_count': 1240, 'yoy_growth': 12},
+                {'product_type': '基金产品', 'aum_amount': 3800000000, 'client_count': 980, 'yoy_growth': 18},
+                {'product_type': '保险产品', 'aum_amount': 2100000000, 'client_count': 650, 'yoy_growth': 8},
+            ],
+            'risk': [
+                {'risk_level': '低', 'exposure_amount': 4200000000, 'default_count': 12},
+                {'risk_level': '中', 'exposure_amount': 3100000000, 'default_count': 28},
+                {'risk_level': '高', 'exposure_amount': 1800000000, 'default_count': 45},
+                {'risk_level': '极高', 'exposure_amount': 800000000, 'default_count': 18},
+            ],
+            'position': [
+                {'asset_class': 'VIP私行', 'position_amount': 3500000000, 'position_ratio': 35, 'profit_loss': 125000000, 'pl_ratio': 3.6},
+                {'asset_class': 'VIP钻石', 'position_amount': 2800000000, 'position_ratio': 28, 'profit_loss': 98000000, 'pl_ratio': 3.5},
+                {'asset_class': 'VIP铂金', 'position_amount': 2100000000, 'position_ratio': 21, 'profit_loss': 72000000, 'pl_ratio': 3.4},
+                {'asset_class': 'VIP黄金', 'position_amount': 1600000000, 'position_ratio': 16, 'profit_loss': 52000000, 'pl_ratio': 3.2},
+            ],
+            'products': [
+                {'product_name': '智投+基金组合', 'category': '基金', 'sales_amount': 450000000, 'sales_count': 1250, 'success_rate': 94, 'customer_acquisition': 380, 'rating': 4.8},
+                {'product_name': '稳健理财计划', 'category': '理财', 'sales_amount': 380000000, 'sales_count': 890, 'success_rate': 91, 'customer_acquisition': 320, 'rating': 4.6},
+                {'product_name': '保障保险套餐', 'category': '保险', 'sales_amount': 280000000, 'sales_count': 640, 'success_rate': 88, 'customer_acquisition': 210, 'rating': 4.4},
+            ],
+            'trend': [
+                {'metric_date': '2026-04-10', 'revenue': 1100000, 'profit': 520000},
+                {'metric_date': '2026-04-11', 'revenue': 1180000, 'profit': 580000},
+                {'metric_date': '2026-04-12', 'revenue': 1240000, 'profit': 610000},
+                {'metric_date': '2026-04-13', 'revenue': 1320000, 'profit': 650000},
+                {'metric_date': '2026-04-14', 'revenue': 1250000, 'profit': 630000},
+                {'metric_date': '2026-04-15', 'revenue': 1380000, 'profit': 680000},
+                {'metric_date': '2026-04-16', 'revenue': 1250000, 'profit': 630000},
+            ]
         }
