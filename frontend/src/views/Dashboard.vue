@@ -94,15 +94,11 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, PieChart, BarChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent, TitleComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { dashboardApi, userApi } from '@/api'
 import dayjs from 'dayjs'
-
-use([CanvasRenderer, LineChart, PieChart, BarChart, GridComponent, TooltipComponent, LegendComponent, TitleComponent])
+import { cachedRequest } from '@/utils/cache'
+// ✅ ECharts 已在 plugins/echarts.js 中全局导入，无需重复
 
 const data = ref({ user_stat: {}, log_stat: {}, segment_stat: {}, asset_level_dist: [], log_trend: [] })
 const anomalyUsers = ref([])
@@ -155,9 +151,15 @@ const assetOption = computed(() => ({
 }))
 
 onMounted(async () => {
-  data.value = await dashboardApi.overview()
-  // 获取异常用户示例
-  const res = await userApi.queryWide({ anomaly_flag: 1, page_size: 5 })
-  anomalyUsers.value = res.rows || []
+  // 并行加载两个API，使用缓存减少重复请求
+  const [dashData, anomalyRes] = await Promise.all([
+    cachedRequest('/dashboard', {}, () => dashboardApi.overview(), { ttl: 5 * 60 * 1000 }),
+    cachedRequest('/user/wide', { anomaly_flag: 1, page_size: 5 },
+      () => userApi.queryWide({ anomaly_flag: 1, page_size: 5 }),
+      { ttl: 3 * 60 * 1000 }
+    )
+  ])
+  data.value = dashData
+  anomalyUsers.value = anomalyRes.rows || []
 })
 </script>

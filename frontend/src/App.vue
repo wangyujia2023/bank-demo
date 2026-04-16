@@ -16,6 +16,9 @@
         <el-menu-item index="/dashboard">
           <el-icon><Odometer /></el-icon><span>首页大盘</span>
         </el-menu-item>
+        <el-menu-item index="/management">
+          <el-icon><DataAnalysis /></el-icon><span>经营管理大屏</span>
+        </el-menu-item>
         <el-menu-item-group title="用户画像">
           <el-menu-item index="/user">
             <el-icon><User /></el-icon><span>用户宽表查询</span>

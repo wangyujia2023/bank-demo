@@ -146,14 +146,10 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart, PieChart, LineChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { reportApi } from '@/api'
 
-use([CanvasRenderer, BarChart, PieChart, LineChart, GridComponent, TooltipComponent, LegendComponent])
 
 const tab = ref('overview')
 const loading = ref(false), txLoading = ref(false), riskLoading = ref(false)
@@ -245,12 +241,18 @@ const riskCityOpt = computed(() => ({
 
 onMounted(async () => {
   loading.value = true
-  ov.value = await reportApi.overview().finally(() => loading.value = false)
-
-  txLoading.value = true
-  tx.value = await reportApi.transaction().finally(() => txLoading.value = false)
-
-  riskLoading.value = true
-  rk.value = await reportApi.risk().finally(() => riskLoading.value = false)
+  try {
+    // 并行加载三个报表数据
+    const [overview, transaction, risk] = await Promise.all([
+      reportApi.overview(),
+      reportApi.transaction(),
+      reportApi.risk()
+    ])
+    ov.value = overview
+    tx.value = transaction
+    rk.value = risk
+  } finally {
+    loading.value = false
+  }
 })
 </script>

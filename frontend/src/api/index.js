@@ -56,6 +56,11 @@ export const dashboardApi = {
   overview: () => http.get('/dashboard'),
 }
 
+// ── 经营管理大屏 ──────────────────────────────────────────────────
+export const managementApi = {
+  overview: () => http.get('/management'),
+}
+
 // ── AI 日志标签分析 ──────────────────────────────────────────────
 export const tagAnalysisApi = {
   overview: () => http.get('/tag-analysis/overview'),

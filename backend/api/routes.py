@@ -7,6 +7,7 @@ from typing import List, Optional, Dict
 from backend.service.user_service import UserService, SegmentService
 from backend.service.behavior_service import BehaviorService
 from backend.service.dashboard_service import DashboardService
+from backend.service.management_dashboard import ManagementDashboard
 from backend.service.vector_search_service import VectorSearchService
 from backend.service.tag_analysis_service import TagAnalysisService
 from backend.service.report_service import ReportService
@@ -21,6 +22,7 @@ seg_svc   = SegmentService()
 tag_svc   = TagAnalysisService()
 beh_svc   = BehaviorService()
 dash_svc  = DashboardService()
+mgmt_svc  = ManagementDashboard()
 vec_svc   = VectorSearchService()
 rpt_svc   = ReportService()
 met_svc   = MetricsService()
@@ -163,6 +165,12 @@ async def rfm_analysis():
 @router.get("/dashboard")
 async def dashboard():
     return await dash_svc.get_overview()
+
+
+# 银行经营管理大屏
+@router.get("/management")
+async def management_dashboard():
+    return await mgmt_svc.get_overview()
 
 
 # ================================================================

@@ -6,6 +6,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import App from './App.vue'
 import router from './router'
+import './plugins/echarts'  // 全局 ECharts 配置（只加载一次）
 
 const app = createApp(App)
 

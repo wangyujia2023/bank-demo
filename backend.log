@@ -1,19 +1,24 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [1309] using WatchFiles
-INFO:     Started server process [1312]
+INFO:     Started reloader process [29043] using WatchFiles
+INFO:     Started server process [29063]
 INFO:     Waiting for application startup.
-2026-04-14 20:04:15,456 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:04:22,978 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+2026-04-16 13:29:31,550 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:29:35,895 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
 INFO:     Application startup complete.
-INFO:     127.0.0.1:52593 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52592 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52582 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52585 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52581 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52671 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52688 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52657 - "GET /api/vector/labels HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:52923 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52921 - "GET /api/vector/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52922 - "GET /api/vector/labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52917 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52975 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52973 - "GET /api/vector/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52974 - "GET /api/vector/labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52969 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52989 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53761 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53769 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54472 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54503 - "GET /api/dashboard HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
 Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
@@ -59,12 +64,15 @@ Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
     return await dependant.call(**values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 328, in vector_labels
-    return await vec_svc.get_labels()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 194, in get_labels
-    rows = await execute_query(
-           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 167, in dashboard
+    return await dash_svc.get_overview()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 10, in get_overview
+    user_data, log_data, segment_data = await asyncio.gather(
+                                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 56, in _get_log_data
+    results = await execute_query(
+              ^^^^^^^^^^^^^^^^^^^^
   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
     await cur.execute(sql, args)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
@@ -84,8 +92,27 @@ Traceback (most recent call last):
     err.raise_mysql_exception(self._data)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
     raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Table [avatar_label] does not exist in database [bank_cdp].(line 1, pos 91)')
-INFO:     127.0.0.1:52652 - "GET /api/vector/users HTTP/1.1" 500 Internal Server Error
+pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
+INFO:     127.0.0.1:54505 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/service/behavior_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:34:03,018 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [29063]
+INFO:     Started server process [34869]
+INFO:     Waiting for application startup.
+2026-04-16 13:34:03,728 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:34:08,562 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55457 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55465 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55504 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55628 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55616 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55623 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55622 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55636 - "GET /api/dashboard HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
 Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
@@ -131,12 +158,15 @@ Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
     return await dependant.call(**values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 323, in vector_users
-    return await vec_svc.get_users()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 172, in get_users
-    rows = await execute_query(
-           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 167, in dashboard
+    return await dash_svc.get_overview()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 10, in get_overview
+    user_data, log_data, segment_data = await asyncio.gather(
+                                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 56, in _get_log_data
+    results = await execute_query(
+              ^^^^^^^^^^^^^^^^^^^^
   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
     await cur.execute(sql, args)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
@@ -156,9 +186,287 @@ Traceback (most recent call last):
     err.raise_mysql_exception(self._data)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
     raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Table [user_avatar] does not exist in database [bank_cdp].(line 1, pos 83)')
-INFO:     127.0.0.1:52590 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52686 - "GET /api/vector/users HTTP/1.1" 500 Internal Server Error
+pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
+INFO:     127.0.0.1:55639 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55629 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55625 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/context.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:41:14,004 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [34869]
+INFO:     Started server process [43867]
+INFO:     Waiting for application startup.
+2026-04-16 13:41:14,688 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:41:20,349 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/log_store.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:41:37,266 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43867]
+INFO:     Started server process [44378]
+INFO:     Waiting for application startup.
+2026-04-16 13:41:37,810 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:41:42,441 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+INFO:     127.0.0.1:58236 - "GET /api/segment/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58239 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/doris/connect.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:41:57,862 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [44378]
+INFO:     Started server process [44792]
+INFO:     Waiting for application startup.
+2026-04-16 13:41:58,534 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:42:05,276 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/doris/connect.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:42:23,224 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [44792]
+INFO:     Started server process [45324]
+INFO:     Waiting for application startup.
+2026-04-16 13:42:23,836 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:42:28,104 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+INFO:     127.0.0.1:58538 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58545 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58553 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58560 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58563 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58569 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58572 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/middleware/request_logger.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:42:50,465 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [45324]
+INFO:     Started server process [45889]
+INFO:     Waiting for application startup.
+2026-04-16 13:42:51,113 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:42:56,055 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/service/observe_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:43:40,392 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [45889]
+INFO:     Started server process [46930]
+INFO:     Waiting for application startup.
+2026-04-16 13:43:41,035 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:43:45,325 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/app.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:43:53,171 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46930]
+INFO:     Started server process [47213]
+INFO:     Waiting for application startup.
+2026-04-16 13:43:53,797 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:43:58,724 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in '.claude/worktrees/dreamy-yonath/backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-16 13:43:59,030 [INFO] backend.app: 🛑 关闭 Doris 连接池
+INFO:     Application shutdown complete.
+INFO:     Finished server process [47213]
+INFO:     Started server process [47328]
+INFO:     Waiting for application startup.
+2026-04-16 13:43:59,720 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
+2026-04-16 13:44:05,240 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60117 - "POST /api/behavior/funnel HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 657, in _read_bytes
+    data = await self._reader.readexactly(num_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 752, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+TimeoutError: [Errno 60] Operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 144, in funnel_analysis
+    return await beh_svc.funnel_analysis(req.steps, req.window_seconds, req.channel, req.segment_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/behavior_service.py", line 63, in funnel_analysis
+    rows = await execute_query(sql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
+    await cur.execute(sql, args)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
+    await self._query(query)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
+    await conn.query(q)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
+    await self._read_query_result(unbuffered=unbuffered)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
+    await result.read()
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
+    first_packet = await self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 609, in _read_packet
+    packet_header = await self._read_bytes(4)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 665, in _read_bytes
+    raise OperationalError(CR.CR_SERVER_LOST, msg) from e
+pymysql.err.OperationalError: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:60225 - "POST /api/behavior/funnel HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 657, in _read_bytes
+    data = await self._reader.readexactly(num_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 752, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+OSError: [Errno 49] Can't assign requested address
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 144, in funnel_analysis
+    return await beh_svc.funnel_analysis(req.steps, req.window_seconds, req.channel, req.segment_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/behavior_service.py", line 63, in funnel_analysis
+    rows = await execute_query(sql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
+    await cur.execute(sql, args)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
+    await self._query(query)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
+    await conn.query(q)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
+    await self._read_query_result(unbuffered=unbuffered)
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
+    await result.read()
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
+    first_packet = await self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 609, in _read_packet
+    packet_header = await self._read_bytes(4)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 665, in _read_bytes
+    raise OperationalError(CR.CR_SERVER_LOST, msg) from e
+pymysql.err.OperationalError: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-16 13:48:51,031 [ERROR] backend.doris.connect: Doris ping 失败: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:60477 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61608 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61777 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61784 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
+2026-04-16 13:50:31,729 [ERROR] backend.doris.connect: Doris ping 失败: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:60114 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61798 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61829 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61845 - "GET /api/dashboard HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
 Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
@@ -204,12 +512,15 @@ Traceback (most recent call last):
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
     return await dependant.call(**values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 323, in vector_users
-    return await vec_svc.get_users()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 172, in get_users
-    rows = await execute_query(
-           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 167, in dashboard
+    return await dash_svc.get_overview()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 10, in get_overview
+    user_data, log_data, segment_data = await asyncio.gather(
+                                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/dashboard_service.py", line 56, in _get_log_data
+    results = await execute_query(
+              ^^^^^^^^^^^^^^^^^^^^
   File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
     await cur.execute(sql, args)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
@@ -229,1492 +540,5 @@ Traceback (most recent call last):
     err.raise_mysql_exception(self._data)
   File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
     raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Table [user_avatar] does not exist in database [bank_cdp].(line 1, pos 83)')
-INFO:     127.0.0.1:52696 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52687 - "GET /api/vector/labels HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 328, in vector_labels
-    return await vec_svc.get_labels()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 194, in get_labels
-    rows = await execute_query(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 72, in execute_query
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Table [avatar_label] does not exist in database [bank_cdp].(line 1, pos 91)')
-INFO:     127.0.0.1:52591 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52672 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52682 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52660 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52720 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52663 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52618 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52694 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52695 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52734 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52754 - "GET /api/log-classify/detail?start_date=2026-04-14&end_date=2026-04-14&page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52790 - "POST /api/vector/init HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 318, in vector_init
-    return await vec_svc.init_tables()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 161, in init_tables
-    await execute_write("""
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     127.0.0.1:55070 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55068 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55069 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55075 - "POST /api/vector/init HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 318, in vector_init
-    return await vec_svc.init_tables()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 161, in init_tables
-    await execute_write("""
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-WARNING:  WatchFiles detected changes in 'backend/api/log_classify_api.py', 'backend/service/log_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 20:14:39,461 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [1312]
-Process SpawnProcess-2:
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/Users/yujia/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
-    target(sockets=sockets)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 65, in run
-    return asyncio.run(self.serve(sockets=sockets))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/runners.py", line 195, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 69, in serve
-    await self._serve(sockets)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 76, in _serve
-    config.load()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/config.py", line 434, in load
-    self.loaded_app = import_from_string(self.app)
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
-    raise exc from None
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
-    module = importlib.import_module(module_str)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/importlib/__init__.py", line 90, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/app.py", line 13, in <module>
-    from backend.api.routes import router
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 16, in <module>
-    from backend.service.log_service import LogService
-ModuleNotFoundError: No module named 'backend.service.log_service'
-WARNING:  WatchFiles detected changes in 'backend/app.py'. Reloading...
-Process SpawnProcess-3:
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/Users/yujia/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
-    target(sockets=sockets)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 65, in run
-    return asyncio.run(self.serve(sockets=sockets))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/runners.py", line 195, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 69, in serve
-    await self._serve(sockets)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 76, in _serve
-    config.load()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/config.py", line 434, in load
-    self.loaded_app = import_from_string(self.app)
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
-    raise exc from None
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
-    module = importlib.import_module(module_str)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/importlib/__init__.py", line 90, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/app.py", line 13, in <module>
-    from backend.api.routes import router
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 16, in <module>
-    from backend.service.log_service import LogService
-ModuleNotFoundError: No module named 'backend.service.log_service'
-WARNING:  WatchFiles detected changes in 'backend/app.py'. Reloading...
-Process SpawnProcess-4:
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/Users/yujia/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
-    target(sockets=sockets)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 65, in run
-    return asyncio.run(self.serve(sockets=sockets))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/runners.py", line 195, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 69, in serve
-    await self._serve(sockets)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/server.py", line 76, in _serve
-    config.load()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/config.py", line 434, in load
-    self.loaded_app = import_from_string(self.app)
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
-    raise exc from None
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
-    module = importlib.import_module(module_str)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/importlib/__init__.py", line 90, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/app.py", line 13, in <module>
-    from backend.api.routes import router
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 16, in <module>
-    from backend.service.log_service import LogService
-ModuleNotFoundError: No module named 'backend.service.log_service'
-WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Started server process [15383]
-INFO:     Waiting for application startup.
-2026-04-14 20:15:16,104 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:15:24,222 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/service/user_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for connections to close. (CTRL+C to force quit)
-INFO:     127.0.0.1:57647 - "POST /api/vector/init HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 196, in vector_init
-    return await vec_svc.init_tables()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 161, in init_tables
-    await execute_write("""
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     Waiting for application shutdown.
-2026-04-14 20:17:01,537 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [15383]
-WARNING:  WatchFiles detected changes in 'backend/service/behavior_service.py'. Reloading...
-INFO:     Started server process [17586]
-INFO:     Waiting for application startup.
-2026-04-14 20:17:02,045 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:17:08,412 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     Started server process [17734]
-INFO:     Waiting for application startup.
-2026-04-14 20:17:08,903 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:17:17,024 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58012 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58027 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58034 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58035 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58121 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58299 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58300 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58318 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58323 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58324 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58393 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58394 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58010 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58026 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58025 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58009 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58105 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58118 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58119 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58316 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58317 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58014 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58029 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58303 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58309 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58115 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58541 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59260 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59722 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59728 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59729 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59730 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59733 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59701 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59717 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59723 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59719 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59714 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59712 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59829 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59813 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60202 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60220 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60255 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60204 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60297 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60294 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60445 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60520 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60521 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60522 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60523 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60535 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60537 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60538 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60607 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60609 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60610 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60619 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60621 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60622 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60634 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60636 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60637 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60648 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60679 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60680 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60683 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60684 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60693 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60695 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60696 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60877 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60875 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60874 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61145 - "POST /api/vector/search/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61357 - "POST /api/vector/search/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61498 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61496 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61495 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61492 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60883 - "POST /api/vector/init HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 196, in vector_init
-    return await vec_svc.init_tables()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 161, in init_tables
-    await execute_write("""
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     127.0.0.1:61637 - "POST /api/vector/search/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61878 - "POST /api/vector/search/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62049 - "POST /api/vector/search/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62213 - "POST /api/vector/search/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62317 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62318 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62319 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62320 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62333 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62334 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62336 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62346 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62348 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62349 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62561 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62564 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62565 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63917 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63918 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63919 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63920 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63945 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63943 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63912 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63944 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64070 - "POST /api/vector/search/labels HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/tag_analysis_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for connections to close. (CTRL+C to force quit)
-INFO:     127.0.0.1:65082 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     Waiting for application shutdown.
-2026-04-14 20:31:04,724 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [17734]
-INFO:     Started server process [35614]
-INFO:     Waiting for application startup.
-2026-04-14 20:31:05,370 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:31:10,948 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 20:31:12,062 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [35614]
-INFO:     Started server process [35763]
-INFO:     Waiting for application startup.
-2026-04-14 20:31:12,631 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:31:18,331 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 20:31:20,356 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [35763]
-INFO:     Started server process [35942]
-INFO:     Waiting for application startup.
-2026-04-14 20:31:20,875 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 20:31:28,994 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:65253 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65259 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65261 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65263 - "GET /api/log-classify/overview?start_date=2026-04-14&end_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65265 - "GET /api/log-classify/raw-status?log_date=2026-04-14 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65267 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65276 - "GET /api/log-classify/risk-users?start_date=2026-04-14&end_date=2026-04-14&limit=10 HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65278 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65279 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65281 - "GET /api/log-classify/trend?start_date=2026-04-14&end_date=2026-04-14&granularity=day HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65199 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65252 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65249 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65251 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65250 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65297 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65294 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65255 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65303 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65328 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65335 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65419 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65452 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65483 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65522 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49258 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49340 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49395 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49350 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49386 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49396 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49352 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49394 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49388 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49381 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49398 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49404 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49500 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49474 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49473 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49485 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49480 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49491 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49636 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49689 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49482 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49496 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49685 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49686 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50875 - "GET /api/tag-analysis/users?is_risk=1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50914 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51032 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49498 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51014 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49484 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51021 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51059 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51053 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51174 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51239 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49688 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51056 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51343 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51488 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51710 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51809 - "POST /api/segment/count HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52524 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52530 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52563 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52600 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52558 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52597 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52599 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51057 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52559 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52562 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63903 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63907 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63944 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63939 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/vector_search_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for connections to close. (CTRL+C to force quit)
-INFO:     127.0.0.1:63942 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63943 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     Waiting for application shutdown.
-2026-04-14 21:05:48,274 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [35942]
-WARNING:  WatchFiles detected changes in 'backend/service/tag_analysis_service.py', 'backend/api/routes.py'. Reloading...
-INFO:     Started server process [79496]
-INFO:     Waiting for application startup.
-2026-04-14 21:05:48,967 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:05:54,498 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     Started server process [79618]
-INFO:     Waiting for application startup.
-2026-04-14 21:05:54,926 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:06:02,541 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:64854 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64855 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65127 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65144 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64852 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64851 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64853 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64856 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65124 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65120 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65140 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65141 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64842 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64857 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64861 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65116 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64859 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64841 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65119 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49655 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65134 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65076 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65143 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50000 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50208 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65139 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50306 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49657 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51947 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51946 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51945 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51941 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51956 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51996 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51991 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51994 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52075 - "POST /api/tag-analysis/run-classify HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53039 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53038 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53037 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52995 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53042 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53002 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53000 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53044 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53109 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53096 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53133 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53098 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53117 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53112 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53101 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53175 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53123 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53177 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53166 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53172 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53266 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53183 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53263 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53190 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53341 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53344 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53552 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53124 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53551 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53546 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53456 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53103 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53407 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53401 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51995 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53460 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53578 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/vector_search_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for connections to close. (CTRL+C to force quit)
-INFO:     127.0.0.1:53107 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53126 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53402 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53408 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53462 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53579 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     Waiting for application shutdown.
-2026-04-14 21:15:55,006 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [79618]
-WARNING:  WatchFiles detected changes in 'backend/service/vector_search_service.py', 'backend/api/routes.py'. Reloading...
-INFO:     Started server process [92394]
-INFO:     Waiting for application startup.
-2026-04-14 21:15:55,639 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:16:00,558 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     Started server process [92498]
-INFO:     Waiting for application startup.
-2026-04-14 21:16:01,052 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:16:07,258 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:54726 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54734 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55136 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55149 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55254 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55257 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55537 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55539 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54722 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54723 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54729 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54731 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55131 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55133 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55139 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55145 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55255 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55256 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55251 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55529 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55535 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55538 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55250 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55534 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54720 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54728 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55129 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54732 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54721 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55142 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54982 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55138 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54740 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55126 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55143 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56227 - "POST /api/vector/users/upload HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56281 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56280 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56278 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56636 - "POST /api/vector/users/upload HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 274, in vector_add_user
-    return await vec_svc.add_user_from_image(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 361, in add_user_from_image
-    await execute_write(
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     127.0.0.1:56899 - "POST /api/vector/users/upload HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 274, in vector_add_user
-    return await vec_svc.add_user_from_image(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 361, in add_user_from_image
-    await execute_write(
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     127.0.0.1:57081 - "POST /api/vector/users/upload HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 274, in vector_add_user
-    return await vec_svc.add_user_from_image(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 361, in add_user_from_image
-    await execute_write(
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     127.0.0.1:57885 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57882 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57884 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57873 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57976 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58012 - "POST /api/vector/search/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57970 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58070 - "POST /api/vector/search/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57971 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58256 - "POST /api/vector/search/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58354 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58441 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58429 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58436 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58483 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58486 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58439 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58566 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59569 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59567 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59565 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59689 - "POST /api/vector/users/upload HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 93, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/cors.py", line 148, in simple_response
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-    raise exc
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/starlette/routing.py", line 72, in app
-    response = await func(request)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 278, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/api/routes.py", line 274, in vector_add_user
-    return await vec_svc.add_user_from_image(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/service/vector_search_service.py", line 361, in add_user_from_image
-    await execute_write(
-  File "/Users/yujia/Desktop/workspace/bank-cdp-doris4/backend/doris/connect.py", line 87, in execute_write
-    await cur.execute(sql, args)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 239, in execute
-    await self._query(query)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/cursors.py", line 457, in _query
-    await conn.query(q)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 469, in query
-    await self._read_query_result(unbuffered=unbuffered)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 683, in _read_query_result
-    await result.read()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 1164, in read
-    first_packet = await self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/aiomysql/connection.py", line 652, in _read_packet
-    packet.raise_for_error()
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/Users/yujia/miniconda3/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1105, 'errCode = 2, detailMessage = Only unique table could be updated.')
-INFO:     127.0.0.1:57974 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58440 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58567 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60700 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60783 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60788 - "GET /api/segment/list HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/report_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:27:39,903 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [92498]
-INFO:     Started server process [7717]
-INFO:     Waiting for application startup.
-2026-04-14 21:27:41,087 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:27:52,880 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/service/metrics_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:27:57,671 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [7717]
-INFO:     Started server process [8102]
-INFO:     Waiting for application startup.
-2026-04-14 21:28:00,180 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:28:08,241 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:28:38,914 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [8102]
-INFO:     Started server process [8976]
-INFO:     Waiting for application startup.
-2026-04-14 21:28:39,635 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:28:44,461 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/service/benchmark_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:29:06,992 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [8976]
-INFO:     Started server process [9549]
-INFO:     Waiting for application startup.
-2026-04-14 21:29:07,645 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:29:13,962 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:29:18,415 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [9549]
-INFO:     Started server process [9792]
-INFO:     Waiting for application startup.
-2026-04-14 21:29:19,088 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:29:24,607 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:29:32,485 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [9792]
-INFO:     Started server process [10116]
-INFO:     Waiting for application startup.
-2026-04-14 21:29:33,004 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:29:38,763 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:63446 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63457 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63445 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63444 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63487 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63451 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63438 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63447 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63437 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63456 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63489 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63450 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63514 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63524 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63517 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63521 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63568 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63602 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63556 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63529 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63563 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63614 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63615 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63530 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63565 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51688 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63566 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51687 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51684 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63539 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51666 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51696 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51677 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51690 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51694 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51814 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51779 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51799 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51849 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51668 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51808 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51875 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51844 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51951 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/observe_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for connections to close. (CTRL+C to force quit)
-INFO:     127.0.0.1:51812 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51846 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51813 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51848 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     Waiting for application shutdown.
-2026-04-14 21:38:07,262 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [10116]
-INFO:     Started server process [21069]
-INFO:     Waiting for application startup.
-2026-04-14 21:38:07,948 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:38:14,421 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:52194 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52381 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54057 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52121 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52120 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52377 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52374 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53481 - "GET /api/segment/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53497 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53795 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52111 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54216 - "GET /api/observe/logs?page=1&size=50&level=DEBUG HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52116 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52113 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54204 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52117 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52123 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52305 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52378 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52372 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53472 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52371 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52379 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54155 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52301 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53793 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53844 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53367 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53746 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54393 - "GET /api/observe/logs?page=1&size=50&level=DEBUG HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54278 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52109 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52303 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53803 - "GET /api/report/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54859 - "GET /api/report/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55096 - "GET /api/report/transaction HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55148 - "GET /api/report/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55237 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/vector_search_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:40:48,282 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [21069]
-INFO:     Started server process [24515]
-INFO:     Waiting for application startup.
-2026-04-14 21:40:49,050 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:40:57,133 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:55415 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/service/vector_search_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:41:06,734 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [24515]
-INFO:     Started server process [24899]
-INFO:     Waiting for application startup.
-2026-04-14 21:41:07,324 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:41:14,100 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:55484 - "POST /api/metrics/query HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-04-14 21:41:29,686 [INFO] backend.app: 🛑 关闭 Doris 连接池
-INFO:     Application shutdown complete.
-INFO:     Finished server process [24899]
-INFO:     Started server process [25385]
-INFO:     Waiting for application startup.
-2026-04-14 21:41:30,432 [INFO] backend.app: 🚀 CDP 平台启动，初始化 Doris 连接池...
-2026-04-14 21:41:36,050 [INFO] backend.app: ✅ Doris 连接池就绪（HASP 会话变量已注入）
-INFO:     Application startup complete.
-INFO:     127.0.0.1:55677 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55694 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55701 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55705 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55688 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55689 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55686 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55678 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55680 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55735 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55747 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55692 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55687 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55696 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55756 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55805 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55787 - "GET /api/observe/logs?page=1&size=50&level=DEBUG HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55798 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55858 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55796 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55865 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55810 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55761 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55804 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55909 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55880 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55906 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55927 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55921 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55915 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55936 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55943 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55949 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56120 - "GET /api/observe/logs?page=1&size=50 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55963 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56089 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56082 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55807 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55762 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56136 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56157 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56706 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56705 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56704 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55803 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55811 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56158 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56137 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'log_date' in 'table list' in SORT clause(line 15, pos 39)")
+INFO:     127.0.0.1:61846 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK

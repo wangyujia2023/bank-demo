@@ -19,17 +19,17 @@ class Settings(BaseSettings):
     # HASP = Hybrid Adaptive Storage and Processing
     DORIS_HASP_ENABLED: bool = True
     DORIS_SESSION_VARS: dict = {
-        "enable_pipeline_engine": "true",           # 启用 Pipeline 执行引擎
-        "enable_vectorized_engine": "true",          # 向量化执行引擎
-        "parallel_pipeline_task_num": "8",           # 并行任务数
-        "enable_adaptive_pipeline_task_serial_read_on_limit": "true",
-        "enable_short_circuit_query_access_column_store": "true",  # HASP列存加速
-        "enable_common_expr_pushdown": "true",       # 表达式下推
-        "enable_function_pushdown": "true",           # 函数下推
-        "runtime_filter_mode": "GLOBAL",             # 全局 Runtime Filter
-        "enable_runtime_filter_prune": "true",
-        "query_timeout": "300",
-        "insert_timeout": "600",
+        # "enable_pipeline_engine": "true",           # 启用 Pipeline 执行引擎
+        # "enable_vectorized_engine": "true",          # 向量化执行引擎
+        # "parallel_pipeline_task_num": "8",           # 并行任务数
+        # "enable_adaptive_pipeline_task_serial_read_on_limit": "true",
+        # "enable_short_circuit_query_access_column_store": "true",  # HASP列存加速
+        # "enable_common_expr_pushdown": "true",       # 表达式下推
+        # "enable_function_pushdown": "true",           # 函数下推
+        # "runtime_filter_mode": "GLOBAL",             # 全局 Runtime Filter
+        # "enable_runtime_filter_prune": "true",
+        # "query_timeout": "300",
+        # "insert_timeout": "600",
     }
 
     # ── AI Function 配置 ────────────────────────────────────────

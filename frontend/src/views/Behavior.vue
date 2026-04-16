@@ -144,14 +144,10 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
 import { FunnelChart, LineChart, BarChart, PieChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { behaviorApi } from '@/api'
 
-use([CanvasRenderer, FunnelChart, LineChart, BarChart, PieChart, GridComponent, TooltipComponent, LegendComponent])
 
 const activeTab = ref('funnel')
 const channels  = ['APP', 'H5', '网点', '网银', '小程序']

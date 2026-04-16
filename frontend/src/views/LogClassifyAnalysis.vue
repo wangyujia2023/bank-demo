@@ -336,14 +336,10 @@
 import { ref, computed, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { MagicStick, DataBoard, Cpu, Finished, TrendCharts } from '@element-plus/icons-vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart, PieChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { tagAnalysisApi } from '@/api'
 
-use([CanvasRenderer, BarChart, PieChart, GridComponent, TooltipComponent, LegendComponent])
 
 const showcaseSQL = `-- Doris AI_CLASSIFY 打标签（一键执行，无需离线建模）
 UPDATE user_wide
@@ -499,8 +495,14 @@ const coocChordOption = computed(() => {
 })
 
 onMounted(async () => {
-  await loadOverview()
-  Promise.all([loadRisk(), loadCross(), loadCooc(), loadUsers()])
+  // 并行加载所有数据
+  await Promise.all([
+    loadOverview(),
+    loadRisk(),
+    loadCross(),
+    loadCooc(),
+    loadUsers()
+  ])
 })
 </script>
 
