@@ -261,17 +261,16 @@ async def metrics_query(req: MetricsQueryReq):
 # ================================================================
 @router.get("/observe/logs")
 async def observe_logs(
-    search:  Optional[str] = None,
-    level:   Optional[str] = None,
-    service: Optional[str] = None,
+    path:    Optional[str] = None,
+    status_code: Optional[int] = None,
     page:    int = Query(1, ge=1),
-    size:    int = Query(50, ge=1, le=200),
+    size:    int = Query(100, ge=1, le=200),
 ):
-    return await obs_svc.query_logs(search, level, service, page, size)
+    return await obs_svc.logs(path, status_code, page, size)
 
 @router.get("/observe/stats")
 async def observe_stats():
-    return await obs_svc.log_stats()
+    return await obs_svc.stats()
 
 
 # ================================================================
@@ -279,12 +278,10 @@ async def observe_stats():
 # ================================================================
 @router.get("/trace/list")
 async def trace_list(
-    service: Optional[str] = None,
-    status:  Optional[str] = None,
     page:    int = Query(1, ge=1),
     size:    int = Query(20, ge=1, le=100),
 ):
-    return await obs_svc.trace_list(service, status, page, size)
+    return await obs_svc.traces(page, size)
 
 @router.get("/trace/{trace_id}")
 async def trace_detail(trace_id: str):
