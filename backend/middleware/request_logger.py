@@ -1,12 +1,11 @@
 """请求日志中间件 - 收集链路追踪数据"""
 import time
-import json
 import uuid
 import logging
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
-from backend.doris.connect import stream_load
+from backend.log_store import log_store
 
 logger = logging.getLogger(__name__)
 
@@ -44,16 +43,17 @@ class RequestLoggerMiddleware(BaseHTTPMiddleware):
             log_data = {
                 "trace_id": trace_id,
                 "span_id": span_id,
-                "request_time": int(time.time() * 1000),  # 毫秒时间戳
                 "method": request.method,
                 "path": request.url.path,
+                "query": str(request.url.query) if request.url.query else "",
                 "status_code": response.status_code,
                 "duration_ms": duration_ms,
                 "ip_address": request.client.host if request.client else "unknown",
-                "user_agent": request.headers.get("user-agent", "")[:512],
+                "user_agent": request.headers.get("user-agent", "")[:200],
                 "tags": self._get_tags(response.status_code, duration_ms),
             }
-            await stream_load("request_log", [log_data])
+            # 存储到内存
+            log_store.add(log_data)
         except Exception as e:
             logger.warning(f"日志记录失败: {e}")
 
@@ -63,16 +63,17 @@ class RequestLoggerMiddleware(BaseHTTPMiddleware):
             log_data = {
                 "trace_id": trace_id,
                 "span_id": span_id,
-                "request_time": int(time.time() * 1000),
                 "method": request.method,
                 "path": request.url.path,
+                "query": str(request.url.query) if request.url.query else "",
                 "status_code": 500,
                 "duration_ms": duration_ms,
                 "ip_address": request.client.host if request.client else "unknown",
-                "error_message": error[:512],
+                "error_message": error[:200],
                 "tags": "error",
             }
-            await stream_load("request_log", [log_data])
+            # 存储到内存
+            log_store.add(log_data)
         except Exception as e:
             logger.warning(f"错误日志记录失败: {e}")
 
