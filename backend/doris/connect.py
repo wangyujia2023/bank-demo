@@ -50,17 +50,9 @@ async def close_pool():
 
 @asynccontextmanager
 async def get_conn():
-    """获取连接，自动注入 HASP Session 变量"""
+    """获取连接"""
     pool = await get_pool()
     async with pool.acquire() as conn:
-        async with conn.cursor(aiomysql.DictCursor) as cur:
-            # 注入 Doris 4.0 HASP 会话变量
-            if settings.DORIS_HASP_ENABLED:
-                for k, v in settings.DORIS_SESSION_VARS.items():
-                    try:
-                        await cur.execute(f"SET {k} = {v}")
-                    except Exception:
-                        pass  # 忽略不支持的变量
         yield conn
 
 
