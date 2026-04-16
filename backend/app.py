@@ -23,8 +23,11 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("🚀 CDP 平台启动，初始化 Doris 连接池...")
-    await get_pool()
-    logger.info("✅ Doris 连接池就绪")
+    try:
+        await get_pool()
+        logger.info("✅ Doris 连接池就绪")
+    except Exception as e:
+        logger.warning(f"⚠️ Doris 连接失败: {e}，使用内存数据模式运行")
 
     # 初始化 request_log 表
     try:
