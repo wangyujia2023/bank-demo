@@ -1,10 +1,23 @@
+# 核心 Web 框架 (兼容 3.12)
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
+python-multipart>=0.0.9
+
+# 异步与网络请求
+httpx>=0.25.0
+uvloop>=0.19.0; sys_platform != 'win32'
+
+# 数据处理与科学计算 (3.12 必须使用 1.26+ 避免编译错误)
+numpy>=1.26.0
+pandas>=2.1.0
+Pillow>=10.0.0
+
+# 数据库连接与配置管理
+aiomysql>=0.2.0
 pydantic==2.5.0
 pydantic-settings==2.1.0
 python-dotenv==1.0.0
-aiomysql==0.2.0
-numpy==1.24.3
-Pillow==10.0.0
-cairosvg==2.7.0
-httpx==0.25.0
+
+# 数据库驱动增强
+cryptography>=41.0.0
+sqlalchemy>=2.0.0

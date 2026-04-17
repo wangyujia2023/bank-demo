@@ -65,6 +65,11 @@
           <el-icon><Histogram /></el-icon><span>高并发点查</span>
         </el-menu-item>
 
+        <div class="menu-group-title">智能制造</div>
+        <el-menu-item index="/manufacturing">
+          <el-icon><SetUp /></el-icon><span>数字孪生沙盘</span>
+        </el-menu-item>
+
         <div class="menu-group-title">系统</div>
         <el-menu-item index="/config">
           <el-icon><Setting /></el-icon><span>系统配置</span>
@@ -99,7 +104,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { systemApi } from '@/api'
-import { Document, DataAnalysis, Monitor, Share, Histogram, Files } from '@element-plus/icons-vue'
+import { Document, DataAnalysis, Monitor, Share, Histogram, Files, SetUp } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const dorisOk = ref(false)

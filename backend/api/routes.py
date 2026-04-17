@@ -621,6 +621,69 @@ async def benchmark_audit_stats(limit: int = Query(300, ge=100, le=500)):
 async def satellite_init():
     return await sat_svc.init_table()
 
+
+# ================================================================
+# 智能制造 - 数字孪生沙盘
+# ================================================================
+from backend.service.manufacturing_service import ManufacturingService
+mfg_svc = ManufacturingService()
+
+@router.post("/mfg/init")
+async def mfg_init():
+    return await mfg_svc.init_table()
+
+@router.post("/mfg/generate")
+async def mfg_generate():
+    return await mfg_svc.generate_step()
+
+@router.get("/mfg/overview")
+async def mfg_overview():
+    return await mfg_svc.get_overview()
+
+@router.get("/mfg/oee-trend")
+async def mfg_oee_trend():
+    return await mfg_svc.get_oee_trend()
+
+@router.get("/mfg/machine-status")
+async def mfg_machine_status():
+    return await mfg_svc.get_machine_status()
+
+@router.get("/mfg/causal")
+async def mfg_causal():
+    return await mfg_svc.get_causal_analysis()
+
+@router.post("/mfg/batch")
+async def mfg_batch(steps: int = 5):
+    return await mfg_svc.batch_generate(steps)
+
+@router.get("/mfg/detail")
+async def mfg_detail(limit: int = Query(60, ge=1, le=200)):
+    return await mfg_svc.get_detail(limit)
+
+@router.get("/mfg/machine-trend")
+async def mfg_machine_trend(machine_id: str):
+    return await mfg_svc.get_machine_trend(machine_id)
+
+@router.get("/mfg/quality-stats")
+async def mfg_quality_stats():
+    return await mfg_svc.get_quality_stats()
+
+@router.get("/mfg/energy-stats")
+async def mfg_energy_stats():
+    return await mfg_svc.get_energy_stats()
+
+@router.get("/mfg/maintenance-stats")
+async def mfg_maintenance_stats():
+    return await mfg_svc.get_maintenance_stats()
+
+@router.get("/mfg/process-trend")
+async def mfg_process_trend():
+    return await mfg_svc.get_process_trend()
+
+@router.post("/mfg/reset")
+async def mfg_reset():
+    return await mfg_svc.reset()
+
 @router.get("/satellite/overview")
 async def satellite_overview():
     return await sat_svc.overview()

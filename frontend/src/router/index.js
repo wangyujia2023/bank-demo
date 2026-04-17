@@ -17,6 +17,7 @@ const routes = [
   { path: '/trace',         component: () => import('@/views/TraceView.vue'),           meta: { title: '链路追踪' } },
   { path: '/satellite',     component: () => import('@/views/Satellite.vue'),           meta: { title: '卫星数据分析' } },
   { path: '/benchmark',     component: () => import('@/views/Benchmark.vue'),           meta: { title: '高并发点查' } },
+  { path: '/manufacturing', component: () => import('@/views/Manufacturing.vue'),       meta: { title: '智能制造' } },
   { path: '/config',        component: () => import('@/views/SysConfig.vue'),           meta: { title: '系统配置' } },
 ]
 
