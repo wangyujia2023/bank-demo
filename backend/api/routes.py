@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict
 from backend.service.user_service import UserService, SegmentService
 from backend.service.behavior_service import BehaviorService
+from backend.service.cdp_service import WideQueryService, EtlService, BitmapOpsService, BehaviorAnalysisService
 from backend.service.dashboard_service import DashboardService
 from backend.service.tag_analysis_service import TagAnalysisService
 from backend.service.report_service import ReportService
@@ -17,6 +18,10 @@ from backend.doris.connect import ping, get_doris_version
 
 router = APIRouter()
 user_svc  = UserService()
+wide_svc  = WideQueryService()
+etl_svc   = EtlService()
+bmp_svc   = BitmapOpsService()
+beh2_svc  = BehaviorAnalysisService()
 seg_svc   = SegmentService()
 tag_svc   = TagAnalysisService()
 beh_svc   = BehaviorService()
@@ -261,12 +266,13 @@ async def metrics_query(req: MetricsQueryReq):
 # ================================================================
 @router.get("/observe/logs")
 async def observe_logs(
-    path:    Optional[str] = None,
+    path:        Optional[str] = None,
     status_code: Optional[int] = None,
-    page:    int = Query(1, ge=1),
-    size:    int = Query(100, ge=1, le=200),
+    method:      Optional[str] = None,
+    page:        int = Query(1, ge=1),
+    size:        int = Query(100, ge=1, le=200),
 ):
-    return await obs_svc.logs(path, status_code, page, size)
+    return await obs_svc.logs(path, status_code, method, page, size)
 
 @router.get("/observe/stats")
 async def observe_stats():
@@ -286,6 +292,81 @@ async def trace_list(
 @router.get("/trace/{trace_id}")
 async def trace_detail(trace_id: str):
     return await obs_svc.trace_detail(trace_id)
+
+
+# ================================================================
+# 用户标签分析（CDP）- 宽表查询 / 高表ETL / Bitmap人群 / 行为分析
+# ================================================================
+
+class WideQueryReq(BaseModel):
+    tag_ids:   List[int] = []   # 选中的 tag_id 列表（AND 逻辑，对应列=1）
+    page:      int = 1
+    page_size: int = 20
+
+class BitmapOpsReq(BaseModel):
+    include_tag_ids: List[int] = []
+    exclude_tag_ids: List[int] = []
+    return_users:    bool = False
+    limit:           int = 100
+
+class TwoSetOpsReq(BaseModel):
+    tag_ids_a:  List[int]
+    tag_ids_b:  List[int]
+    operation:  str = "AND"    # AND=交集 OR=并集 NOT=A差B
+
+class CdpFunnelReq(BaseModel):
+    steps:           List[str] = ["REGISTER", "LOGIN", "BROWSE_PRODUCT", "APPLY", "TRANSACTION"]
+    window_seconds:  int = 86400
+    filter_tag_ids:  Optional[List[int]] = None
+
+class CdpRetentionReq(BaseModel):
+    cohort_event:   str = "REGISTER"
+    return_event:   str = "LOGIN"
+    retention_days: Optional[List[int]] = None
+
+# 宽表
+@router.get("/cdp/wide/tag-meta")
+async def cdp_wide_tag_meta():
+    return wide_svc.get_tag_meta()
+
+@router.post("/cdp/wide/query")
+async def cdp_wide_query(req: WideQueryReq):
+    return await wide_svc.query(req.tag_ids, req.page, req.page_size)
+
+@router.get("/cdp/wide/distribution")
+async def cdp_wide_distribution():
+    return await wide_svc.distribution()
+
+# 高表 ETL
+@router.post("/cdp/etl/sync")
+async def cdp_etl_sync():
+    return await etl_svc.sync_wide_to_tall()
+
+@router.get("/cdp/etl/overview")
+async def cdp_etl_overview():
+    return await etl_svc.get_tall_overview()
+
+# Bitmap 人群交并差
+@router.post("/cdp/bitmap/compute")
+async def cdp_bitmap_compute(req: BitmapOpsReq):
+    return await bmp_svc.compute(req.include_tag_ids, req.exclude_tag_ids, req.return_users, req.limit)
+
+@router.post("/cdp/bitmap/two-set")
+async def cdp_bitmap_two_set(req: TwoSetOpsReq):
+    return await bmp_svc.two_set_ops(req.tag_ids_a, req.tag_ids_b, req.operation)
+
+# 行为分析（Doris 内置函数）
+@router.post("/cdp/behavior/funnel")
+async def cdp_funnel(req: CdpFunnelReq):
+    return await beh2_svc.funnel(req.steps, req.window_seconds, req.filter_tag_ids)
+
+@router.post("/cdp/behavior/retention")
+async def cdp_retention(req: CdpRetentionReq):
+    return await beh2_svc.retention(req.cohort_event, req.return_event, req.retention_days)
+
+@router.get("/cdp/behavior/path")
+async def cdp_path(top_n: int = 10):
+    return await beh2_svc.path_analysis(top_n)
 
 
 # ================================================================
