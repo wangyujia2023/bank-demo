@@ -81,9 +81,6 @@ https://doris.apache.org/zh-CN/docs/install/standard-deployment
 mysql -h 127.0.0.1 -P 9030 -u root
 
 # 开启 Pipeline 执行引擎（HASP核心）
-SET GLOBAL enable_pipeline_engine = true;
-SET GLOBAL enable_vectorized_engine = true;
-SET GLOBAL parallel_pipeline_task_num = 8;
 
 # 初始化建表
 SOURCE sql/doris_ddl.sql;

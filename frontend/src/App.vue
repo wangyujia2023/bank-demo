@@ -29,6 +29,9 @@
           <el-menu-item index="/behavior">
             <el-icon><TrendCharts /></el-icon><span>行为分析</span>
           </el-menu-item>
+          <el-menu-item index="/user-tag">
+            <el-icon><Files /></el-icon><span>用户标签分析</span>
+          </el-menu-item>
         </el-menu-item-group>
         <el-menu-item index="/log-classify">
           <el-icon><Cpu /></el-icon><span>AI 日志标签分析</span>
@@ -96,7 +99,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { systemApi } from '@/api'
-import { Document, DataAnalysis, Monitor, Share, Histogram } from '@element-plus/icons-vue'
+import { Document, DataAnalysis, Monitor, Share, Histogram, Files } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const dorisOk = ref(false)

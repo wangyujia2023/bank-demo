@@ -6,30 +6,31 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict
 from backend.service.user_service import UserService, SegmentService
 from backend.service.behavior_service import BehaviorService
+from backend.service.cdp_service import WideQueryService, EtlService, BitmapOpsService, BehaviorAnalysisService
 from backend.service.dashboard_service import DashboardService
-from backend.service.management_dashboard import ManagementDashboard
-from backend.service.vector_search_service import VectorSearchService
 from backend.service.tag_analysis_service import TagAnalysisService
 from backend.service.report_service import ReportService
+from backend.service.management_dashboard import ManagementDashboard
 from backend.service.metrics_service import MetricsService
 from backend.service.observe_service import ObserveService
 from backend.service.benchmark_service import BenchmarkService
-from backend.service.satellite_service import SatelliteService
 from backend.doris.connect import ping, get_doris_version
 
 router = APIRouter()
 user_svc  = UserService()
+wide_svc  = WideQueryService()
+etl_svc   = EtlService()
+bmp_svc   = BitmapOpsService()
+beh2_svc  = BehaviorAnalysisService()
 seg_svc   = SegmentService()
 tag_svc   = TagAnalysisService()
 beh_svc   = BehaviorService()
 dash_svc  = DashboardService()
 mgmt_svc  = ManagementDashboard()
-vec_svc   = VectorSearchService()
 rpt_svc   = ReportService()
 met_svc   = MetricsService()
 obs_svc   = ObserveService()
 bench_svc = BenchmarkService()
-sat_svc   = SatelliteService()
 
 
 # ================================================================
@@ -168,12 +169,9 @@ async def rfm_analysis():
 async def dashboard():
     return await dash_svc.get_overview()
 
-
-# 银行经营管理大屏
 @router.get("/management")
 async def management_dashboard():
     return await mgmt_svc.get_overview()
-
 
 # ================================================================
 # 系统配置 & 健康检查
@@ -230,89 +228,6 @@ async def get_config():
         "ai_model": settings.AI_MODEL,
     }
 
-
-# ================================================================
-# HASP 向量检索 — 用户图片识别标签
-# ================================================================
-class VectorSearchReq(BaseModel):
-    query_vector: List[float]
-    top_k: int = 5
-
-
-@router.post("/vector/init")
-async def vector_init():
-    return await vec_svc.init_tables()
-
-
-@router.get("/vector/users")
-async def vector_users():
-    return await vec_svc.get_users()
-
-
-@router.get("/vector/labels")
-async def vector_labels():
-    return await vec_svc.get_labels()
-
-
-@router.get("/vector/dim-labels")
-async def vector_dim_labels():
-    return await vec_svc.get_dim_labels()
-
-
-@router.post("/vector/search/users")
-async def vector_search_users(req: VectorSearchReq):
-    if len(req.query_vector) != 8:
-        raise HTTPException(status_code=400, detail="向量维度必须为 8")
-    return await vec_svc.search_similar_users(req.query_vector, req.top_k)
-
-
-@router.post("/vector/search/labels")
-async def vector_search_labels(req: VectorSearchReq):
-    if len(req.query_vector) != 8:
-        raise HTTPException(status_code=400, detail="向量维度必须为 8")
-    return await vec_svc.search_similar_labels(req.query_vector, req.top_k)
-
-
-class HybridSearchReq(BaseModel):
-    query_vector:  Optional[List[float]] = None
-    label_filters: Optional[List[str]]  = None
-    description:   Optional[str]        = None
-    top_k:         int                  = 5
-
-@router.post("/vector/search/hybrid")
-async def vector_search_hybrid(req: HybridSearchReq):
-    return await vec_svc.hybrid_search(
-        req.query_vector, req.label_filters, req.description, req.top_k
-    )
-
-@router.post("/vector/search/by-photo")
-async def vector_search_by_photo(
-    photo:         UploadFile = File(...),
-    label_filters: str        = Form("[]"),
-    description:   str        = Form(""),
-    top_k:         int        = Form(5),
-):
-    import json as _json
-    filters     = _json.loads(label_filters)
-    image_bytes = await photo.read()
-    return await vec_svc.search_by_photo(image_bytes, filters, description or None, top_k)
-
-
-@router.post("/vector/users/upload")
-async def vector_add_user(
-    user_name: str = Form(...),
-    description: str = Form(""),
-    avatar_style: str = Form("custom"),
-    labels: str = Form("[]"),
-    photo: UploadFile = File(...),
-):
-    import json as _json
-    labels_list = _json.loads(labels)
-    image_bytes = await photo.read()
-    return await vec_svc.add_user_from_image(
-        user_name, description, avatar_style, labels_list, image_bytes
-    )
-
 # ================================================================
 # 银行报表
 # ================================================================
@@ -351,25 +266,17 @@ async def metrics_query(req: MetricsQueryReq):
 # ================================================================
 @router.get("/observe/logs")
 async def observe_logs(
-    path:    Optional[str] = None,
-    level:   Optional[str] = None,
-    service: Optional[str] = None,
-    page:    int = Query(1, ge=1),
-    size:    int = Query(20, ge=1, le=200),
+    path:        Optional[str] = None,
+    status_code: Optional[int] = None,
+    method:      Optional[str] = None,
+    page:        int = Query(1, ge=1),
+    size:        int = Query(100, ge=1, le=200),
 ):
-    return await obs_svc.logs(path, level, service, page, size)
+    return await obs_svc.logs(path, status_code, method, page, size)
 
 @router.get("/observe/stats")
 async def observe_stats():
     return await obs_svc.stats()
-
-@router.post("/observe/classify")
-async def observe_classify():
-    return await obs_svc.classify_logs()
-
-@router.get("/observe/tag-stats")
-async def observe_tag_stats():
-    return await obs_svc.tag_stats()
 
 
 # ================================================================
@@ -377,14 +284,89 @@ async def observe_tag_stats():
 # ================================================================
 @router.get("/trace/list")
 async def trace_list(
-    page: int = Query(1, ge=1),
-    size: int = Query(20, ge=1, le=100),
+    page:    int = Query(1, ge=1),
+    size:    int = Query(20, ge=1, le=100),
 ):
     return await obs_svc.traces(page, size)
 
 @router.get("/trace/{trace_id}")
 async def trace_detail(trace_id: str):
     return await obs_svc.trace_detail(trace_id)
+
+
+# ================================================================
+# 用户标签分析（CDP）- 宽表查询 / 高表ETL / Bitmap人群 / 行为分析
+# ================================================================
+
+class WideQueryReq(BaseModel):
+    tag_ids:   List[int] = []   # 选中的 tag_id 列表（AND 逻辑，对应列=1）
+    page:      int = 1
+    page_size: int = 20
+
+class BitmapOpsReq(BaseModel):
+    include_tag_ids: List[int] = []
+    exclude_tag_ids: List[int] = []
+    return_users:    bool = False
+    limit:           int = 100
+
+class TwoSetOpsReq(BaseModel):
+    tag_ids_a:  List[int]
+    tag_ids_b:  List[int]
+    operation:  str = "AND"    # AND=交集 OR=并集 NOT=A差B
+
+class CdpFunnelReq(BaseModel):
+    steps:           List[str] = ["REGISTER", "LOGIN", "BROWSE_PRODUCT", "APPLY", "TRANSACTION"]
+    window_seconds:  int = 86400
+    filter_tag_ids:  Optional[List[int]] = None
+
+class CdpRetentionReq(BaseModel):
+    cohort_event:   str = "REGISTER"
+    return_event:   str = "LOGIN"
+    retention_days: Optional[List[int]] = None
+
+# 宽表
+@router.get("/cdp/wide/tag-meta")
+async def cdp_wide_tag_meta():
+    return wide_svc.get_tag_meta()
+
+@router.post("/cdp/wide/query")
+async def cdp_wide_query(req: WideQueryReq):
+    return await wide_svc.query(req.tag_ids, req.page, req.page_size)
+
+@router.get("/cdp/wide/distribution")
+async def cdp_wide_distribution():
+    return await wide_svc.distribution()
+
+# 高表 ETL
+@router.post("/cdp/etl/sync")
+async def cdp_etl_sync():
+    return await etl_svc.sync_wide_to_tall()
+
+@router.get("/cdp/etl/overview")
+async def cdp_etl_overview():
+    return await etl_svc.get_tall_overview()
+
+# Bitmap 人群交并差
+@router.post("/cdp/bitmap/compute")
+async def cdp_bitmap_compute(req: BitmapOpsReq):
+    return await bmp_svc.compute(req.include_tag_ids, req.exclude_tag_ids, req.return_users, req.limit)
+
+@router.post("/cdp/bitmap/two-set")
+async def cdp_bitmap_two_set(req: TwoSetOpsReq):
+    return await bmp_svc.two_set_ops(req.tag_ids_a, req.tag_ids_b, req.operation)
+
+# 行为分析（Doris 内置函数）
+@router.post("/cdp/behavior/funnel")
+async def cdp_funnel(req: CdpFunnelReq):
+    return await beh2_svc.funnel(req.steps, req.window_seconds, req.filter_tag_ids)
+
+@router.post("/cdp/behavior/retention")
+async def cdp_retention(req: CdpRetentionReq):
+    return await beh2_svc.retention(req.cohort_event, req.return_event, req.retention_days)
+
+@router.get("/cdp/behavior/path")
+async def cdp_path(top_n: int = 10):
+    return await beh2_svc.path_analysis(top_n)
 
 
 # ================================================================
@@ -398,38 +380,3 @@ class BenchmarkReq(BaseModel):
 @router.post("/benchmark/run")
 async def benchmark_run(req: BenchmarkReq):
     return await bench_svc.run(req.threads, req.iterations, req.query_type)
-
-@router.get("/benchmark/audit-stats")
-async def benchmark_audit_stats(limit: int = Query(300, ge=100, le=500)):
-    return await bench_svc.audit_log_stats(limit)
-
-
-# ================================================================
-# 卫星数据采集分析
-# ================================================================
-@router.post("/satellite/init")
-async def satellite_init():
-    return await sat_svc.init_table()
-
-@router.get("/satellite/overview")
-async def satellite_overview():
-    return await sat_svc.overview()
-
-@router.get("/satellite/charts")
-async def satellite_charts():
-    return await sat_svc.charts()
-
-@router.get("/satellite/query")
-async def satellite_query(
-    satellite_id:   Optional[str] = None,
-    satellite_name: Optional[str] = None,
-    satellite_type: Optional[str] = None,
-    data_type:      Optional[str] = None,
-    target_type:    Optional[str] = None,
-    quality_min:    Optional[int] = None,
-    status:         Optional[str] = None,
-    page: int = Query(1, ge=1),
-    size: int = Query(20, ge=1, le=100),
-):
-    return await sat_svc.query(satellite_id, satellite_name, satellite_type,
-                               data_type, target_type, quality_min, status, page, size)

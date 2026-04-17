@@ -1,16 +1,32 @@
--- 场景2: 客户画像 (Bitmap)
+-- ================================================================
+-- 场景2: 客户画像 宽表 & 高表 DDL（Doris 4.0）
+-- ================================================================
+
+USE bank;
+
+-- ================================================================
+-- 1. 客户标签高表 t_customer_tags
+--    (tag_id, tag_name) -> BITMAP
+--    AGGREGATE KEY: tag_bitmap 做 BITMAP_UNION 聚合
+-- ================================================================
 CREATE TABLE IF NOT EXISTS bank.t_customer_tags (
-  tag_id  BIGINT,
-  tag_name     VARCHAR(32),
-  tag_bitmap   BITMAP BITMAP_UNION,
-  update_time  DATETIME REPLACE
+  tag_id       BIGINT      NOT NULL  COMMENT '标签ID',
+  tag_name     VARCHAR(32) NOT NULL  COMMENT '标签名称',
+  tag_bitmap   BITMAP                COMMENT '用户ID Bitmap（BITMAP_UNION聚合）',
+  update_time  DATETIME              COMMENT '最近更新时间（REPLACE聚合）'
 ) AGGREGATE KEY(tag_id, tag_name)
 DISTRIBUTED BY HASH(tag_id) BUCKETS 16
 PROPERTIES (
   "replication_num" = "1"
 );
+
+-- ================================================================
+-- 2. 客户标签宽表 user_tag_wide
+--    每用户一行，每个标签一列（TINYINT 0/1）
+--    DUPLICATE KEY 模型，高效写入
+-- ================================================================
 CREATE TABLE IF NOT EXISTS bank.user_tag_wide (
-    customer_id        BIGINT COMMENT '用户ID',
+    customer_id        BIGINT   COMMENT '用户ID',
     update_time        DATETIME COMMENT '更新时间',
 
     -- ==================== 1. 基础属性 ====================
@@ -96,7 +112,6 @@ CREATE TABLE IF NOT EXISTS bank.user_tag_wide (
     high_response      TINYINT DEFAULT '0' COMMENT '高响应率',
     low_response       TINYINT DEFAULT '0' COMMENT '低响应率',
     marketing_sensitive TINYINT DEFAULT '0' COMMENT '营销敏感'
-
 )
 DUPLICATE KEY(customer_id)
 DISTRIBUTED BY HASH(customer_id) BUCKETS 16
