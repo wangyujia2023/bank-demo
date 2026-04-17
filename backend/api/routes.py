@@ -7,6 +7,7 @@ from typing import List, Optional, Dict
 from backend.service.user_service import UserService, SegmentService
 from backend.service.behavior_service import BehaviorService
 from backend.service.cdp_service import WideQueryService, EtlService, BitmapOpsService, BehaviorAnalysisService
+from backend.service.portrait_service import PortraitService, CrowdPackageService, TagAnalysisService as CdpTagAnalysisService
 from backend.service.dashboard_service import DashboardService
 from backend.service.tag_analysis_service import TagAnalysisService
 from backend.service.report_service import ReportService
@@ -33,8 +34,11 @@ rpt_svc   = ReportService()
 met_svc   = MetricsService()
 obs_svc   = ObserveService()
 bench_svc = BenchmarkService()
-vec_svc   = VectorSearchService()
-sat_svc   = SatelliteService()
+vec_svc      = VectorSearchService()
+sat_svc      = SatelliteService()
+portrait_svc = PortraitService()
+crowd_svc    = CrowdPackageService()
+cdp_tag_svc  = CdpTagAnalysisService()
 
 
 # ================================================================
@@ -379,6 +383,78 @@ async def cdp_retention(req: CdpRetentionReq):
 @router.get("/cdp/behavior/path")
 async def cdp_path(top_n: int = 10):
     return await beh2_svc.path_analysis(top_n)
+
+
+# ================================================================
+# 人群画像 & 人群包 & 标签分析（扩展）
+# ================================================================
+
+class TgiReq(BaseModel):
+    include_tag_ids: List[int] = []
+
+class CrossReq(BaseModel):
+    cat1: str
+    cat2: str
+
+class GeoReq(BaseModel):
+    include_tag_ids: List[int] = []
+
+class TargetingReq(BaseModel):
+    provinces: List[str]
+
+class SaveCrowdReq(BaseModel):
+    name:            str
+    desc:            str = ""
+    include_tag_ids: List[int] = []
+    exclude_tag_ids: List[int] = []
+    crowd_size:      int = 0
+
+class CompareCrowdReq(BaseModel):
+    id_a: str
+    id_b: str
+
+# 人群画像
+@router.post("/cdp/portrait/tgi")
+async def cdp_tgi(req: TgiReq):
+    return await portrait_svc.tgi_analysis(req.include_tag_ids)
+
+@router.post("/cdp/portrait/cross")
+async def cdp_cross(req: CrossReq):
+    return await portrait_svc.cross_analysis(req.cat1, req.cat2)
+
+@router.post("/cdp/portrait/geo")
+async def cdp_geo(req: GeoReq):
+    return await portrait_svc.geo_distribution(req.include_tag_ids or None)
+
+@router.post("/cdp/portrait/targeting")
+async def cdp_targeting(req: TargetingReq):
+    return await portrait_svc.targeting_distribution(req.provinces)
+
+# 人群包
+@router.post("/cdp/crowd/save")
+async def cdp_crowd_save(req: SaveCrowdReq):
+    return crowd_svc.save(req.name, req.desc, req.include_tag_ids, req.exclude_tag_ids, req.crowd_size)
+
+@router.get("/cdp/crowd/list")
+async def cdp_crowd_list():
+    return crowd_svc.list_all()
+
+@router.delete("/cdp/crowd/{crowd_id}")
+async def cdp_crowd_delete(crowd_id: str):
+    return {"success": crowd_svc.delete(crowd_id)}
+
+@router.post("/cdp/crowd/compare")
+async def cdp_crowd_compare(req: CompareCrowdReq):
+    return await crowd_svc.compare(req.id_a, req.id_b)
+
+# 标签分析
+@router.post("/cdp/tag/weight")
+async def cdp_tag_weight(req: TgiReq):
+    return await cdp_tag_svc.tag_weight(req.include_tag_ids)
+
+@router.get("/cdp/tag/anomaly")
+async def cdp_anomaly():
+    return await cdp_tag_svc.anomaly_detect()
 
 
 # ================================================================

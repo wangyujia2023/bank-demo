@@ -1,16 +1,62 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [8392] using WatchFiles
-INFO:     Started server process [8395]
+INFO:     Started reloader process [10471] using WatchFiles
+INFO:     Started server process [10478]
 INFO:     Waiting for application startup.
-2026-04-17 11:43:53,621 [WARNING] backend.app: ⚠️ Doris 连接失败: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-17 11:43:53,622 [INFO] backend.telemetry.collector: telemetry writer started
+2026-04-17 12:06:12,563 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-17 12:06:12,564 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-2026-04-17 11:44:10,429 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62444 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-17 11:44:10,486 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62447 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-2026-04-17 11:44:23,374 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62531 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62818 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62907 - "GET /api/trace/4994f1707aa4420b HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56833 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56835 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56886 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56936 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56938 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56947 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56949 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56945 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56951 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56953 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56979 - "POST /api/cdp/portrait/tgi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57113 - "POST /api/cdp/portrait/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57183 - "POST /api/cdp/portrait/targeting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57214 - "POST /api/cdp/portrait/targeting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57244 - "POST /api/cdp/tag/weight HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57272 - "GET /api/cdp/tag/anomaly HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57351 - "POST /api/cdp/wide/query HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:57370 - "POST /api/cdp/wide/query HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:57380 - "POST /api/cdp/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57425 - "POST /api/cdp/etl/sync HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57443 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57470 - "POST /api/cdp/portrait/targeting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57503 - "POST /api/cdp/portrait/targeting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57571 - "POST /api/cdp/tag/weight HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57844 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57865 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57884 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57897 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57943 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58002 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58039 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58090 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58114 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58154 - "POST /api/cdp/crowd/save HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58254 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58294 - "POST /api/cdp/crowd/save HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58313 - "POST /api/cdp/crowd/compare HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58397 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58395 - "GET /api/vector/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58396 - "GET /api/vector/labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58464 - "POST /api/vector/search/by-photo HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58518 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58520 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58521 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58931 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60219 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60974 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60977 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60980 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60986 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61248 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61257 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61276 - "POST /api/cdp/crowd/compare HTTP/1.1" 200 OK
