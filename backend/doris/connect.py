@@ -27,7 +27,7 @@ async def get_pool() -> aiomysql.Pool:
             host=settings.DORIS_HOST, port=settings.DORIS_PORT,
             user=settings.DORIS_USER, password=settings.DORIS_PASSWORD,
             db=settings.DORIS_DATABASE, charset="utf8mb4",
-            autocommit=True, minsize=5, maxsize=30, echo=False, connect_timeout=10,
+            minsize=5, maxsize=30, echo=False, connect_timeout=10,
         )
     return _pool
 

@@ -1,10 +1,10 @@
 <template>
   <el-container class="app-wrap">
     <!-- 侧边栏 -->
-    <el-aside width="210px" class="aside">
+    <el-aside width="188px" class="aside">
       <div class="logo">
-        <el-icon size="22" color="#409eff"><DataBoard /></el-icon>
-        <span>银行 CDP 平台</span>
+        <el-icon size="18" color="#409eff"><DataBoard /></el-icon>
+        <span>Doris 特性展示</span>
       </div>
       <el-menu
         :default-active="activeMenu"
@@ -19,56 +19,56 @@
         <el-menu-item index="/management">
           <el-icon><DataAnalysis /></el-icon><span>经营管理大屏</span>
         </el-menu-item>
-        <el-menu-item-group title="用户画像">
-          <el-menu-item index="/user">
-            <el-icon><User /></el-icon><span>用户宽表查询</span>
-          </el-menu-item>
-          <el-menu-item index="/segment">
-            <el-icon><Grid /></el-icon><span>人群圈选</span>
-          </el-menu-item>
-          <el-menu-item index="/behavior">
-            <el-icon><TrendCharts /></el-icon><span>行为分析</span>
-          </el-menu-item>
-          <el-menu-item index="/user-tag">
-            <el-icon><Files /></el-icon><span>用户标签分析</span>
-          </el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item index="/log-classify">
-          <el-icon><Cpu /></el-icon><span>AI 日志标签分析</span>
+
+        <div class="menu-group-title">用户画像</div>
+        <el-menu-item index="/user">
+          <el-icon><User /></el-icon><span>宽表查询</span>
         </el-menu-item>
-        <el-menu-item-group title="HASP 向量场景">
-          <el-menu-item index="/vector">
-            <el-icon><Coin /></el-icon><span>图片识别标签检索</span>
-          </el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="数据能力展示">
-          <el-menu-item index="/report">
-            <el-icon><Document /></el-icon><span>银行报表</span>
-          </el-menu-item>
-          <el-menu-item index="/metrics">
-            <el-icon><DataAnalysis /></el-icon><span>指标平台</span>
-          </el-menu-item>
-          <el-menu-item index="/observe">
-            <el-icon><Monitor /></el-icon><span>日志可观测性</span>
-          </el-menu-item>
-          <el-menu-item index="/log-tag-stats">
-            <el-icon><PriceTag /></el-icon><span>日志标签分析</span>
-          </el-menu-item>
-          <el-menu-item index="/trace">
-            <el-icon><Share /></el-icon><span>链路追踪</span>
-          </el-menu-item>
-          <el-menu-item index="/satellite">
-            <el-icon><Promotion /></el-icon><span>卫星数据分析</span>
-          </el-menu-item>
-          <el-menu-item index="/benchmark">
-            <el-icon><Histogram /></el-icon><span>高并发点查</span>
-          </el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="系统">
-          <el-menu-item index="/config">
-            <el-icon><Setting /></el-icon><span>系统配置</span>
-          </el-menu-item>
-        </el-menu-item-group>
+        <el-menu-item index="/segment">
+          <el-icon><Grid /></el-icon><span>人群圈选</span>
+        </el-menu-item>
+        <el-menu-item index="/behavior">
+          <el-icon><TrendCharts /></el-icon><span>行为分析</span>
+        </el-menu-item>
+        <el-menu-item index="/user-tag">
+          <el-icon><Files /></el-icon><span>用户行为分析</span>
+        </el-menu-item>
+        <el-menu-item index="/log-classify">
+          <el-icon><Cpu /></el-icon><span>AI 日志标签</span>
+        </el-menu-item>
+
+        <div class="menu-group-title">HASP 场景</div>
+        <el-menu-item index="/vector">
+          <el-icon><Coin /></el-icon><span>图片向量检索</span>
+        </el-menu-item>
+        <el-menu-item index="/satellite">
+          <el-icon><Promotion /></el-icon><span>卫星数据分析</span>
+        </el-menu-item>
+
+        <div class="menu-group-title">数据能力</div>
+        <el-menu-item index="/report">
+          <el-icon><Document /></el-icon><span>银行报表</span>
+        </el-menu-item>
+        <el-menu-item index="/metrics">
+          <el-icon><DataAnalysis /></el-icon><span>指标平台</span>
+        </el-menu-item>
+        <el-menu-item index="/observe">
+          <el-icon><Monitor /></el-icon><span>日志可观测性</span>
+        </el-menu-item>
+        <el-menu-item index="/log-tag-stats">
+          <el-icon><PriceTag /></el-icon><span>日志标签分析</span>
+        </el-menu-item>
+        <el-menu-item index="/trace">
+          <el-icon><Share /></el-icon><span>链路追踪</span>
+        </el-menu-item>
+        <el-menu-item index="/benchmark">
+          <el-icon><Histogram /></el-icon><span>高并发点查</span>
+        </el-menu-item>
+
+        <div class="menu-group-title">系统</div>
+        <el-menu-item index="/config">
+          <el-icon><Setting /></el-icon><span>系统配置</span>
+        </el-menu-item>
       </el-menu>
 
       <!-- Doris 状态指示 -->
@@ -120,14 +120,29 @@ body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
 .app-wrap { height: 100vh; overflow: hidden; }
 .aside { background: #001529; display: flex; flex-direction: column; overflow: hidden; }
 .logo {
-  height: 56px; display: flex; align-items: center; gap: 10px;
-  padding: 0 20px; color: #fff; font-size: 15px; font-weight: 600;
-  border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+  height: 48px; display: flex; align-items: center; gap: 8px;
+  padding: 0 16px; color: #fff; font-size: 13px; font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; letter-spacing: .3px;
 }
 .el-menu { border-right: none; flex: 1; overflow-y: auto; }
-.el-menu-item-group__title { color: rgba(255,255,255,0.3) !important; font-size: 11px; }
+/* 菜单项紧凑 */
+.el-menu .el-menu-item {
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 12px !important;
+  padding: 0 14px !important;
+}
+.el-menu .el-menu-item .el-icon { font-size: 14px !important; margin-right: 6px !important; }
+/* 自定义分组标题 */
+.menu-group-title {
+  padding: 10px 14px 3px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.28);
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
 .doris-status {
-  padding: 12px 20px; font-size: 12px; color: rgba(255,255,255,0.5);
+  padding: 10px 14px; font-size: 11px; color: rgba(255,255,255,0.4);
   display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(255,255,255,0.08);
 }
 .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }

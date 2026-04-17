@@ -14,6 +14,8 @@ from backend.service.management_dashboard import ManagementDashboard
 from backend.service.metrics_service import MetricsService
 from backend.service.observe_service import ObserveService
 from backend.service.benchmark_service import BenchmarkService
+from backend.service.vector_search_service import VectorSearchService
+from backend.service.satellite_service import SatelliteService
 from backend.doris.connect import ping, get_doris_version
 
 router = APIRouter()
@@ -31,6 +33,8 @@ rpt_svc   = ReportService()
 met_svc   = MetricsService()
 obs_svc   = ObserveService()
 bench_svc = BenchmarkService()
+vec_svc   = VectorSearchService()
+sat_svc   = SatelliteService()
 
 
 # ================================================================
@@ -278,6 +282,14 @@ async def observe_logs(
 async def observe_stats():
     return await obs_svc.stats()
 
+@router.post("/observe/classify")
+async def observe_classify():
+    return await obs_svc.classify_logs()
+
+@router.get("/observe/tag-stats")
+async def observe_tag_stats():
+    return await obs_svc.tag_stats()
+
 
 # ================================================================
 # 链路追踪
@@ -370,6 +382,82 @@ async def cdp_path(top_n: int = 10):
 
 
 # ================================================================
+# ================================================================
+# 向量检索（图片识别标签检索）
+# ================================================================
+class VectorSearchReq(BaseModel):
+    query_vector: List[float]
+    top_k: int = 5
+
+class HybridSearchReq(BaseModel):
+    query_vector:  Optional[List[float]] = None
+    label_filters: Optional[List[str]]  = None
+    description:   Optional[str]        = None
+    top_k:         int                  = 5
+
+@router.post("/vector/init")
+async def vector_init():
+    return await vec_svc.init_tables()
+
+@router.get("/vector/users")
+async def vector_users():
+    return await vec_svc.get_users()
+
+@router.get("/vector/labels")
+async def vector_labels():
+    return await vec_svc.get_labels()
+
+@router.get("/vector/dim-labels")
+async def vector_dim_labels():
+    return await vec_svc.get_dim_labels()
+
+@router.post("/vector/search/users")
+async def vector_search_users(req: VectorSearchReq):
+    if len(req.query_vector) != 8:
+        raise HTTPException(status_code=400, detail="向量维度必须为 8")
+    return await vec_svc.search_similar_users(req.query_vector, req.top_k)
+
+@router.post("/vector/search/labels")
+async def vector_search_labels(req: VectorSearchReq):
+    if len(req.query_vector) != 8:
+        raise HTTPException(status_code=400, detail="向量维度必须为 8")
+    return await vec_svc.search_similar_labels(req.query_vector, req.top_k)
+
+@router.post("/vector/search/hybrid")
+async def vector_search_hybrid(req: HybridSearchReq):
+    return await vec_svc.hybrid_search(
+        req.query_vector, req.label_filters, req.description, req.top_k
+    )
+
+@router.post("/vector/search/by-photo")
+async def vector_search_by_photo(
+    photo:         UploadFile = File(...),
+    label_filters: str        = Form("[]"),
+    description:   str        = Form(""),
+    top_k:         int        = Form(5),
+):
+    import json as _json
+    filters     = _json.loads(label_filters)
+    image_bytes = await photo.read()
+    return await vec_svc.search_by_photo(image_bytes, filters, description or None, top_k)
+
+@router.post("/vector/users/upload")
+async def vector_add_user(
+    user_name:    str        = Form(...),
+    description:  str        = Form(""),
+    avatar_style: str        = Form("custom"),
+    labels:       str        = Form("[]"),
+    photo:        UploadFile = File(...),
+):
+    import json as _json
+    labels_list = _json.loads(labels)
+    image_bytes = await photo.read()
+    return await vec_svc.add_user_from_image(
+        user_name, description, avatar_style, labels_list, image_bytes
+    )
+
+
+# ================================================================
 # 高并发点查压测
 # ================================================================
 class BenchmarkReq(BaseModel):
@@ -380,3 +468,38 @@ class BenchmarkReq(BaseModel):
 @router.post("/benchmark/run")
 async def benchmark_run(req: BenchmarkReq):
     return await bench_svc.run(req.threads, req.iterations, req.query_type)
+
+@router.get("/benchmark/audit-stats")
+async def benchmark_audit_stats(limit: int = Query(300, ge=100, le=500)):
+    return await bench_svc.audit_log_stats(limit)
+
+
+# ================================================================
+# 卫星数据采集分析
+# ================================================================
+@router.post("/satellite/init")
+async def satellite_init():
+    return await sat_svc.init_table()
+
+@router.get("/satellite/overview")
+async def satellite_overview():
+    return await sat_svc.overview()
+
+@router.get("/satellite/charts")
+async def satellite_charts():
+    return await sat_svc.charts()
+
+@router.get("/satellite/query")
+async def satellite_query(
+    satellite_id:   Optional[str] = None,
+    satellite_name: Optional[str] = None,
+    satellite_type: Optional[str] = None,
+    data_type:      Optional[str] = None,
+    target_type:    Optional[str] = None,
+    quality_min:    Optional[int] = None,
+    status:         Optional[str] = None,
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
+):
+    return await sat_svc.query(satellite_id, satellite_name, satellite_type,
+                               data_type, target_type, quality_min, status, page, size)

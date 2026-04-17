@@ -55,20 +55,34 @@ class DashboardService:
         """合并查询：日志统计 + 日志趋势"""
         results = await execute_query(
             """
-            SELECT 'stat' AS type,
-                   COUNT(*) AS total_logs,
-                   COUNT(IF(risk_level='高风险', 1, NULL)) AS high_risk_logs,
-                   COUNT(DISTINCT user_id) AS log_users,
-                   COUNT(IF(anomaly_tag != '正常', 1, NULL)) AS anomaly_logs,
-                   NULL AS date, NULL AS log_count, NULL AS risk_count
-            FROM user_log_tag WHERE log_date = CURDATE()
-            UNION ALL
-            SELECT 'trend' AS type, NULL, NULL, NULL, NULL,
-                   log_date AS date, COUNT(*) AS log_count,
-                   COUNT(IF(risk_level='高风险', 1, NULL)) AS risk_count
-            FROM user_log_tag
-            WHERE log_date >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)
-            GROUP BY log_date ORDER BY log_date
+            SELECT *
+FROM (
+    SELECT 'stat' AS type,
+           COUNT(*) AS total_logs,
+           COUNT(IF(level='高风险', 1, NULL)) AS high_risk_logs,
+           COUNT(DISTINCT trace_id) AS log_users,
+           COUNT(IF(log_tag != '正常', 1, NULL)) AS anomaly_logs,
+           NULL AS date,
+           NULL AS log_count,
+           NULL AS risk_count
+    FROM sys_logs
+    WHERE log_time = CURDATE()
+
+    UNION ALL
+
+    SELECT 'trend' AS type,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           log_time AS date,
+           COUNT(*) AS log_count,
+           COUNT(IF(level='高风险', 1, NULL)) AS risk_count
+    FROM sys_logs
+    WHERE log_time >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)
+    GROUP BY log_time
+) t
+ORDER BY type DESC, date ASC
             """
         )
 
