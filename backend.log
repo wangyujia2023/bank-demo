@@ -60,3 +60,163 @@ INFO:     127.0.0.1:60986 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
 INFO:     127.0.0.1:61248 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
 INFO:     127.0.0.1:61257 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
 INFO:     127.0.0.1:61276 - "POST /api/cdp/crowd/compare HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/service/metrics_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10478]
+INFO:     Started server process [11551]
+INFO:     Waiting for application startup.
+2026-04-17 12:28:37,560 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-17 12:28:37,560 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51938 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51940 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51936 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51949 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51954 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51993 - "POST /api/cdp/bitmap/compute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52039 - "GET /api/segment/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52068 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52080 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52174 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52404 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+2026-04-17 12:35:39,242 [WARNING] backend.doris.connect: execute_many: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-17 12:35:40,010 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:52171 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-17 12:35:49,250 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 12:35:53,850 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:52401 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-17 12:36:01,256 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11551]
+INFO:     Started server process [15480]
+INFO:     Waiting for application startup.
+2026-04-17 14:00:25,243 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-17 14:00:25,244 [INFO] backend.telemetry.collector: telemetry writer started
+INFO:     Application startup complete.
+INFO:     127.0.0.1:61965 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61969 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61966 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63022 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63024 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63034 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63036 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63032 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63192 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63194 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63190 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63227 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63281 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63339 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63368 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63391 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63419 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63460 - "POST /api/metrics/compare HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63578 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63617 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63682 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63697 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63724 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63759 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63795 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63816 - "GET /api/metrics/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63822 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63835 - "GET /api/metrics/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63995 - "POST /api/metrics/compare HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64068 - "POST /api/metrics/compare HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64133 - "GET /api/report/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64134 - "GET /api/report/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64135 - "GET /api/report/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64157 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64160 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50028 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50040 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50141 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50712 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50715 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+2026-04-17 14:30:15,166 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:50709 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-17 14:30:17,527 [WARNING] backend.doris.connect: execute_many: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-17 14:46:24,386 [WARNING] backend.doris.connect: execute_many: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:65119 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65128 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65130 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+2026-04-17 15:22:29,444 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:64737 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65141 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65160 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65187 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65269 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65275 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65314 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65329 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65367 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65403 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65418 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65450 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65477 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65486 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65493 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+2026-04-17 15:23:50,793 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-17 15:23:54,463 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:65063 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49200 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49210 - "GET /api/trace/b1987e581e81410f HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49233 - "GET /api/trace/58046ed42f7a41b2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49245 - "GET /api/trace/bd2e093ca2904e3d HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49260 - "GET /api/trace/416b585a0df04ab7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49295 - "GET /api/trace/8610c8fd6e3e43a2 HTTP/1.1" 200 OK
+2026-04-17 15:24:25,327 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:65108 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49319 - "GET /api/trace/f129fb692daa42a1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49331 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49445 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49524 - "GET /api/system/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49526 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49534 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62412 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62508 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62507 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62541 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62551 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62563 - "GET /api/segment/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62577 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62598 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62600 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62602 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62604 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62613 - "POST /api/cdp/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62662 - "POST /api/cdp/behavior/retention HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62671 - "GET /api/cdp/behavior/path?top_n=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62771 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62764 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62765 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62769 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+2026-04-17 16:20:39,641 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-17 16:20:42,677 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-17 16:20:47,423 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:50540 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+2026-04-17 16:20:49,648 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:20:52,181 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-17 16:20:59,651 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:21:00,816 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-17 16:21:09,656 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50535 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+2026-04-17 16:21:09,995 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:50522 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-17 16:21:19,660 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:36:48,273 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:36:58,276 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:37:08,280 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:37:18,282 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:37:28,286 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50537 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+2026-04-17 16:50:38,622 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-17 16:50:48,630 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50538 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50539 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK

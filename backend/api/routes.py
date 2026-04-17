@@ -256,17 +256,81 @@ async def report_risk():
 # 指标平台
 # ================================================================
 class MetricsQueryReq(BaseModel):
-    dimensions: List[str] = []
-    measures:   List[str] = []
-    limit:      int = 100
+    dimensions:  List[str] = []
+    measures:    List[str] = []
+    limit:       int = 100
+    page:        int = 1
+    filters:     List[Dict] = []
+    sort_by:     Optional[str] = None
+    sort_dir:    str = "DESC"
+    top_n:       Optional[int] = None
+    calc_fields: List[Dict] = []
+    time_range:  Optional[str] = None
+    start_date:  Optional[str] = None
+    end_date:    Optional[str] = None
+
+class MetricsCompareReq(BaseModel):
+    dimensions:    List[str] = []
+    measures:      List[str] = []
+    compare_type:  str = "mom"
+    current_start: Optional[str] = None
+    current_end:   Optional[str] = None
+
+class MetricsDrillReq(BaseModel):
+    parent_dim:   str
+    parent_value: str
+    child_dim:    str
+    measures:     List[str] = []
+    filters:      List[Dict] = []
+
+class SaveQueryReq(BaseModel):
+    name:   str
+    config: Dict
 
 @router.get("/metrics/definitions")
 async def metrics_definitions():
     return await met_svc.get_definitions()
 
+@router.get("/metrics/templates")
+async def metrics_templates():
+    return await met_svc.get_templates()
+
 @router.post("/metrics/query")
 async def metrics_query(req: MetricsQueryReq):
-    return await met_svc.query(req.dimensions, req.measures, req.limit)
+    return await met_svc.query(
+        req.dimensions, req.measures, req.limit, req.page,
+        req.filters, req.sort_by, req.sort_dir, req.top_n,
+        req.calc_fields, req.time_range, req.start_date, req.end_date,
+    )
+
+@router.post("/metrics/compare")
+async def metrics_compare(req: MetricsCompareReq):
+    return await met_svc.compare(
+        req.dimensions, req.measures, req.compare_type,
+        req.current_start, req.current_end,
+    )
+
+@router.post("/metrics/drilldown")
+async def metrics_drilldown(req: MetricsDrillReq):
+    return await met_svc.drilldown(
+        req.parent_dim, req.parent_value, req.child_dim, req.measures, req.filters,
+    )
+
+@router.post("/metrics/saved")
+async def metrics_save(req: SaveQueryReq):
+    return met_svc.save_query(req.name, req.config)
+
+@router.get("/metrics/saved")
+async def metrics_list_saved():
+    return met_svc.list_saved()
+
+@router.delete("/metrics/saved/{qid}")
+async def metrics_delete_saved(qid: str):
+    return {"success": met_svc.delete_saved(qid)}
+
+@router.get("/metrics/history")
+async def metrics_history(limit: int = Query(30, ge=1, le=100)):
+    return met_svc.get_history(limit)
 
 
 # ================================================================
