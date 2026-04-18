@@ -9,11 +9,22 @@
 import logging
 from typing import Dict, List, Optional
 from backend.doris.connect import execute_query, execute_one
+from backend.settings import settings
 
 logger = logging.getLogger(__name__)
 
 
 class BehaviorService:
+    _ALLOWED_EVENTS = {"REGISTER", "LOGIN", "BROWSE_PRODUCT", "APPLY", "TRANSACTION"}
+
+    def _normalize_steps(self, steps: Optional[List[str]]) -> List[str]:
+        base = steps or ["REGISTER", "LOGIN", "BROWSE_PRODUCT", "APPLY", "TRANSACTION"]
+        cleaned = []
+        for s in base:
+            ev = (s or "").strip().upper()
+            if ev in self._ALLOWED_EVENTS and ev not in cleaned:
+                cleaned.append(ev)
+        return cleaned or ["REGISTER", "LOGIN", "BROWSE_PRODUCT", "APPLY", "TRANSACTION"]
 
     # ─── 漏斗分析 ────────────────────────────────────────────────
     async def funnel_analysis(
@@ -23,11 +34,10 @@ class BehaviorService:
         channel: Optional[str] = None,
         segment_id: Optional[int] = None,
     ) -> Dict:
-        if steps is None:
-            steps = ["REGISTER", "LOGIN", "BROWSE_PRODUCT", "APPLY", "TRANSACTION"]
-
+        steps = self._normalize_steps(steps)
         step_conditions = ", ".join([f"event_type = '{s}'" for s in steps])
-        channel_filter = f"AND channel = '{channel}'" if channel else ""
+        channel_filter = "AND channel = %s" if channel else ""
+        event_filter = ", ".join([f"'{s}'" for s in steps])
         segment_filter = ""
         if segment_id:
             segment_filter = f"""
@@ -50,6 +60,8 @@ class BehaviorService:
                     ) AS funnel_level
                 FROM user_behavior
                 WHERE 1=1
+                  AND event_date >= DATE_SUB(CURDATE(), INTERVAL {max(7, settings.BEHAVIOR_SCAN_DAYS)} DAY)
+                  AND event_type IN ({event_filter})
                   {channel_filter}
                   {segment_filter}
                 GROUP BY user_id
@@ -60,7 +72,8 @@ class BehaviorService:
             GROUP BY funnel_level
             ORDER BY funnel_level
         """
-        rows = await execute_query(sql)
+        args = (channel,) if channel else None
+        rows = await execute_query(sql, args)
 
         step_map = {int(r["step"]): int(r["user_count"]) for r in rows}
         result_steps = []

@@ -171,7 +171,7 @@ body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   display: flex; align-items: center; justify-content: space-between;
   height: 56px !important; padding: 0 24px;
 }
-.page-title { font-size: 16px; font-weight: 600; color: #1a1a1a; }
+.page-title { font-size: 16px; font-weight: 600; color: #1a1a1a; line-height: 1.55; padding: 2px 0; }
 .header-right { display: flex; align-items: center; gap: 12px; }
 .username { font-size: 13px; color: #606266; }
 .main-content { background: #f0f2f5; overflow-y: auto; padding: 20px; }

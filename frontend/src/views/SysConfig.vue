@@ -2,7 +2,7 @@
   <div>
     <el-row :gutter="16">
       <!-- Doris 连接状态 -->
-      <el-col :span="12">
+      <el-col :span="24">
         <div class="card">
           <div class="card-title">🗄️ Apache Doris 4.0 连接配置</div>
           <el-descriptions :column="1" border size="small">
@@ -27,18 +27,6 @@
         </div>
       </el-col>
 
-      <!-- AI Function 配置 -->
-      <el-col :span="12">
-        <div class="card">
-          <div class="card-title">🤖 AI Function 配置</div>
-          <el-descriptions :column="1" border size="small">
-            <el-descriptions-item label="AI 提供商">{{ cfg.ai_provider }}</el-descriptions-item>
-            <el-descriptions-item label="AI 模型">{{ cfg.ai_model }}</el-descriptions-item>
-            <el-descriptions-item label="批次大小">{{ cfg.log_batch_size }} 条</el-descriptions-item>
-            <el-descriptions-item label="刷新间隔">{{ cfg.log_flush_interval }} 秒</el-descriptions-item>
-          </el-descriptions>
-        </div>
-      </el-col>
     </el-row>
 
     <!-- HASP 说明 -->
@@ -55,16 +43,10 @@
       </el-row>
     </div>
 
-    <!-- FileBeat 配置 -->
-    <div class="card">
-      <div class="card-title">📡 FileBeat 配置说明</div>
-      <pre class="config-block">{{ filebeatConfig }}</pre>
-    </div>
-
     <!-- 启动说明 -->
     <div class="card">
       <div class="card-title">🚀 工程启动说明</div>
-      <el-steps direction="vertical" :active="5" finish-status="success">
+      <el-steps direction="vertical" :active="4" finish-status="success">
         <el-step v-for="step in startupSteps" :key="step.title"
                  :title="step.title" :description="step.desc" />
       </el-steps>
@@ -90,25 +72,11 @@ const haspFeatures = [
   { icon: '🤖', title: 'AI Function 内置', desc: 'Doris 4.0 内置 ai_completion() 函数，在数据库层直接调用 LLM，零数据传输' },
 ]
 
-const filebeatConfig = `# filebeat/filebeat.yml 核心配置
-filebeat.inputs:
-  - type: log
-    paths: ["/var/log/bank-app/*.log"]
-    fields: {source: APP}
-
-output.http:
-  hosts: ["http://localhost:8000"]
-  path: "/api/log/collect"   # CDP 后端接收端点
-  method: POST
-  batch_size: 100             # 批量发送，降低请求次数`
-
 const startupSteps = [
-  { title: '部署 Apache Doris 4.0', desc: '参考 Doris 官方文档部署 FE + BE，建议单机测试使用 docker-compose 一键启动' },
-  { title: '初始化数据库', desc: 'mysql -h 127.0.0.1 -P 9030 -u root < sql/doris_ddl.sql' },
-  { title: '导入测试数据', desc: 'mysql -h 127.0.0.1 -P 9030 -u root bank_cdp < test_data/init_data.sql' },
-  { title: '启动后端', desc: 'cd backend && pip install -r requirements.txt && uvicorn app:app --reload' },
+  { title: '启动 Doris', desc: '参考 Doris 官方文档或一键容器，确保 9030 端口可用' },
+  { title: '初始化库表', desc: '页面内直接点各场景的初始化按钮即可建表并写入仿真数据' },
+  { title: '启动后端', desc: 'cd backend && pip install -r ../requirements.txt && uvicorn backend.app:app --reload' },
   { title: '启动前端', desc: 'cd frontend && npm install && npm run dev，访问 http://localhost:5173' },
-  { title: '启动 FileBeat（可选）', desc: 'filebeat -c filebeat/filebeat.yml，或运行 bash filebeat/gen_test_logs.sh 生成测试日志' },
 ]
 
 async function testDoris() {
@@ -126,11 +94,3 @@ onMounted(async () => {
   testDoris()
 })
 </script>
-
-<style scoped>
-.config-block {
-  background: #1e1e1e; color: #d4d4d4; border-radius: 6px; padding: 16px;
-  font-size: 13px; line-height: 1.7; font-family: 'Consolas', monospace;
-  overflow-x: auto; white-space: pre;
-}
-</style>

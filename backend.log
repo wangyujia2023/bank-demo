@@ -1,191 +1,65 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [77336] using StatReload
-INFO:     Started server process [77342]
+INFO:     Started reloader process [18482] using StatReload
+INFO:     Started server process [18512]
 INFO:     Waiting for application startup.
-2026-04-18 22:16:21,639 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 22:16:21,639 [INFO] backend.telemetry.collector: telemetry writer started
+2026-04-19 00:18:55,001 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-19 00:18:55,001 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-INFO:     127.0.0.1:57609 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57643 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 22:16:32,009 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].')
-2026-04-18 22:16:32,223 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
-2026-04-18 22:16:32,458 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
-INFO:     127.0.0.1:57611 - "POST /api/fund/init HTTP/1.1" 200 OK
-2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_branch_metrics] does not exist in database [bank_cdp].(line 7, pos 17)')
-2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_trade_detail] does not exist in database [bank_cdp].(line 4, pos 17)')
-2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_account_snapshot] does not exist in database [bank_cdp].(line 9, pos 17)')
-2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_account_snapshot] does not exist in database [bank_cdp].(line 12, pos 17)')
-INFO:     127.0.0.1:57694 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57695 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57696 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57693 - "GET /api/sec/overview HTTP/1.1" 200 OK
-2026-04-18 22:16:38,252 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_risk_snapshot] does not exist in database [bank_cdp].(line 4, pos 17)')
-INFO:     127.0.0.1:57708 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-2026-04-18 22:16:38,681 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_market_minute] does not exist in database [bank_cdp].(line 6, pos 17)')
-INFO:     127.0.0.1:57709 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-2026-04-18 22:16:38,686 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_position_snapshot] does not exist in database [bank_cdp].(line 7, pos 17)')
-2026-04-18 22:16:38,794 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_branch_metrics] does not exist in database [bank_cdp].(line 4, pos 17)')
-INFO:     127.0.0.1:57711 - "GET /api/sec/branches HTTP/1.1" 200 OK
-2026-04-18 22:16:38,900 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_position_snapshot] does not exist in database [bank_cdp].(line 7, pos 17)')
-INFO:     127.0.0.1:57698 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57746 - "POST /api/sec/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58431 - "POST /api/sec/reset HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57783 - "POST /api/sec/batch?steps=18 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58513 - "POST /api/sec/batch?steps=12 HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'backend/service/securities_service.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for connections to close. (CTRL+C to force quit)
-INFO:     127.0.0.1:57645 - "POST /api/fund/init HTTP/1.1" 200 OK
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [77342]
-INFO:     Started server process [94682]
-INFO:     Waiting for application startup.
-2026-04-18 22:28:15,067 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 22:28:15,068 [INFO] backend.telemetry.collector: telemetry writer started
-INFO:     Application startup complete.
-INFO:     127.0.0.1:61400 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61392 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61397 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61398 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61643 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61644 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61395 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61390 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61837 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61841 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61840 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61850 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61847 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61830 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61846 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61835 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61834 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62147 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62151 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62153 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62159 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62162 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62150 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62165 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62146 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62351 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62356 - "GET /api/trace/1c6934f5647d4114 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63926 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63928 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63954 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63951 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63953 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63960 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63949 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63963 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63950 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63948 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64127 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64129 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64120 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64134 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64130 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64137 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64140 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64126 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64128 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49580 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49581 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49589 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49579 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49570 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49590 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49593 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49582 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49578 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49623 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49624 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49625 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49629 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49626 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49638 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49637 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49615 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49622 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62132 - "POST /api/fund/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49659 - "POST /api/sec/generate HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49758 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49760 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49752 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49765 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49755 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49759 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49768 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49753 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49852 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49845 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49856 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49860 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49868 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49865 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49851 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49854 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49855 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49958 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49950 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49959 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49963 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49969 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49972 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49957 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49960 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49956 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50201 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50193 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50204 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50207 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50210 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50213 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50203 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50202 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50200 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51730 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51731 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51733 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51736 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51742 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51741 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51722 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51732 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51729 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51996 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51997 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52010 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52009 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52012 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52008 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52035 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52039 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52041 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52044 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52050 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52047 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52034 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52038 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52155 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52153 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52152 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52353 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52354 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52348 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52352 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52498 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52499 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52493 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52497 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52772 - "GET /api/sec/trend HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52773 - "GET /api/sec/branches HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52767 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52771 - "GET /api/sec/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52817 - "GET /api/sec/trades?limit=50 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52827 - "GET /api/sec/accounts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52838 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52837 - "GET /api/sec/positions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52852 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60144 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60146 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60179 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60177 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60206 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60205 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60228 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60258 - "GET /api/management HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60552 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60554 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60557 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60559 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60577 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60578 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60574 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60580 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60573 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60651 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60649 - "GET /api/vector/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60648 - "GET /api/vector/labels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60673 - "GET /api/satellite/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60674 - "GET /api/satellite/charts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60676 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60720 - "GET /api/report/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60723 - "GET /api/report/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60722 - "GET /api/report/transaction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60746 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60748 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60759 - "POST /api/metrics/query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60767 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60776 - "GET /api/metrics/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60806 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60845 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60855 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60876 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60900 - "GET /api/observe/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60903 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60961 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60977 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60984 - "GET /api/trace/e92b426cd2864942 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61042 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61076 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61161 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61163 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61474 - "GET /api/trace/e92b426cd2864942 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62136 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62152 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62181 - "GET /api/trace/31c8e714baad4b0c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62186 - "GET /api/trace/9929f156dfc3489d HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62271 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62270 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63428 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63432 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63430 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63496 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63500 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63499 - "GET /api/dashboard HTTP/1.1" 200 OK

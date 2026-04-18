@@ -4,21 +4,13 @@
 
 [33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
 
-  VITE v5.4.21  ready in 385 ms
+  VITE v5.4.21  ready in 419 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: http://192.168.3.50:5173/
-  ➜  Network: http://192.168.0.146:5173/
-10:27:41 PM [vite] hmr update /src/views/Securities.vue
-10:36:08 PM [vite] hmr update /src/views/Securities.vue
-10:37:28 PM [vite] hmr update /src/views/Securities.vue
-10:37:43 PM [vite] hmr update /src/views/Securities.vue
-10:42:14 PM [vite] hmr update /src/views/Securities.vue
-10:45:25 PM [vite] hmr update /src/views/Securities.vue
-10:45:28 PM [vite] hmr update /src/views/Securities.vue
-10:46:40 PM [vite] hmr update /src/views/Securities.vue
-10:47:12 PM [vite] hmr update /src/views/Securities.vue
-10:47:22 PM [vite] hmr update /src/views/Securities.vue
-10:48:15 PM [vite] hmr update /src/views/Securities.vue?vue&type=style&index=0&scoped=5d62e2d1&lang.css
-10:48:52 PM [vite] hmr update /src/views/Securities.vue
-10:48:55 PM [vite] hmr update /src/views/Securities.vue
+  ➜  Network: http://192.168.0.54:5173/
+12:20:37 AM [vite] vite.config.js changed, restarting server...
+12:20:37 AM [vite] server restarted.
+12:20:45 AM [vite] page reload src/plugins/12:26:01 AM [vite] vite.config.js changed, restarting 12:26:01 A12:26:01 AM [vite] server restarted.
+arting server...
+12:26:01 AM [vite] server restarted.

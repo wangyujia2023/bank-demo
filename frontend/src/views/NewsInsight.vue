@@ -514,8 +514,14 @@ GROUP BY ai_sentiment</pre>
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue'
 import { ElMessage } from 'element-plus'
-import * as echarts from 'echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { PieChart, BarChart, RadarChart } from 'echarts/charts'
+import { GridComponent, TooltipComponent, LegendComponent, RadarComponent } from 'echarts/components'
+import * as echarts from 'echarts/core'
 import { newsApi } from '@/api'
+
+use([CanvasRenderer, PieChart, BarChart, RadarChart, GridComponent, TooltipComponent, LegendComponent, RadarComponent])
 
 const importing   = ref(false)
 const running     = ref('')

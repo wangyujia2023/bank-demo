@@ -1,17 +1,14 @@
 <template>
   <div class="mfg-wrap">
-
-    <!-- ① 架构图（默认折叠）-->
-    <div class="card collapse-card">
-      <div class="collapse-hd" @click="archOpen=!archOpen">
+    <CollapseCard v-model:open="archOpen">
+      <template #header-left>
         <span>🏭</span>
         <span class="ch-title">工厂数字孪生 · 全链路数据架构</span>
         <span class="badge blue">Apache Doris 4.0 HASP</span>
         <span class="badge green">Stream Load 实时写入</span>
         <span class="badge orange">50+ 维度指标</span>
-        <span class="ch-tog">{{ archOpen?'▲':'▼' }}</span>
-      </div>
-      <div v-show="archOpen" class="arch-body">
+      </template>
+      <div>
         <div class="arch-flow">
           <div class="arch-node sensor"><div class="ni">🏭</div><div class="nl">产线传感器</div><div class="ns">温度/震动/转速/电流</div></div>
           <div class="flow-pipe"><div class="flow-beam"></div></div>
@@ -54,17 +51,15 @@ DUPLICATE KEY(ts, machine_id)  DISTRIBUTED BY HASH(machine_id) BUCKETS 4</pre>
           </div>
         </div>
       </div>
-    </div>
+    </CollapseCard>
 
-    <!-- ② 控制台（默认折叠）-->
-    <div class="card collapse-card">
-      <div class="collapse-hd" @click="ctrlOpen=!ctrlOpen">
+    <CollapseCard v-model:open="ctrlOpen">
+      <template #header-left>
         <span class="sdot" :class="scriptColor"></span>
         <span class="ch-title">{{ statusText }}</span>
         <span v-if="ov&&!ov.empty" class="ch-sim">仿真时间 <b>{{ ov.last_ts }}</b> · 第 <b>{{ ov.current_step }}</b> 步</span>
-        <span class="ch-tog">{{ ctrlOpen?'▲':'▼' }}</span>
-      </div>
-      <div v-show="ctrlOpen" class="ctrl-body">
+      </template>
+      <div class="ctrl-body">
         <div class="ctrl-row">
           <el-button-group>
             <el-button type="primary" size="large" :loading="generating" @click="doGen(1)" style="min-width:90px">{{ generating?'生成中…':'⚡ +1步' }}</el-button>
@@ -76,7 +71,7 @@ DUPLICATE KEY(ts, machine_id)  DISTRIBUTED BY HASH(machine_id) BUCKETS 4</pre>
         </div>
         <div class="ctrl-hint">每步推进15分钟 · 自动演练每3秒生成1步 · 连续操作可完整观察黄金时段→疲劳→熔断→恢复全生命周期</div>
       </div>
-    </div>
+    </CollapseCard>
 
     <!-- ③ KPI 指标条 -->
     <div class="kpi-row" v-if="ov&&!ov.empty">
@@ -126,14 +121,14 @@ DUPLICATE KEY(ts, machine_id)  DISTRIBUTED BY HASH(machine_id) BUCKETS 4</pre>
               <div class="ms-section" v-for="sec in metricSections" :key="sec.title">
                 <div class="ms-title">{{ sec.title }}</div>
                 <div class="ms-grid">
-                  <div class="ms-item" v-for="it in sec.items" :key="it.label">
-                    <div class="mi-label">{{ it.label }}</div>
-                    <div class="mi-val" :class="it.cls||''">{{ it.val }}</div>
-                    <div class="mi-unit">{{ it.unit }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+	                  <div class="ms-item" v-for="it in sec.items" :key="it.label">
+	                    <div class="mi-label">{{ it.label }}</div>
+	                    <div class="mi-val" :class="it.cls||''">{{ it.val }}</div>
+	                    <div class="mi-unit">{{ it.unit }}</div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
 
             <!-- 设备趋势图 -->
             <div class="trend-title">近期运行趋势</div>
@@ -274,8 +269,15 @@ DUPLICATE KEY(ts, machine_id)  DISTRIBUTED BY HASH(machine_id) BUCKETS 4</pre>
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import * as echarts from 'echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart, BarChart } from 'echarts/charts'
+import { GridComponent, TooltipComponent, LegendComponent, MarkLineComponent } from 'echarts/components'
+import * as echarts from 'echarts/core'
 import { mfgApi } from '@/api'
+import CollapseCard from '@/components/common/CollapseCard.vue'
+
+use([CanvasRenderer, LineChart, BarChart, GridComponent, TooltipComponent, LegendComponent, MarkLineComponent])
 
 // ── 折叠 ──────────────────────────────────────────────
 const archOpen = ref(false)

@@ -1,14 +1,13 @@
 <template>
   <div class="sec-wrap">
-    <div class="card collapse-card">
-      <div class="collapse-hd" @click="archOpen = !archOpen">
+    <CollapseCard v-model:open="archOpen">
+      <template #header-left>
         <span>📈</span>
         <span class="ch-title">券商经营与风控 · Doris 实时数仓链路</span>
         <span class="badge green">UNIQUE KEY 严谨模型</span>
         <span class="badge orange">经纪 + 财富 + 两融</span>
-        <span class="ch-tog">{{ archOpen ? '▲' : '▼' }}</span>
-      </div>
-      <div v-show="archOpen" class="arch-body">
+      </template>
+      <div>
         <div class="arch-flow">
           <div class="arch-node"><div class="ni">🧾</div><div class="nl">委托成交</div><div class="ns">APP / 投顾终端 / 柜台</div></div>
           <div class="flow-pipe"><div class="flow-beam"></div></div>
@@ -42,7 +41,7 @@ sec_branch_metrics     UNIQUE KEY(ts,branch_id)      -- 营业部分钟经营指
           </div>
         </div>
       </div>
-    </div>
+    </CollapseCard>
 
     <div v-if="overview.empty" class="card empty-card">
       <div class="empty-icon">🏦</div>
@@ -227,6 +226,7 @@ import dayjs from 'dayjs'
 import { ElMessage } from 'element-plus'
 import VChart from 'vue-echarts'
 import { securitiesApi } from '@/api'
+import CollapseCard from '@/components/common/CollapseCard.vue'
 
 const archOpen = ref(false)
 const ctrlOpen = ref(true)
@@ -472,7 +472,7 @@ onMounted(loadAll)
   display: flex; align-items: center; gap: 8px; padding: 14px 16px; cursor: pointer;
   border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #303133;
 }
-.ch-title { font-size: 15px; font-weight: 700; color: #1f2937; }
+.ch-title { font-size: 15px; font-weight: 700; color: #1f2937; line-height: 1.6; padding: 2px 0; }
 .ch-tog { margin-left: auto; color: #909399; }
 .badge {
   font-size: 11px; padding: 3px 8px; border-radius: 999px; color: #fff;

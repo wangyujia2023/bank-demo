@@ -23,15 +23,23 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    try:
-        await get_pool()
-        logger.info("✅ Doris 连接池就绪")
-    except Exception as e:
-        logger.warning(f"⚠️ Doris 连接失败: {e}")
+    if settings.DB_WARMUP_ON_START:
+        try:
+            await get_pool()
+            logger.info("✅ Doris 连接池就绪")
+        except Exception as e:
+            logger.warning(f"⚠️ Doris 连接失败: {e}")
+    else:
+        logger.info("ℹ️ 跳过启动预热，Doris 连接池改为按需初始化")
 
-    start_writer()
+    if settings.TELEMETRY_ENABLED:
+        start_writer()
+        logger.info("✅ Telemetry writer 已启动")
+    else:
+        logger.info("ℹ️ Telemetry writer 已关闭")
     yield
-    stop_writer()
+    if settings.TELEMETRY_ENABLED:
+        stop_writer()
     await close_pool()
 
 
