@@ -224,22 +224,61 @@ class NewsService:
         """)
         return {"msg": "表已就绪（IF NOT EXISTS，数据保留）"}
 
-    # ── 导入模拟资讯（追加写入，不清除历史）────────────────
+    # ── 生成单条随机资讯（每次调用生成全新内容）──────────────
     async def import_news(self):
-        base_ts = datetime.now() - timedelta(hours=len(_RAW_NEWS))
-        rows = []
-        for i, n in enumerate(_RAW_NEWS):
-            ts = (base_ts + timedelta(hours=i)).strftime("%Y-%m-%d %H:%M:%S")
-            rows.append((
-                n["id"], ts, n["title"], n["content"],
-                n["source"], n["sector"],
-                None, 0, None, None, 0, None, 0, "PENDING"
-            ))
-        await execute_many(
-            "INSERT INTO news_article VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            rows
-        )
-        return {"msg": f"成功写入 {len(rows)} 条资讯到 Doris", "count": len(rows)}
+        import random
+        import uuid
+
+        sectors = ["半导体", "新能源", "消费", "医药", "金融", "军工", "宏观", "化工", "传媒"]
+        sources = ["财联社", "证券时报", "上海证券报", "中国证券报"]
+
+        # 随机生成新闻主题和内容
+        events = [
+            ("政策发布", "工信部宣布新一轮产业扶持政策"),
+            ("并购重组", "重点企业完成战略并购"),
+            ("财报亮眼", "三季度业绩超市场预期"),
+            ("技术突破", "自主创新取得重大进展"),
+            ("市场回暖", "行业景气度持续上升"),
+            ("风险预警", "需关注外部环境变化"),
+        ]
+
+        sector = random.choice(sectors)
+        source = random.choice(sources)
+        event_type, event_desc = random.choice(events)
+
+        # 动态生成标题和内容
+        title_templates = [
+            f"{sector}行业 {event_desc}，市场需关注后续发展",
+            f"要闻：{sector}板块 {event_type}，多家公司受益",
+            f"{sector}龙头企业 {event_desc}，产业格局可能重塑",
+            f"{source}快讯：{sector}投资机会显现",
+            f"深度：{event_desc}对{sector}的长期影响",
+        ]
+
+        content_templates = [
+            f"近日，{sector}相关{event_type}持续推进。{event_desc}，这对产业链上下游均形成利好支持。业内人士表示，该消息将深化市场对{sector}行业的认可，预计相关上市公司业绩有望获得显著改善。分析人士建议投资者关注相关龙头企业的后续表现。",
+            f"{sector}板块迎来新机遇。根据最新资讯，{event_desc}。专家认为这是产业升级的重要信号。随着政策持续推进，市场对{sector}行业的看好度明显提升。机构投资者正在密切跟踪相关标的的投资机会。",
+            f"时隔数月，{sector}行业再度成为市场焦点。{event_desc}显示，该行业发展动能依然强劲。投资者普遍看好后续表现，相关概念股有望受益。业内人士建议，把握{sector}行业的结构性机会，关注具有竞争力的上市公司。",
+        ]
+
+        title = random.choice(title_templates)
+        content = random.choice(content_templates)
+        article_id = f"N{str(uuid.uuid4())[:12].upper()}"
+        ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # 插入时不包含AI结果（留给 run_all_ai 函数处理）
+        await execute_write(f"""
+            INSERT INTO news_article
+            VALUES('{article_id}', '{ts}', '{title.replace("'", "''")}',
+                   '{content.replace("'", "''")}', '{source}', '{sector}',
+                   NULL, 0, NULL, NULL, 0, NULL, 0, 'PENDING')
+        """)
+        return {
+            "msg": f"✅ 已生成新资讯：{title[:50]}...",
+            "article_id": article_id,
+            "title": title,
+            "sector": sector,
+        }
 
     # ── 获取文章列表 ────────────────────────────────────────
     async def get_list(self, sector: str = None, sentiment: str = None, keyword: str = None):
@@ -377,26 +416,67 @@ WHERE {where}"""
 
     # ── 标签分析 ────────────────────────────────────────────
     async def get_tag_analysis(self):
-        rows = await execute_query("""
-            SELECT article_id, sector_tag, ai_sentiment, sentiment_score, ai_extract
-            FROM news_article
-            WHERE extracted = 1
-            QUALIFY ROW_NUMBER() OVER (PARTITION BY article_id ORDER BY publish_ts DESC) = 1
+        # 情感分布（SQL聚合，避免Python遍历）
+        stats = await execute_query("""
+            SELECT ai_sentiment, COUNT(*) AS cnt
+            FROM (
+                SELECT article_id, ai_sentiment
+                FROM news_article
+                WHERE extracted = 1
+                QUALIFY ROW_NUMBER() OVER (PARTITION BY article_id ORDER BY publish_ts DESC) = 1
+            ) t
+            GROUP BY ai_sentiment
         """) or []
+        sentiment_dist = {(r.get("ai_sentiment") or "neutral"): r.get("cnt", 0) for r in stats}
 
-        sentiment_dist = {}
+        # 板块×情感分布
+        sector_stats = await execute_query("""
+            SELECT sector_tag, ai_sentiment, COUNT(*) AS cnt
+            FROM (
+                SELECT article_id, sector_tag, ai_sentiment
+                FROM news_article
+                WHERE extracted = 1
+                QUALIFY ROW_NUMBER() OVER (PARTITION BY article_id ORDER BY publish_ts DESC) = 1
+            ) t
+            GROUP BY sector_tag, ai_sentiment
+        """) or []
         sector_sentiment = {}
-        tag_freq = {}
-
-        for r in rows:
-            s = r.get("ai_sentiment") or "neutral"
-            sentiment_dist[s] = sentiment_dist.get(s, 0) + 1
+        for r in sector_stats:
             sec = r.get("sector_tag") or "其他"
+            sent = r.get("ai_sentiment") or "neutral"
             if sec not in sector_sentiment:
                 sector_sentiment[sec] = {"positive": 0, "negative": 0, "neutral": 0, "mixed": 0, "total": 0}
-            sector_sentiment[sec][s] = sector_sentiment[sec].get(s, 0) + 1
-            sector_sentiment[sec]["total"] += 1
+            sector_sentiment[sec][sent] = r.get("cnt", 0)
+            sector_sentiment[sec]["total"] += r.get("cnt", 0)
 
+        # 分值分布：后端计算（避免前端遍历）
+        score_buckets = [0] * 10
+        score_rows = await execute_query("""
+            SELECT sentiment_score
+            FROM (
+                SELECT article_id, sentiment_score
+                FROM news_article
+                WHERE extracted = 1 AND sentiment_score IS NOT NULL
+                QUALIFY ROW_NUMBER() OVER (PARTITION BY article_id ORDER BY publish_ts DESC) = 1
+            ) t
+        """) or []
+        for r in score_rows:
+            score = r.get("sentiment_score") or 0
+            idx = min(int((score + 100) / 20), 9)
+            score_buckets[idx] += 1
+
+        # 标签频率
+        rows = await execute_query("""
+            SELECT ai_extract
+            FROM (
+                SELECT article_id, ai_extract
+                FROM news_article
+                WHERE extracted = 1
+                QUALIFY ROW_NUMBER() OVER (PARTITION BY article_id ORDER BY publish_ts DESC) = 1
+            ) t
+        """) or []
+        tag_freq = {}
+        for r in rows:
             ex = r.get("ai_extract")
             if ex:
                 data = _parse_extract(ex)
@@ -413,6 +493,7 @@ WHERE {where}"""
             "sentiment_dist": sentiment_dist,
             "sector_sentiment": sector_sentiment,
             "top_tags": [{"tag": k, "freq": v} for k, v in top_tags],
+            "score_buckets": score_buckets,  # 后端返回，前端无需计算
             "total": len(rows),
         }
 
@@ -520,6 +601,80 @@ WHERE {where}"""
         ]
         result.sort(key=lambda x: -x["count"])
         return result[:20]
+
+    # ── 手动添加资讯（用户自定义内容）──────────────────────
+    async def add_manual_news(self, title: str, content: str, source: str, sector: str):
+        """手动添加一条资讯，不包含AI结果"""
+        import uuid
+        article_id = f"M{str(uuid.uuid4())[:12].upper()}"  # M 前缀表示手动添加
+        ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        await execute_write(f"""
+            INSERT INTO news_article
+            VALUES('{article_id}', '{ts}', '{title.replace("'", "''")}',
+                   '{content.replace("'", "''")}', '{source}', '{sector}',
+                   NULL, 0, NULL, NULL, 0, NULL, 0, 'MANUAL')
+        """)
+        return {
+            "msg": f"✅ 已添加手动资讯：{title[:40]}...",
+            "article_id": article_id,
+            "title": title,
+            "sector": sector,
+        }
+
+    # ── 3合1：一键运行所有AI分析（仅更新未完成数据）────────
+    async def run_all_ai(self):
+        """依次运行 AI_SUMMARIZE → AI_SENTIMENT → AI_EXTRACT"""
+        results = []
+        labels_sql = "ARRAY(" + ",".join(f"'{l}'" for l in _EXTRACT_LABELS) + ")"
+
+        # Step 1: AI_SUMMARIZE（未概括的）
+        r1 = await execute_write(f"""
+            UPDATE news_article
+            SET ai_summary = AI_SUMMARIZE('{_LLM}', content),
+                summarized  = 1,
+                ai_method   = 'DORIS_AI_FUNCTION'
+            WHERE summarized = 0
+        """)
+        results.append(f"AI_SUMMARIZE: 处理 {r1} 篇")
+
+        # Step 2: AI_SENTIMENT（未分析情感的）
+        r2 = await execute_write(f"""
+            UPDATE news_article
+            SET ai_sentiment  = AI_SENTIMENT('{_LLM}', content),
+                sentiment_done = 1,
+                ai_method      = 'DORIS_AI_FUNCTION'
+            WHERE sentiment_done = 0
+        """)
+        results.append(f"AI_SENTIMENT: 处理 {r2} 篇")
+
+        # Step 2b: 映射情感分数
+        await execute_write("""
+            UPDATE news_article
+            SET sentiment_score = CASE ai_sentiment
+                WHEN 'positive' THEN  60
+                WHEN 'negative' THEN -60
+                WHEN 'mixed'    THEN  15
+                ELSE 0
+            END
+            WHERE sentiment_done = 1 AND sentiment_score IS NULL
+        """)
+
+        # Step 3: AI_EXTRACT（未提取标签的）
+        r3 = await execute_write(f"""
+            UPDATE news_article
+            SET ai_extract = AI_EXTRACT('{_LLM}', content, {labels_sql}),
+                extracted = 1,
+                ai_method = 'DORIS_AI_FUNCTION'
+            WHERE extracted = 0
+        """)
+        results.append(f"AI_EXTRACT: 处理 {r3} 篇")
+
+        return {
+            "msg": "✅ AI 分析完成！" + " | ".join(results),
+            "details": results,
+            "total_processed": r1 + r2 + r3,
+        }
 
     # ── 内部工具 ────────────────────────────────────────────
     def _build_where(self, flag: str, val: int, ids: list = None) -> str:

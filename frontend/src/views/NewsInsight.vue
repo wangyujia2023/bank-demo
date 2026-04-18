@@ -13,19 +13,15 @@
       <div class="ai-actions">
         <el-button class="ai-btn import-btn" :loading="importing" @click="doImport">
           <span class="fn-name">📥 导入资讯</span>
-          <span class="fn-desc">写入 25 条模拟数据</span>
+          <span class="fn-desc">生成 1 条随机新闻</span>
         </el-button>
-        <el-button class="ai-btn summarize" :loading="running==='summarize'" :disabled="!canRun" @click="runAI('summarize')">
-          <span class="fn-name">AI_SUMMARIZE</span>
-          <span class="fn-desc">文本概括</span>
+        <el-button class="ai-btn import-btn" @click="showAddDialog">
+          <span class="fn-name">✏️ 手动添加</span>
+          <span class="fn-desc">自定义资讯内容</span>
         </el-button>
-        <el-button class="ai-btn sentiment" :loading="running==='sentiment'" :disabled="!canRun" @click="runAI('sentiment')">
-          <span class="fn-name">AI_SENTIMENT</span>
-          <span class="fn-desc">情感分析</span>
-        </el-button>
-        <el-button class="ai-btn extract" :loading="running==='extract'" :disabled="!canRun" @click="runAI('extract')">
-          <span class="fn-name">AI_EXTRACT</span>
-          <span class="fn-desc">标签提取</span>
+        <el-button class="ai-btn run-all" :loading="running==='all'" :disabled="!canRun" @click="runAllAI">
+          <span class="fn-name">🚀 运行 AI 分析</span>
+          <span class="fn-desc">SUMMARIZE + SENTIMENT + EXTRACT</span>
         </el-button>
       </div>
     </div>
@@ -66,6 +62,36 @@
       <div class="sql-dialog-tip">⚡ 该 SQL 在 Doris 引擎内部直接调用 AI Function，数据无需离开数据库</div>
     </el-dialog>
 
+    <!-- 手动添加资讯对话框 -->
+    <el-dialog v-model="addDialogVisible" title="手动添加资讯" width="600px" @close="resetAddForm">
+      <el-form :model="addForm" label-width="80px">
+        <el-form-item label="标题" required>
+          <el-input v-model="addForm.title" placeholder="输入资讯标题" maxlength="100" show-word-limit />
+        </el-form-item>
+        <el-form-item label="内容" required>
+          <el-input v-model="addForm.content" type="textarea" placeholder="输入资讯内容" rows="5" maxlength="1000" show-word-limit />
+        </el-form-item>
+        <el-form-item label="来源" required>
+          <el-select v-model="addForm.source" placeholder="选择或输入来源">
+            <el-option label="财联社" value="财联社" />
+            <el-option label="证券时报" value="证券时报" />
+            <el-option label="上海证券报" value="上海证券报" />
+            <el-option label="中国证券报" value="中国证券报" />
+            <el-option label="其他" value="其他" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="板块" required>
+          <el-select v-model="addForm.sector" placeholder="选择板块">
+            <el-option v-for="s in sectors" :key="s" :label="s" :value="s" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="addDialogVisible = false">取消</el-button>
+        <el-button type="primary" :loading="adding" @click="doAddManual">添加</el-button>
+      </template>
+    </el-dialog>
+
     <!-- 主区域：始终渲染，6 个顶层 Tab -->
     <div class="main-area">
       <el-tabs v-model="activeTab" @tab-click="onTab" class="top-tabs">
@@ -73,10 +99,24 @@
         <!-- ── Tab1: 资讯列表 ── -->
         <el-tab-pane label="📰 资讯列表" name="articles">
           <div v-if="!stats.total" class="tab-empty">
-            <div style="font-size:40px;margin-bottom:10px">📰</div>
-            <div style="font-size:14px;font-weight:600;margin-bottom:6px">暂无资讯数据</div>
-            <div style="font-size:12px;color:#909399;margin-bottom:14px">点击上方「📥 导入资讯」写入 25 条模拟金融资讯</div>
-            <el-button type="primary" :loading="importing" @click="doImport">📥 立即导入</el-button>
+            <div style="font-size:48px;margin-bottom:12px">📰</div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:8px;color:#1a1a1a">资讯 AI 分析平台</div>
+            <div style="font-size:13px;color:#606266;margin-bottom:20px;line-height:1.6">
+              <div>工作流程：</div>
+              <div style="margin-top:8px;padding-left:16px">
+                <div>1️⃣ 点击「📥 导入资讯」生成1条随机新闻</div>
+                <div>2️⃣ 点击「🚀 运行 AI 分析」执行：</div>
+                <div style="margin-left:16px;margin-top:4px">
+                  <div>• AI_SUMMARIZE — 文本摘要</div>
+                  <div>• AI_SENTIMENT — 情感分析与评分</div>
+                  <div>• AI_EXTRACT — 标签提取（事件、公司、板块）</div>
+                </div>
+                <div style="margin-top:8px">3️⃣ 查看各标签页的分析结果：情感全景、标签分析、板块指标、投资信号等</div>
+              </div>
+            </div>
+            <el-button type="primary" size="large" :loading="importing" @click="doImport" style="font-size:14px;padding:8px 32px">
+              📥 {{ importing ? '生成中...' : '生成随机资讯' }}
+            </el-button>
           </div>
           <div v-else class="article-layout">
             <!-- 左：列表 -->
@@ -479,9 +519,12 @@ import { newsApi } from '@/api'
 
 const importing   = ref(false)
 const running     = ref('')
+const adding      = ref(false)
 const sqlVisible  = ref(false)
 const lastSql     = ref('')
 const activeTab   = ref('articles')
+const addDialogVisible = ref(false)
+const addForm     = ref({ title: '', content: '', source: '财联社', sector: '半导体' })
 
 const stats      = ref({ total: 0, summarized: 0, sentiment_done: 0, extracted: 0 })
 const articles   = ref([])
@@ -583,31 +626,67 @@ async function doImport() {
   try {
     await newsApi.init()
     const r = await newsApi.import()
-    ElMessage.success(r.msg || '导入成功')
+    ElMessage.success(r.msg)
     await loadAll()
-  } catch (e) { ElMessage.error('导入失败') }
+    loadTagData()
+    loadMetrics()
+    loadSignals()
+  } catch (e) {
+    console.error(e)
+    ElMessage.error('导入失败：' + (e.message || '未知错误'))
+  }
   finally { importing.value = false }
 }
 
-async function runAI(mode, ids = null) {
-  running.value = mode
+async function runAllAI() {
+  running.value = 'all'
   try {
-    let r
-    if (mode === 'summarize') r = await newsApi.summarize(ids)
-    else if (mode === 'sentiment') r = await newsApi.sentiment(ids)
-    else r = await newsApi.extract(ids)
+    const r = await newsApi.runAllAI()
     ElMessage.success(r.msg)
     if (r.sql) lastSql.value = r.sql
     await loadAll()
+    // 重新加载所有图表数据
+    await Promise.all([loadTagData(), loadMetrics(), loadSignals()])
+    // 更新当前选中的文章
     if (selId.value) {
       const found = articles.value.find(a => a.article_id === selId.value)
       if (found) selArticle.value = found
     }
-    if (activeTab.value === 'sentiment' || activeTab.value === 'tags') await loadTagData()
-    if (activeTab.value === 'metrics') await loadMetrics()
-    if (activeTab.value === 'signals') await loadSignals()
-  } catch (e) { ElMessage.error('AI 分析失败') }
+  } catch (e) {
+    console.error(e)
+    ElMessage.error('AI 分析失败：' + (e.message || '未知错误'))
+  }
   finally { running.value = '' }
+}
+
+function showAddDialog() {
+  addDialogVisible.value = true
+}
+
+function resetAddForm() {
+  addForm.value = { title: '', content: '', source: '财联社', sector: '半导体' }
+}
+
+async function doAddManual() {
+  if (!addForm.value.title || !addForm.value.content || !addForm.value.source || !addForm.value.sector) {
+    ElMessage.warning('请填写所有字段')
+    return
+  }
+  adding.value = true
+  try {
+    const r = await newsApi.addManual(addForm.value.title, addForm.value.content, addForm.value.source, addForm.value.sector)
+    ElMessage.success(r.msg)
+    addDialogVisible.value = false
+    resetAddForm()
+    await loadAll()
+    loadTagData()
+    loadMetrics()
+    loadSignals()
+  } catch (e) {
+    console.error(e)
+    ElMessage.error('添加失败：' + (e.message || '未知错误'))
+  }
+  finally { adding.value = false }
 }
 
 async function loadAll() {
@@ -683,6 +762,8 @@ const SENT_LABELS = { positive: '正面', negative: '负面', neutral: '中性',
 function renderSentimentCharts() {
   if (!tagData.value) return
   const dist = tagData.value.sentiment_dist || {}
+
+  // 第一个图表：立即渲染
   const c1 = initChart(sentPieChart, 'sentpie')
   if (c1) c1.setOption({
     tooltip: { trigger: 'item', formatter: '{b}: {c}条 ({d}%)' },
@@ -692,40 +773,43 @@ function renderSentimentCharts() {
       label: { fontSize: 11 },
     }],
   })
-  const secSent = tagData.value.sector_sentiment || {}
-  const secs = Object.keys(secSent)
-  const c2 = initChart(sentSecChart, 'sentsec')
-  if (c2) c2.setOption({
-    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-    legend: { top: 0, textStyle: { fontSize: 10 } },
-    grid: { top: 28, bottom: 60, left: 56, right: 16 },
-    xAxis: { type: 'category', data: secs, axisLabel: { rotate: 30, fontSize: 9 } },
-    yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
-    series: ['positive', 'negative', 'neutral', 'mixed'].map(s => ({
-      name: SENT_LABELS[s], type: 'bar', stack: 's',
-      data: secs.map(sec => secSent[sec]?.[s] || 0),
-      itemStyle: { color: SENT_COLORS[s] },
-    })),
-  })
-  const allRows = articles.value.filter(a => a.sentiment_score !== null && a.sentiment_score !== undefined)
-  const buckets = Array(10).fill(0)
-  allRows.forEach(a => {
-    const idx = Math.min(Math.floor((Number(a.sentiment_score) + 100) / 20), 9)
-    buckets[idx]++
-  })
-  const c3 = initChart(scoreChart, 'score')
-  if (c3) c3.setOption({
-    tooltip: { trigger: 'axis' },
-    grid: { top: 18, bottom: 32, left: 40, right: 16 },
-    xAxis: { type: 'category', data: ['-100', '-80', '-60', '-40', '-20', '0', '+20', '+40', '+60', '+80'], axisLabel: { fontSize: 9 } },
-    yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
-    series: [{ type: 'bar', data: buckets.map((v, i) => ({ value: v, itemStyle: { color: i < 5 ? '#67c23a' : '#f56c6c' } })) }],
+
+  // 第二、三个图表：延迟渲染（避免UI阻塞）
+  requestAnimationFrame(() => {
+    const secSent = tagData.value.sector_sentiment || {}
+    const secs = Object.keys(secSent)
+    const c2 = initChart(sentSecChart, 'sentsec')
+    if (c2) c2.setOption({
+      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+      legend: { top: 0, textStyle: { fontSize: 10 } },
+      grid: { top: 28, bottom: 60, left: 56, right: 16 },
+      xAxis: { type: 'category', data: secs, axisLabel: { rotate: 30, fontSize: 9 } },
+      yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
+      series: ['positive', 'negative', 'neutral', 'mixed'].map(s => ({
+        name: SENT_LABELS[s], type: 'bar', stack: 's',
+        data: secs.map(sec => secSent[sec]?.[s] || 0),
+        itemStyle: { color: SENT_COLORS[s] },
+      })),
+    })
+
+    // 分值分布：直接用后端计算的 score_buckets（不再遍历）
+    const buckets = tagData.value.score_buckets || Array(10).fill(0)
+    const c3 = initChart(scoreChart, 'score')
+    if (c3) c3.setOption({
+      tooltip: { trigger: 'axis' },
+      grid: { top: 18, bottom: 32, left: 40, right: 16 },
+      xAxis: { type: 'category', data: ['-100', '-80', '-60', '-40', '-20', '0', '+20', '+40', '+60', '+80'], axisLabel: { fontSize: 9 } },
+      yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
+      series: [{ type: 'bar', data: buckets.map((v, i) => ({ value: v, itemStyle: { color: i < 5 ? '#67c23a' : '#f56c6c' } })) }],
+    })
   })
 }
 
 function renderTagCharts() {
   if (!tagData.value) return
   const topTags = tagData.value.top_tags || []
+
+  // 第一个图表：立即渲染
   const typeMap = {}
   topTags.forEach(t => { const type = t.tag.split(':')[0]; typeMap[type] = (typeMap[type] || 0) + t.freq })
   const c1 = initChart(tagTypeChart, 'tagtype')
@@ -737,21 +821,25 @@ function renderTagCharts() {
       label: { fontSize: 10 },
     }],
   })
-  const impactMap = {}
-  topTags.filter(t => t.tag.startsWith('市场影响方向:')).forEach(t => {
-    const v = t.tag.split(':')[1]
-    impactMap[v] = (impactMap[v] || 0) + t.freq
-  })
-  const c2 = initChart(impactChart, 'impact')
-  if (c2) c2.setOption({
-    tooltip: { trigger: 'axis' },
-    grid: { top: 18, bottom: 40, left: 56, right: 16 },
-    xAxis: { type: 'category', data: Object.keys(impactMap), axisLabel: { fontSize: 10 } },
-    yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
-    series: [{ type: 'bar',
-      data: Object.entries(impactMap).map(([k, v]) => ({ value: v, itemStyle: { color: k === '利好' ? '#f56c6c' : k === '利空' ? '#67c23a' : k === '分化' ? '#e6a23c' : '#909399' } })),
-      label: { show: true, position: 'top', fontSize: 10 },
-    }],
+
+  // 第二个图表：延迟渲染
+  requestAnimationFrame(() => {
+    const impactMap = {}
+    topTags.filter(t => t.tag.startsWith('市场影响方向:')).forEach(t => {
+      const v = t.tag.split(':')[1]
+      impactMap[v] = (impactMap[v] || 0) + t.freq
+    })
+    const c2 = initChart(impactChart, 'impact')
+    if (c2) c2.setOption({
+      tooltip: { trigger: 'axis' },
+      grid: { top: 18, bottom: 40, left: 56, right: 16 },
+      xAxis: { type: 'category', data: Object.keys(impactMap), axisLabel: { fontSize: 10 } },
+      yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
+      series: [{ type: 'bar',
+        data: Object.entries(impactMap).map(([k, v]) => ({ value: v, itemStyle: { color: k === '利好' ? '#f56c6c' : k === '利空' ? '#67c23a' : k === '分化' ? '#e6a23c' : '#909399' } })),
+        label: { show: true, position: 'top', fontSize: 10 },
+      }],
+    })
   })
 }
 
@@ -841,12 +929,8 @@ onMounted(async () => {
 .ai-btn .fn-desc { font-size:10px; margin-top:1px; opacity:.75; }
 .ai-btn.import-btn { border-color:#606266; color:#606266; }
 .ai-btn.import-btn:hover { background:#f4f4f5; }
-.ai-btn.summarize { border-color:#409eff; color:#409eff; }
-.ai-btn.summarize:hover { background:#ecf5ff; }
-.ai-btn.sentiment { border-color:#67c23a; color:#67c23a; }
-.ai-btn.sentiment:hover { background:#f0f9eb; }
-.ai-btn.extract   { border-color:#e6a23c; color:#e6a23c; }
-.ai-btn.extract:hover { background:#fdf6ec; }
+.ai-btn.run-all { border-color:#ff6b00; color:#ff6b00; }
+.ai-btn.run-all:hover { background:#fff0e6; }
 
 /* 进度 */
 .progress-bar { display:flex; align-items:center; gap:16px; padding:12px 20px; }

@@ -756,6 +756,16 @@ async def news_init():
 async def news_import():
     return await news_svc.import_news()
 
+class NewsAddRequest(BaseModel):
+    title: str
+    content: str
+    source: str
+    sector: str
+
+@router.post("/news/add-manual")
+async def news_add_manual(req: NewsAddRequest):
+    return await news_svc.add_manual_news(req.title, req.content, req.source, req.sector)
+
 @router.get("/news/list")
 async def news_list(sector: str = None, sentiment: str = None, keyword: str = None):
     return await news_svc.get_list(sector, sentiment, keyword)
@@ -798,6 +808,10 @@ async def news_signals():
 @router.get("/news/hot-companies")
 async def news_hot_companies():
     return await news_svc.get_hot_companies()
+
+@router.post("/news/run-all-ai")
+async def news_run_all_ai():
+    return await news_svc.run_all_ai()
 
 
 @router.get("/satellite/overview")
