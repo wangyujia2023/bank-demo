@@ -96,7 +96,6 @@
 import { ref, computed, onMounted } from 'vue'
 import VChart from 'vue-echarts'
 import { dashboardApi, userApi } from '@/api'
-import dayjs from 'dayjs'
 import { cachedRequest } from '@/utils/cache'
 // ✅ ECharts 已在 plugins/echarts.js 中全局导入，无需重复
 

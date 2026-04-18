@@ -82,47 +82,88 @@ class TagAnalysisService:
         return rows
 
     async def risk_tag_analysis(self):
-        """风险标签关联的用户异常统计"""
+        """风险标签关联的用户异常统计
+        优化：单次查询 + 内存计算（而非N次标签循环查询）
+        """
         risk_tags = [t["tag"] for t in KNOWN_TAGS if t["risk"]]
+
+        # 一次查询取全量数据
+        all_users = await execute_query(
+            "SELECT log_tags, anomaly_flag, aum_total, churn_prob FROM user_wide "
+            "WHERE log_tags IS NOT NULL AND log_tags != ''"
+        )
+
+        # 内存中按风险标签分组统计
+        tag_stats = {tag: {"total": 0, "anomaly": 0, "aum_sum": 0, "churn_sum": 0}
+                     for tag in risk_tags}
+
+        for user in all_users:
+            tags_str = user.get("log_tags", "")
+            anomaly = int(user.get("anomaly_flag") or 0)
+            aum = float(user.get("aum_total") or 0)
+            churn = float(user.get("churn_prob") or 0)
+
+            for tag in risk_tags:
+                if tag in tags_str:
+                    tag_stats[tag]["total"] += 1
+                    tag_stats[tag]["anomaly"] += anomaly
+                    tag_stats[tag]["aum_sum"] += aum
+                    tag_stats[tag]["churn_sum"] += churn
+
+        # 转换为响应格式
         rows = []
         for tag in risk_tags:
-            r = await execute_one(f"""
-                SELECT
-                    '{tag}' AS tag_name,
-                    COUNT(*) AS total_users,
-                    SUM(anomaly_flag) AS anomaly_users,
-                    ROUND(AVG(aum_total), 1) AS avg_aum,
-                    ROUND(AVG(churn_prob) * 100, 1) AS avg_churn_pct
-                FROM user_wide
-                WHERE log_tags LIKE '%{tag}%'
-            """)
-            if r:
-                r["color"] = TAG_META[tag]["color"]
-                r["total_users"] = int(r.get("total_users") or 0)
-                r["anomaly_users"] = int(r.get("anomaly_users") or 0)
-                r["avg_aum"] = float(r.get("avg_aum") or 0)
-                r["avg_churn_pct"] = float(r.get("avg_churn_pct") or 0)
-                rows.append(r)
+            stat = tag_stats[tag]
+            total = stat["total"]
+            if total > 0:
+                rows.append({
+                    "tag_name": tag,
+                    "color": TAG_META[tag]["color"],
+                    "total_users": total,
+                    "anomaly_users": stat["anomaly"],
+                    "avg_aum": round(stat["aum_sum"] / total, 1),
+                    "avg_churn_pct": round(stat["churn_sum"] / total * 100, 1)
+                })
         return rows
 
     async def tag_asset_cross(self):
-        """各标签下的资产等级分布（交叉分析）"""
+        """各标签下的资产等级分布（交叉分析）
+        优化：单次查询 + 内存计算（而非12次标签循环查询）
+        """
+        # 一次查询取全量数据
+        all_users = await execute_query(
+            "SELECT log_tags, asset_level FROM user_wide "
+            "WHERE log_tags IS NOT NULL AND log_tags != ''"
+        )
+
+        # 内存中按标签和资产等级分组统计
+        tag_asset_dist = {}
+        for tag in TAG_NAMES:
+            tag_asset_dist[tag] = {}
+
+        for user in all_users:
+            tags_str = user.get("log_tags", "")
+            asset_level = user.get("asset_level", "未分类")
+
+            for tag in TAG_NAMES:
+                if tag in tags_str:
+                    tag_asset_dist[tag][asset_level] = tag_asset_dist[tag].get(asset_level, 0) + 1
+
+        # 转换为响应格式
         rows = []
         for t in KNOWN_TAGS:
             tag = t["tag"]
-            dist = await execute_query(f"""
-                SELECT asset_level, COUNT(*) AS cnt
-                FROM user_wide
-                WHERE log_tags LIKE '%{tag}%'
-                GROUP BY asset_level
-                ORDER BY cnt DESC
-            """)
+            dist = tag_asset_dist.get(tag, {})
             if dist:
+                asset_dist = sorted(
+                    [{"level": level, "cnt": cnt} for level, cnt in dist.items()],
+                    key=lambda x: -x["cnt"]
+                )
                 rows.append({
                     "tag_name": tag,
                     "category": t["category"],
                     "color": t["color"],
-                    "asset_dist": [{"level": d["asset_level"], "cnt": int(d["cnt"])} for d in dist]
+                    "asset_dist": asset_dist
                 })
         return rows
 
@@ -192,15 +233,33 @@ class TagAnalysisService:
         }
 
     async def tag_cooccurrence(self):
-        """标签共现矩阵（两两同时出现的用户数）"""
-        matrix = []
-        for i, t1 in enumerate(KNOWN_TAGS):
-            for t2 in KNOWN_TAGS[i + 1:]:
-                r = await execute_one(
-                    f"SELECT COUNT(*) AS cnt FROM user_wide "
-                    f"WHERE log_tags LIKE '%{t1['tag']}%' AND log_tags LIKE '%{t2['tag']}%'"
-                )
-                cnt = int(r["cnt"]) if r else 0
-                if cnt > 0:
-                    matrix.append({"tag_a": t1["tag"], "tag_b": t2["tag"], "count": cnt})
+        """标签共现矩阵（两两同时出现的用户数）
+        优化：一次查询取全量数据，内存计算共现矩阵（而非66次单独查询）
+        """
+        # 单次查询获取所有用户的标签数据
+        rows = await execute_query("SELECT user_id, log_tags FROM user_wide WHERE log_tags IS NOT NULL")
+
+        # 解析每个用户的标签集合
+        user_tags = {}
+        for r in rows:
+            tags_str = r.get("log_tags", "")
+            if not tags_str:
+                continue
+            # 检查该用户有哪些标签
+            user_tags[r["user_id"]] = [t["tag"] for t in KNOWN_TAGS if t["tag"] in tags_str]
+
+        # 内存中计算两两共现数
+        cooccurrence = {}
+        for user_id, tags in user_tags.items():
+            # 对于该用户的每一对标签组合，计数器 +1
+            for i, tag1 in enumerate(tags):
+                for tag2 in tags[i + 1:]:
+                    key = tuple(sorted([tag1, tag2]))  # 标准化排序，避免重复计数
+                    cooccurrence[key] = cooccurrence.get(key, 0) + 1
+
+        # 转换为响应格式
+        matrix = [
+            {"tag_a": k[0], "tag_b": k[1], "count": v}
+            for k, v in cooccurrence.items() if v > 0
+        ]
         return sorted(matrix, key=lambda x: -x["count"])

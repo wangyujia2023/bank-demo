@@ -4,8 +4,8 @@
  */
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, PieChart, BarChart, GaugeChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent, TitleComponent } from 'echarts/components'
+import { LineChart, PieChart, BarChart } from 'echarts/charts'
+import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 
 // 注册所有需要的组件（全局只做一次）
 use([
@@ -13,9 +13,7 @@ use([
   LineChart,
   PieChart,
   BarChart,
-  GaugeChart,
   GridComponent,
   TooltipComponent,
-  LegendComponent,
-  TitleComponent
+  LegendComponent
 ])

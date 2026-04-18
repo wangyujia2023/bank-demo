@@ -21,5 +21,4 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 echo "✅ 依赖安装完成！"
-echo "▶️  启动后端: uvicorn backend.app:app --reload"
-echo "▶️  启动前端: cd frontend && npm run dev"
+echo "▶️  推荐启动: bash start_all.sh"

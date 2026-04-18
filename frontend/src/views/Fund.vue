@@ -354,8 +354,18 @@ GROUP BY a.fund_id, b.fund_id</pre>
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import * as echarts from 'echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart, BarChart, PieChart, RadarChart, ScatterChart, HeatmapChart } from 'echarts/charts'
+import { GridComponent, TooltipComponent, LegendComponent, RadarComponent, VisualMapComponent, MarkLineComponent } from 'echarts/components'
+import * as echarts from 'echarts/core'
 import { fundApi } from '@/api'
+
+use([
+  CanvasRenderer,
+  LineChart, BarChart, PieChart, RadarChart, ScatterChart, HeatmapChart,
+  GridComponent, TooltipComponent, LegendComponent, RadarComponent, VisualMapComponent, MarkLineComponent
+])
 
 // ── 折叠 ─────────────────────────────────────────────────
 const archOpen = ref(false)

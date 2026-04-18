@@ -1,16 +1,11 @@
-import asyncio
-import json
-import base64
 import logging
 import re as _re
 import time as _time
 import uuid as _uuid
 from contextlib import asynccontextmanager
-from datetime import datetime as _dt
 from typing import Dict, List, Optional
 
 import aiomysql
-import httpx
 
 from backend.settings import settings
 from backend.telemetry.collector import emit_span, get_trace_id, get_trace_start
@@ -26,8 +21,8 @@ async def get_pool() -> aiomysql.Pool:
         _pool = await aiomysql.create_pool(
             host=settings.DORIS_HOST, port=settings.DORIS_PORT,
             user=settings.DORIS_USER, password=settings.DORIS_PASSWORD,
-            db=settings.DORIS_DATABASE, charset="utf8mb4",
-            minsize=5, connect_timeout=10,
+            db=settings.DORIS_DATABASE,
+            connect_timeout=100,
         )
     return _pool
 
@@ -120,47 +115,6 @@ async def execute_many(sql: str, args_list: List[tuple]) -> int:
     except Exception as e:
         logger.warning(f"execute_many: {e}")
         return 0
-
-
-# ── Stream Load ───────────────────────────────────────────────────
-async def stream_load(table: str, data: List[Dict],
-                      columns: Optional[List[str]] = None,
-                      label: Optional[str] = None) -> Dict:
-    if not data:
-        return {"Status": "Success", "NumberLoadedRows": 0}
-    if columns is None:
-        columns = list(data[0].keys())
-    lines = []
-    for row in data:
-        vals = []
-        for col in columns:
-            val = row.get(col, "")
-            if val is None: val = "\\N"
-            elif isinstance(val, (dict, list)): val = json.dumps(val, ensure_ascii=False)
-            vals.append(str(val))
-        lines.append("\t".join(vals))
-    content = "\n".join(lines)
-    url = (f"http://{settings.DORIS_HOST}:{settings.DORIS_HTTP_PORT}"
-           f"/api/{settings.DORIS_DATABASE}/{table}/_stream_load")
-    auth = base64.b64encode(f"{settings.DORIS_USER}:{settings.DORIS_PASSWORD}".encode()).decode()
-    import time
-    load_label = label or f"cdp_{table}_{int(time.time() * 1000)}"
-    headers = {
-        "Authorization": f"Basic {auth}", "Expect": "100-continue",
-        "label": load_label, "column_separator": "\t",
-        "columns": ",".join(columns), "format": "CSV",
-        "max_filter_ratio": "0.01", "enable_profile": "false", "strict_mode": "false",
-    }
-    async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
-        resp = await client.put(url, content=content.encode("utf-8"), headers=headers)
-        result = resp.json()
-        if result.get("Status") not in ("Success", "Publish Timeout"):
-            logger.error(f"Stream Load 失败: {result}")
-        return result
-
-
-async def call_ai_function(prompt_sql: str) -> List[Dict]:
-    return await execute_query(prompt_sql)
 
 
 async def ping() -> bool:
