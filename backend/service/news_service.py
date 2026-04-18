@@ -6,12 +6,42 @@
   AI_EXTRACT  ('qwen_llm', content, ARRAY(...))
 """
 import json
+import re
 from datetime import datetime, timedelta
 from backend.doris.connect import execute_query, execute_write, execute_many
 
 _LLM = "qwen_llm"
 
 _EXTRACT_LABELS = ["事件类型", "影响板块", "关键政策或技术", "核心公司", "市场影响方向"]
+
+
+def _parse_extract(ex):
+    """兼容 JSON 和 Doris AI_EXTRACT 返回的 key=value 格式
+    示例: 事件类型=政策发布,影响板块=半导体板块,核心公司=中芯国际、北方华创
+    """
+    if not ex:
+        return {}
+    if isinstance(ex, dict):
+        return ex
+    ex = str(ex).strip()
+    # 尝试 JSON
+    if ex.startswith('{'):
+        try:
+            return json.loads(ex)
+        except Exception:
+            pass
+    # 解析 key=value 格式：以","分隔键值对，"、"分隔多值
+    result = {}
+    for pair in re.split(r',(?=[\u4e00-\u9fff])', ex):
+        if '=' not in pair:
+            continue
+        key, _, val = pair.partition('=')
+        key = key.strip()
+        val = val.strip()
+        if not val:
+            continue
+        result[key] = [v.strip() for v in val.split('、') if v.strip()] if '、' in val else val
+    return result
 
 # ── 模拟资讯库（25条，覆盖各板块）───────────────────────────────
 _RAW_NEWS = [
@@ -369,17 +399,14 @@ WHERE {where}"""
 
             ex = r.get("ai_extract")
             if ex:
-                try:
-                    data = json.loads(ex) if isinstance(ex, str) else ex
-                    for label, val in data.items():
-                        if isinstance(val, list):
-                            for v in val:
-                                if v:
-                                    tag_freq[f"{label}:{v}"] = tag_freq.get(f"{label}:{v}", 0) + 1
-                        elif val:
-                            tag_freq[f"{label}:{val}"] = tag_freq.get(f"{label}:{val}", 0) + 1
-                except Exception:
-                    pass
+                data = _parse_extract(ex)
+                for label, val in data.items():
+                    if isinstance(val, list):
+                        for v in val:
+                            if v:
+                                tag_freq[f"{label}:{v}"] = tag_freq.get(f"{label}:{v}", 0) + 1
+                    elif val:
+                        tag_freq[f"{label}:{val}"] = tag_freq.get(f"{label}:{val}", 0) + 1
 
         top_tags = sorted(tag_freq.items(), key=lambda x: -x[1])[:30]
         return {
@@ -474,7 +501,7 @@ WHERE {where}"""
             if not ex:
                 continue
             try:
-                data = json.loads(ex) if isinstance(ex, str) else ex
+                data = _parse_extract(ex)
                 companies = data.get("核心公司", [])
                 if isinstance(companies, str):
                     companies = [c.strip() for c in companies.split("、") if c.strip()]

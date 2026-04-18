@@ -4,8 +4,14 @@
 
 [33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
 
-  VITE v5.4.21  ready in 374 ms
+  VITE v5.4.21  ready in 371 ms
 
   ➜  Local:   http://localhost:5173/
-  ➜  Network: http://192.168.3.50:5173/
-  ➜  Network: http://192.168.0.106:5173/
+  ➜  Network: http://172.20.10.4:5173/
+  ➜  Network: http://192.168.0.50:5173/
+5:13:53 PM [vite] hmr update /src/views/NewsInsight.vue, /src/views/NewsInsight.vue?vue&type=style&index=0&scoped=b7d0ae01&lang.css
+5:16:37 PM [vite] hmr update /src/views/NewsInsight.vue
+5:51:29 PM [vite] hmr update /src/views/NewsInsight.vue
+5:51:33 PM [vite] hmr update /src/views/NewsInsight.vue
+5:51:44 PM [vite] hmr update /src/views/NewsInsight.vue?vue&type=style&index=0&scoped=b7d0ae01&lang.css
+5:51:53 PM [vite] hmr update /src/views/NewsInsight.vue?vue&type=style&index=0&scoped=b7d0ae01&lang.css
