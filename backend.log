@@ -1,111 +1,31 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [25673] using StatReload
-INFO:     Started server process [25679]
+INFO:     Started reloader process [26550] using StatReload
+INFO:     Started server process [26556]
 INFO:     Waiting for application startup.
-2026-04-18 11:35:17,098 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 11:35:17,098 [INFO] backend.telemetry.collector: telemetry writer started
+2026-04-18 11:50:17,190 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-18 11:50:17,190 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-INFO:     127.0.0.1:63638 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63635 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63639 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63651 - "POST /api/news/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63653 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63704 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63705 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63711 - "POST /api/news/summarize HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63897 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63906 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63907 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63941 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63938 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63942 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63954 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63966 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63967 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63955 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63951 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63977 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63978 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63988 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64029 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64019 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64020 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63989 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63963 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63974 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64040 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64053 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64054 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64041 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64030 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64016 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63985 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64026 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64036 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64050 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64231 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64227 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64232 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64244 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64241 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64245 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64334 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64331 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64335 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64366 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64363 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64367 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64412 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 11:37:08,704 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
-2026-04-18 11:37:08,942 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
-INFO:     127.0.0.1:63899 - "POST /api/fund/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64421 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64431 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64433 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
-2026-04-18 11:37:14,383 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].')
-2026-04-18 11:37:14,596 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
-2026-04-18 11:37:14,820 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
-INFO:     127.0.0.1:64414 - "POST /api/fund/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64450 - "GET /api/fund/sector-stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64449 - "GET /api/fund/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64456 - "GET /api/fund/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64469 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64471 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65142 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65140 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65144 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65207 - "GET /api/report/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65208 - "GET /api/report/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65203 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65209 - "GET /api/report/transaction HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65227 - "GET /api/satellite/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65228 - "GET /api/satellite/charts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65229 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
-2026-04-18 11:39:35,466 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 7, detailMessage = unknown table, tableName=fund_nav_history')
-INFO:     127.0.0.1:64445 - "POST /api/fund/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65246 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65248 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 11:42:15,808 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 7, detailMessage = unknown table, tableName=fund_nav_history')
-INFO:     127.0.0.1:65237 - "POST /api/fund/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49564 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49610 - "POST /api/mfg/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49616 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "GET /api/mfg/overview HTTP/1.1" 200 OK
-2026-04-18 11:42:28,261 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
-2026-04-18 11:42:28,504 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
-INFO:     127.0.0.1:49566 - "POST /api/fund/init HTTP/1.1" 200 OK
-2026-04-18 11:42:28,718 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 14, pos 21)')
-INFO:     127.0.0.1:49653 - "GET /api/fund/overview HTTP/1.1" 200 OK
-2026-04-18 11:42:28,721 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 12, pos 21)')
-INFO:     127.0.0.1:49654 - "GET /api/fund/sector-stats HTTP/1.1" 200 OK
-2026-04-18 11:42:28,937 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 5, pos 21)')
-INFO:     127.0.0.1:49657 - "GET /api/fund/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49670 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49671 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49731 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49728 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49732 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49954 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49951 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49955 - "GET /api/news/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52409 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52441 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52448 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52446 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52452 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52459 - "GET /api/trace/a87ea2608597433e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52473 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52479 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52484 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52475 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52486 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52492 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52495 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52501 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52477 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52472 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53590 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53596 - "GET /api/news/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53597 - "GET /api/news/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53617 - "POST /api/news/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53623 - "POST /api/news/import HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53664 - "GET /api/news/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53665 - "GET /api/news/list HTTP/1.1" 200 OK
