@@ -739,6 +739,67 @@ async def fund_peers(fund_id: str):
 async def fund_sector_stats():
     return await fund_svc.get_sector_stats()
 
+# ================================================================
+# 基金资讯 AI Function 分析
+# ================================================================
+from backend.service.news_service import NewsService
+news_svc = NewsService()
+
+class NewsAIReq(BaseModel):
+    article_ids: Optional[List[str]] = None
+
+@router.post("/news/init")
+async def news_init():
+    return await news_svc.init_table()
+
+@router.post("/news/import")
+async def news_import():
+    return await news_svc.import_news()
+
+@router.get("/news/list")
+async def news_list(sector: str = None, sentiment: str = None, keyword: str = None):
+    return await news_svc.get_list(sector, sentiment, keyword)
+
+@router.get("/news/detail/{article_id}")
+async def news_detail(article_id: str):
+    return await news_svc.get_detail(article_id)
+
+@router.get("/news/stats")
+async def news_stats():
+    return await news_svc.get_stats()
+
+@router.post("/news/summarize")
+async def news_summarize(req: NewsAIReq = None):
+    ids = req.article_ids if req else None
+    return await news_svc.run_summarize(ids)
+
+@router.post("/news/sentiment")
+async def news_sentiment(req: NewsAIReq = None):
+    ids = req.article_ids if req else None
+    return await news_svc.run_sentiment(ids)
+
+@router.post("/news/extract")
+async def news_extract(req: NewsAIReq = None):
+    ids = req.article_ids if req else None
+    return await news_svc.run_extract(ids)
+
+@router.get("/news/tag-analysis")
+async def news_tag_analysis():
+    return await news_svc.get_tag_analysis()
+
+@router.get("/news/sector-metrics")
+async def news_sector_metrics():
+    return await news_svc.get_sector_metrics()
+
+@router.get("/news/signals")
+async def news_signals():
+    return await news_svc.get_signals()
+
+@router.get("/news/hot-companies")
+async def news_hot_companies():
+    return await news_svc.get_hot_companies()
+
+
 @router.get("/satellite/overview")
 async def satellite_overview():
     return await sat_svc.overview()

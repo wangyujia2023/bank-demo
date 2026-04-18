@@ -8,8 +8,8 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # ── Doris 连接 ──────────────────────────────────────────────
-    DORIS_HOST: str = os.getenv("DORIS_HOST", "127.0.0.1")
-    DORIS_PORT: int = int(os.getenv("DORIS_PORT", "9030"))      # MySQL 协议端口
+    DORIS_HOST: str = os.getenv("DORIS_HOST", "10.26.20.3")
+    DORIS_PORT: int = int(os.getenv("DORIS_PORT", "19030"))     # MySQL 协议端口
     DORIS_HTTP_PORT: int = int(os.getenv("DORIS_HTTP_PORT", "8030"))  # HTTP 端口
     DORIS_USER: str = os.getenv("DORIS_USER", "root")
     DORIS_PASSWORD: str = os.getenv("DORIS_PASSWORD", "")

@@ -145,6 +145,22 @@ export const vectorApi = {
 }
 
 
+// ── 基金资讯 AI Function ──────────────────────────────────────────
+export const newsApi = {
+  init:        ()         => http.post('/news/init'),
+  import:      ()         => http.post('/news/import'),
+  list:        (params)   => http.get('/news/list', { params }),
+  detail:      (id)       => http.get(`/news/detail/${id}`),
+  stats:       ()         => http.get('/news/stats'),
+  summarize:   (ids)      => http.post('/news/summarize',  { article_ids: ids || null }),
+  sentiment:   (ids)      => http.post('/news/sentiment',  { article_ids: ids || null }),
+  extract:     (ids)      => http.post('/news/extract',    { article_ids: ids || null }),
+  tagAnalysis:    ()      => http.get('/news/tag-analysis'),
+  sectorMetrics:  ()      => http.get('/news/sector-metrics'),
+  signals:        ()      => http.get('/news/signals'),
+  hotCompanies:   ()      => http.get('/news/hot-companies'),
+}
+
 // ── 基金数字沙盘 ──────────────────────────────────────────────────
 export const fundApi = {
   init:        ()         => http.post('/fund/init'),

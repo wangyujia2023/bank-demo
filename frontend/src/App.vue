@@ -74,6 +74,9 @@
         <el-menu-item index="/fund">
           <el-icon><TrendCharts /></el-icon><span>基金投研沙盘</span>
         </el-menu-item>
+        <el-menu-item index="/news">
+          <el-icon><Cpu /></el-icon><span>资讯 AI 分析</span>
+        </el-menu-item>
 
         <div class="menu-group-title">系统</div>
         <el-menu-item index="/config">
