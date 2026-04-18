@@ -70,6 +70,11 @@
           <el-icon><SetUp /></el-icon><span>数字孪生沙盘</span>
         </el-menu-item>
 
+        <div class="menu-group-title">基金场景</div>
+        <el-menu-item index="/fund">
+          <el-icon><TrendCharts /></el-icon><span>基金投研沙盘</span>
+        </el-menu-item>
+
         <div class="menu-group-title">系统</div>
         <el-menu-item index="/config">
           <el-icon><Setting /></el-icon><span>系统配置</span>

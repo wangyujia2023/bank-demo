@@ -1,5 +1,54 @@
-# 银行业 CDP 平台 v2.0
-**基于 Apache Doris 4.0 · HASP 能力 · AI Function · FileBeat 日志采集**
+# Doris 4.0 特性全景展示平台
+
+**Apache Doris 4.0 · HASP · AI Function · 向量检索 · 数字孪生沙盘 · 基金投研**
+
+> 本平台以"动态演练 + 数据驱动"为核心，覆盖银行 CDP、智能制造、基金投研三大场景，全面展示 Apache Doris 4.0 的核心技术能力。所有模块独立运行，互不干扰，可按需演示。
+
+---
+
+## 🗂 功能模块总览
+
+### 用户画像（银行 CDP）
+
+| 菜单 | 说明 | 核心 Doris 特性 |
+|------|------|------|
+| 首页大盘 | 实时 KPI、趋势图、业务概况 | 聚合查询、物化视图 |
+| 经营管理大屏 | 多维度经营分析看板 | 多表 JOIN、窗口函数 |
+| 宽表查询 | 用户多条件组合查询、360°视图 | 宽表模型、HASH分桶 |
+| 人群圈选 | Bitmap 多标签实时圈选估算 | BITMAP_AND/OR/NOT |
+| 行为分析 | 漏斗、留存、RFM、交易趋势 | window_funnel、留存矩阵 |
+| 用户行为分析 | 标签交叉分析、行为路径挖掘 | 多维聚合、TopN |
+| AI 日志标签 | LLM 自动打标签、标签分布 | Doris AI Function |
+
+### HASP 场景
+
+| 菜单 | 说明 | 核心 Doris 特性 |
+|------|------|------|
+| 图片向量检索 | 人脸/图片相似度检索、混合检索 | HASP 向量索引、ANN 近似最近邻 |
+| 卫星数据分析 | 遥感数据采集、时序分析 | 大宽表、Stream Load |
+
+### 数据能力
+
+| 菜单 | 说明 | 核心 Doris 特性 |
+|------|------|------|
+| 银行报表 | 标准监管报表、风险报表 | 复杂聚合、报表加速 |
+| 指标平台 | 通用指标查询引擎、多维对比、下钻分析 | 动态 SQL、RANK/CORR 窗口函数 |
+| 日志可观测性 | 日志实时查询、分类统计、AI 标签分析 | 全文检索、倒排索引 |
+| 日志标签分析 | AI 打标分布、标签共现、风险标签 | Bitmap、GROUP BY ROLLUP |
+| 链路追踪 | 分布式追踪可视化、Span 瀑布图 | 嵌套数据查询 |
+| 高并发点查 | 压测基准、毫秒级主键点查 | UNIQUE KEY、行存优化 |
+
+### 智能制造
+
+| 菜单 | 说明 | 核心 Doris 特性 |
+|------|------|------|
+| 数字孪生沙盘 | 6台设备×50+指标的工厂仿真演练 | DUPLICATE KEY、QUALIFY 窗口去重、Stream Load |
+
+### 基金场景
+
+| 菜单 | 说明 | 核心 Doris 特性 |
+|------|------|------|
+| 基金投研沙盘 | 30只基金×5套市场剧本的动态演练 | DUPLICATE KEY 4表、CORR() 相关性矩阵、RANK() 窗口排名 |
 
 ---
 
@@ -7,45 +56,54 @@
 
 ```
 bank-cdp-doris4/
-├── backend/                        # FastAPI 后端
-│   ├── app.py                      # 入口
-│   ├── settings.py                 # 全局配置
+├── backend/
+│   ├── app.py                          # FastAPI 入口
+│   ├── settings.py                     # 全局配置（Doris连接等）
 │   ├── requirements.txt
 │   ├── api/
-│   │   └── routes.py               # 全部 API 路由
+│   │   └── routes.py                   # 全部 API 路由（12+模块）
 │   ├── service/
-│   │   ├── user_service.py         # 用户宽表 + 人群圈选
-│   │   ├── behavior_service.py     # 行为分析（漏斗/留存/RFM）
-│   │   ├── log_service.py          # 日志接收 + 查询 + 分析
-│   │   └── dashboard_service.py    # 大盘统计
+│   │   ├── user_service.py             # 用户宽表 + 人群圈选
+│   │   ├── behavior_service.py         # 行为分析（漏斗/留存/RFM）
+│   │   ├── dashboard_service.py        # 首页大盘
+│   │   ├── management_dashboard.py     # 经营管理大屏
+│   │   ├── report_service.py           # 银行报表
+│   │   ├── metrics_service.py          # 指标平台（通用查询引擎）
+│   │   ├── observe_service.py          # 日志可观测性
+│   │   ├── tag_analysis_service.py     # AI 日志标签分析
+│   │   ├── portrait_service.py         # 用户画像 + CDP
+│   │   ├── benchmark_service.py        # 高并发压测
+│   │   ├── vector_search_service.py    # HASP 向量检索
+│   │   ├── satellite_service.py        # 卫星数据采集
+│   │   ├── manufacturing_service.py    # 智能制造数字孪生（50+指标）
+│   │   └── fund_service.py             # 基金投研沙盘（30只基金×4表）
 │   └── doris/
-│       ├── connect.py              # Doris 连接池 + HASP 注入 + Stream Load
-│       └── ai_function.py          # AI Function 调用（Doris原生 + Python降级）
-├── frontend/                       # Vue3 + Element Plus 前端
-│   ├── src/
-│   │   ├── App.vue                 # 根组件（侧边栏布局）
-│   │   ├── main.js
-│   │   ├── router/index.js
-│   │   ├── api/index.js            # 所有接口封装
-│   │   └── views/
-│   │       ├── Dashboard.vue       # 首页大盘
-│   │       ├── UserWide.vue        # 用户宽表查询
-│   │       ├── Segment.vue         # 人群圈选
-│   │       ├── Behavior.vue        # 行为分析（漏斗/留存/趋势/RFM）
-│   │       ├── LogManage.vue       # 日志管理
-│   │       ├── AiTag.vue           # AI 标签管理
-│   │       ├── LogAnalysis.vue     # 日志分析
-│   │       └── SysConfig.vue       # 系统配置
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-├── sql/
-│   └── doris_ddl.sql               # 全部建表 DDL + 物化视图 + AI Function 定义
-├── test_data/
-│   └── init_data.sql               # 测试数据（10用户 + 标签 + 日志 + AI标签）
-├── filebeat/
-│   ├── filebeat.yml                # FileBeat 采集配置
-│   └── gen_test_logs.sh            # 测试日志生成脚本
+│       ├── connect.py                  # 连接池 + execute_query/write/many
+│       └── ai_function.py              # AI Function 调用封装
+├── frontend/
+│   └── src/
+│       ├── App.vue                     # 根组件（侧边栏导航）
+│       ├── router/index.js             # 路由表
+│       ├── api/index.js                # 所有接口封装（fundApi/mfgApi等）
+│       └── views/
+│           ├── Dashboard.vue           # 首页大盘
+│           ├── ManagementDashboard.vue # 经营管理大屏
+│           ├── UserWide.vue            # 用户宽表查询
+│           ├── Segment.vue             # 人群圈选
+│           ├── Behavior.vue            # 行为分析
+│           ├── UserTagAnalysis.vue     # 用户行为分析
+│           ├── LogClassifyAnalysis.vue # AI 日志标签
+│           ├── VectorSearch.vue        # 图片向量检索
+│           ├── Satellite.vue           # 卫星数据分析
+│           ├── BankReport.vue          # 银行报表
+│           ├── MetricsPlatform.vue     # 指标平台
+│           ├── LogObserve.vue          # 日志可观测性
+│           ├── LogTagStats.vue         # 日志标签分析
+│           ├── TraceView.vue           # 链路追踪
+│           ├── Benchmark.vue           # 高并发点查
+│           ├── Manufacturing.vue       # 智能制造数字孪生
+│           ├── Fund.vue                # 基金投研沙盘
+│           └── SysConfig.vue           # 系统配置
 └── README.md
 ```
 
@@ -53,11 +111,10 @@ bank-cdp-doris4/
 
 ## 🚀 快速启动
 
-### 第一步：部署 Apache Doris 4.0
+### 1. 启动 Apache Doris 4.0
 
-**方式A：Docker 快速体验（推荐开发测试）**
 ```bash
-# 拉取 Doris 4.0 镜像
+# Docker 快速体验（推荐）
 docker run -d \
   --name doris-all-in-one \
   -p 8030:8030 -p 9030:9030 -p 8040:8040 \
@@ -65,176 +122,243 @@ docker run -d \
   -e BE_ADDR="127.0.0.1:9050" \
   apache/doris:2.1.3-all-in-one
 
-# 等待约 30 秒后连接测试
-mysql -h 127.0.0.1 -P 9030 -u root
+# 等待约 30 秒，验证连接
+mysql -h 127.0.0.1 -P 9030 -u root -e "SHOW DATABASES;"
 ```
 
-**方式B：生产部署（参考官方文档）**
-```
-https://doris.apache.org/zh-CN/docs/install/standard-deployment
-```
-
-### 第二步：启用 Doris 4.0 HASP & 初始化数据库
+### 2. 初始化数据库
 
 ```bash
-# 连接 Doris
-mysql -h 127.0.0.1 -P 9030 -u root
-
-# 开启 Pipeline 执行引擎（HASP核心）
-
-# 初始化建表
-SOURCE sql/doris_ddl.sql;
-
-# 导入测试数据
-SOURCE test_data/init_data.sql;
+mysql -h 127.0.0.1 -P 9030 -u root -e "CREATE DATABASE IF NOT EXISTS bank_cdp;"
 ```
 
-### 第三步：启动后端
+> 各模块均通过页面「初始化」按钮自动建表并注入仿真数据，无需手动执行 SQL。
+
+### 3. 启动后端
 
 ```bash
 cd backend
-
-# 安装依赖
 pip install -r requirements.txt
 
-# 配置环境变量（可直接修改 settings.py 或创建 .env）
+# 配置连接（修改 settings.py 或设置环境变量）
 export DORIS_HOST=127.0.0.1
 export DORIS_PORT=9030
 export DORIS_USER=root
 export DORIS_PASSWORD=
 export DORIS_DATABASE=bank_cdp
 
-# 配置 AI Function（可选，不配置则跳过 AI 打标）
-export AI_API_KEY=sk-your-openai-key
-export AI_MODEL=gpt-4o-mini
-
-# 启动
 uvicorn backend.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-后端访问：
 - API 文档：http://localhost:8000/docs
 - 健康检查：http://localhost:8000/api/system/health
 
-### 第四步：启动前端
+### 4. 启动前端
 
 ```bash
 cd frontend
-
-# 安装依赖（需要 Node.js 18+）
-npm install
-
-# 开发模式启动
+npm install       # Node.js 18+ 必须
 npm run dev
 ```
 
 前端访问：http://localhost:5173
 
-### 第五步（可选）：启动 FileBeat 日志采集
-
-```bash
-# 安装 FileBeat（https://www.elastic.co/beats/filebeat）
-# macOS
-brew install filebeat
-
-# 生成测试日志
-bash filebeat/gen_test_logs.sh
-
-# 启动 FileBeat
-filebeat -c filebeat/filebeat.yml -e
-```
-
 ---
 
-## 🔑 Doris 4.0 核心特性说明
+## ⚡ Doris 4.0 核心技术展示矩阵
 
-### HASP（Hybrid Adaptive Storage and Processing）
+### HASP — 混合自适应存储与处理
 
-| 特性 | 配置项 | 作用 |
-|------|--------|------|
-| Pipeline 执行引擎 | `enable_pipeline_engine=true` | 多核并行，查询性能 3-5x |
-| 向量化执行 | `enable_vectorized_engine=true` | SIMD 加速，聚合快 5-10x |
-| 行列混存（MOW） | `store_row_column=true` | 写时合并，Upsert 性能最优 |
-| Runtime Filter | `runtime_filter_mode=GLOBAL` | Join 动态过滤，减少 Shuffle |
-| 物化视图 | `CREATE MATERIALIZED VIEW` | 热点查询自动加速，透明命中 |
+| 特性 | 本项目应用场景 |
+|------|------|
+| Pipeline 执行引擎 | 行为分析大查询、指标平台多维聚合 |
+| 向量化执行（SIMD） | RFM 计算、基金收益聚合 |
+| 向量索引（ANN） | 图片向量检索、用户相似推荐 |
+| Runtime Filter | 基金持仓 × 行情 JOIN、宽表多条件查询 |
+| 行列混存（MOW） | 高并发点查场景（毫秒级主键查找） |
 
-### AI Function（Doris 4.0 原生）
+### 模型选择策略
 
-```sql
--- 在 SQL 中直接调用外部 LLM，无需数据传输到应用层
-SELECT
-    log_id,
-    ai_completion(
-        'openai',                          -- AI 提供商
-        'gpt-4o-mini',                     -- 模型名称
-        'sk-your-api-key',                 -- API Key
-        'https://api.openai.com/v1',       -- Endpoint
-        CONCAT('分析日志：', log_content)   -- Prompt
-    ) AS ai_tag
-FROM user_log_raw
-WHERE log_date = CURDATE()
-LIMIT 100;
+```
+DUPLICATE KEY  — 智能制造（mfg_metrics_v2）、基金净值历史（fund_nav_history）
+                 允许重复行，QUALIFY 窗口函数取最新版本
+
+UNIQUE KEY     — 用户宽表（user_wide）、基金经理（fund_manager）
+                 主键唯一，写时合并
+
+AGGREGATE KEY  — 人群标签 Bitmap（user_tag）
+                 BITMAP_UNION 自动聚合，圈选毫秒级响应
 ```
 
-### Bitmap 人群圈选
+### 核心 SQL 能力展示
 
+**① QUALIFY 窗口函数去重（智能制造 / 基金快照）**
 ```sql
--- 毫秒级亿级用户圈选
+-- 取每台设备最新一条，无需 UNIQUE KEY
+SELECT * FROM mfg_metrics_v2
+QUALIFY ROW_NUMBER() OVER (PARTITION BY machine_id ORDER BY ts DESC) = 1
+
+-- 取每只基金最新快照
+SELECT * FROM fund_basic
+QUALIFY ROW_NUMBER() OVER (PARTITION BY fund_id ORDER BY update_ts DESC) = 1
+```
+
+**② RANK() 同板块基金排名（基金投研）**
+```sql
+SELECT fund_id, fund_name, sharpe,
+    RANK() OVER (ORDER BY sharpe DESC)       AS sharpe_rank,
+    RANK() OVER (ORDER BY max_drawdown DESC) AS drawdown_rank
+FROM (...最新快照...) WHERE sector_tag = '半导体'
+```
+
+**③ CORR() 基金走势相关性矩阵（基金投研）**
+```sql
+SELECT a.fund_id, b.fund_id,
+    ROUND(CORR(a.daily_return, b.daily_return), 3) AS corr
+FROM fund_nav_history a
+JOIN fund_nav_history b ON a.trade_date = b.trade_date
+WHERE a.fund_id IN ('F001','F002','F003')
+  AND a.trade_date >= DATE_SUB(CURDATE(), INTERVAL 90 DAY)
+GROUP BY a.fund_id, b.fund_id
+```
+
+**④ window_funnel 行为漏斗（用户画像）**
+```sql
+SELECT user_id,
+    window_funnel(86400, 'strict_increase', event_time,
+        event_type='login', event_type='view_product',
+        event_type='add_cart', event_type='payment'
+    ) AS funnel_level
+FROM user_event
+GROUP BY user_id
+```
+
+**⑤ BITMAP 亿级用户圈选（人群圈选）**
+```sql
 SELECT BITMAP_COUNT(
     BITMAP_AND(
         (SELECT user_bitmap FROM user_tag WHERE tag_name='asset_level' AND tag_value='VIP钻石'),
         BITMAP_AND_NOT(
-            (SELECT user_bitmap FROM user_tag WHERE tag_name='active_level' AND tag_value='沉睡'),
+            (SELECT user_bitmap FROM user_tag WHERE tag_name='active_level' AND tag_value='活跃'),
             (SELECT user_bitmap FROM user_tag WHERE tag_name='anomaly_flag' AND tag_value='1')
         )
     )
-) AS crowd_size;
+) AS crowd_size
+```
+
+**⑥ AI Function 日志打标（AI日志标签）**
+```sql
+SELECT log_id,
+    ai_completion('openai', 'gpt-4o-mini', 'sk-xxx',
+        'https://api.openai.com/v1',
+        CONCAT('分析日志风险等级：', log_content)
+    ) AS ai_tag
+FROM user_log_raw WHERE log_date = CURDATE()
+```
+
+---
+
+## 🎮 动态演练模块说明
+
+### 智能制造数字孪生
+
+- **6 台设备**：CNC-001/002/003、WLD-001、ASM-001/002
+- **50+ 指标**：物理状态(15) · 生产效能(12) · 质量工艺(10) · 能耗环境(8) · 维保告警(5)
+- **5 套剧本**：黄金时段 → 设备疲劳 → 高温熔断 → 产能恢复 → 黄金时段（循环）
+- **操作**：点击「+1步」推进15分钟，支持批量(5/10/20步)和自动演练
+
+```
+表：mfg_metrics_v2  DUPLICATE KEY(ts, machine_id)  BUCKETS 4
+写入：Stream Load HTTP PUT（每步6行，一次批量写入）
+查询：QUALIFY 窗口去重 + 分tab聚合（工艺/质量/能耗/维保）
+```
+
+### 基金投研沙盘
+
+- **30 只基金**：覆盖半导体、新能源、消费、医药等10个板块，5种类型
+- **10 位经理**：不同风格（激进成长/稳健价值/均衡配置/行业集中/量化增强）
+- **4 张 Doris 表**：fund_basic / fund_nav_history / fund_position / fund_manager
+- **5 套市场剧本**：科技牛市 → 熊市调整 → 板块轮动 → 震荡行情 → 黑天鹅
+- **操作**：点击「+1日」推进一个交易日，每8日自动切换剧本
+
+```
+Doris 技术亮点：
+  fund_basic       DUPLICATE KEY(fund_id)             — 快照多版本，QUALIFY取最新
+  fund_nav_history DUPLICATE KEY(trade_date, fund_id) — 日频净值+滚动夏普
+  fund_position    DUPLICATE KEY(fund_id,report_date) — 季报持仓穿透
+  fund_manager     DUPLICATE KEY(manager_id)          — 经理维度画像
 ```
 
 ---
 
 ## 📡 API 接口清单
 
+### 用户画像
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET  | `/api/user/wide` | 用户宽表多条件分页查询 |
-| GET  | `/api/user/{id}` | 用户360°视图 |
-| POST | `/api/segment/count` | 实时 Bitmap 人群估算 |
-| POST | `/api/segment/create` | 创建保存人群包 |
-| GET  | `/api/segment/list` | 人群包列表 |
-| DELETE | `/api/segment/{id}` | 删除人群包 |
-| POST | `/api/behavior/funnel` | 漏斗分析（window_funnel） |
+| GET | `/api/user/wide` | 多条件分页查询 |
+| GET | `/api/user/{id}` | 用户360°视图 |
+| POST | `/api/segment/count` | Bitmap 人群估算 |
+| POST | `/api/segment/create` | 创建人群包 |
+| POST | `/api/behavior/funnel` | 漏斗分析 |
 | POST | `/api/behavior/retention` | 留存分析 |
-| GET  | `/api/behavior/transaction` | 交易趋势分析 |
-| GET  | `/api/behavior/rfm` | RFM 用户价值分层 |
-| POST | `/api/log/collect` | 接收 FileBeat 日志 |
-| POST | `/api/log/ai-tag` | 触发 AI 自动打标签 |
-| GET  | `/api/log/query` | 日志多条件查询 |
-| GET  | `/api/log/analysis` | 日志统计分析 |
-| GET  | `/api/log/tag-stats` | AI 打标签统计 |
-| GET  | `/api/tag/list` | 标签字典查询 |
-| POST | `/api/tag/manage` | 新增标签 |
-| DELETE | `/api/tag/{id}` | 删除标签 |
-| GET  | `/api/dashboard` | 大盘核心数据 |
-| GET  | `/api/system/health` | Doris 健康检查 |
-| GET  | `/api/system/config` | 系统配置查看 |
+| GET | `/api/behavior/rfm` | RFM 分层 |
+
+### 数据能力
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/metrics/definitions` | 指标目录 |
+| POST | `/api/metrics/query` | 通用指标查询 |
+| POST | `/api/metrics/compare` | 同环比对比 |
+| POST | `/api/metrics/drilldown` | 维度下钻 |
+| GET | `/api/observe/logs` | 日志查询 |
+| GET | `/api/trace/list` | 链路追踪列表 |
+| POST | `/api/benchmark/run` | 压测执行 |
+
+### 向量 & 卫星
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/vector/init` | 向量索引初始化 |
+| POST | `/api/vector/search/users` | 用户向量检索 |
+| POST | `/api/vector/search/hybrid` | 混合检索 |
+| GET | `/api/satellite/overview` | 卫星数据概览 |
+
+### 智能制造
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/mfg/init` | 建表+初始化 |
+| POST | `/api/mfg/generate` | 推进1步(15min) |
+| POST | `/api/mfg/batch?steps=N` | 批量推进N步 |
+| GET | `/api/mfg/overview` | KPI总览 |
+| GET | `/api/mfg/machine-status` | 各设备最新状态 |
+| GET | `/api/mfg/machine-trend` | 单设备时序 |
+| GET | `/api/mfg/quality-stats` | 质量统计 |
+| GET | `/api/mfg/energy-stats` | 能耗统计 |
+| GET | `/api/mfg/maintenance-stats` | 维保统计 |
+| GET | `/api/mfg/process-trend` | 工艺趋势 |
+| POST | `/api/mfg/reset` | 清空重置 |
+
+### 基金投研
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/fund/init` | 建表+60日历史种子 |
+| POST | `/api/fund/generate` | 推进1个交易日 |
+| POST | `/api/fund/batch?days=N` | 批量推进N日 |
+| GET | `/api/fund/overview` | KPI总览+当前剧本 |
+| GET | `/api/fund/list` | 基金列表(含筛选) |
+| GET | `/api/fund/detail/{id}` | 单基金全量数据 |
+| GET | `/api/fund/nav/{id}` | 净值历史时序 |
+| GET | `/api/fund/position/{id}` | 持仓穿透 |
+| GET | `/api/fund/manager/{id}` | 经理画像 |
+| GET | `/api/fund/peers/{id}` | 竞品推荐+相关性矩阵 |
+| GET | `/api/fund/sector-stats` | 板块热力统计 |
+| POST | `/api/fund/reset` | 清空重置 |
 
 ---
 
-## 🔒 数据安全合规
-
-- **脱敏处理**：身份证号 `110***8881`、手机号 `138****8888`、账号 `6217****1234`
-- **权限控制**：生产环境建议接入银行 SSO/LDAP
-- **日志审计**：所有查询操作记录操作日志
-- **数据分类**：敏感字段（AUM、贷款额）仅限授权角色查看
-- **AI 合规**：日志内容不含真实身份证号、银行账号，AI 推理前预处理脱敏
-
----
-
-## ⚙️ 环境变量说明（backend/.env）
+## ⚙️ 环境变量（backend/settings.py）
 
 ```env
-# Doris 连接
 DORIS_HOST=127.0.0.1
 DORIS_PORT=9030
 DORIS_HTTP_PORT=8030
@@ -242,13 +366,18 @@ DORIS_USER=root
 DORIS_PASSWORD=
 DORIS_DATABASE=bank_cdp
 
-# AI Function
+# AI Function（可选）
 AI_PROVIDER=openai
 AI_API_KEY=sk-xxx
 AI_API_ENDPOINT=https://api.openai.com/v1
 AI_MODEL=gpt-4o-mini
-
-# 日志采集
-LOG_BATCH_SIZE=500
-LOG_FLUSH_INTERVAL=5
 ```
+
+---
+
+## 🔒 数据安全说明
+
+- 所有数据为**仿真模拟数据**，不含真实用户信息
+- 敏感字段展示时自动脱敏：身份证 `110***8881`，手机 `138****8888`
+- 基金/制造数据完全由本地仿真引擎生成，无外部依赖
+- 生产环境建议接入 SSO/LDAP 权限管控
