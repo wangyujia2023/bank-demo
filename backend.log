@@ -1,341 +1,191 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [1444] using StatReload
-INFO:     Started server process [1450]
+INFO:     Started reloader process [77336] using StatReload
+INFO:     Started server process [77342]
 INFO:     Waiting for application startup.
-2026-04-18 19:19:59,706 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 19:19:59,706 [INFO] backend.telemetry.collector: telemetry writer started
+2026-04-18 22:16:21,639 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-18 22:16:21,639 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-INFO:     127.0.0.1:57202 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57203 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57199 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57247 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57244 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57248 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57245 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57264 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57261 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57265 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57271 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57272 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57274 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57270 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57286 - "POST /api/news/init HTTP/1.1" 200 OK
-2026-04-18 19:20:06,611 [WARNING] backend.doris.connect: execute_write: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[article_id], the length of input is too long than schema. first 32 bytes of input str: [N840D8F70-5C8] schema length: 10; actual length: 13; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_47/error_log_insert_stmt_9c3747869da2428e-85d80dc2aa41ed31_9c3747869da2428e_85d80dc2aa41ed31')
-INFO:     127.0.0.1:57289 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57294 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57295 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57310 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57309 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:20:07,295 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 542; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_48/error_log_insert_stmt_b9e2186b310744ad-8ccd37c1d4cde756_b9e2186b310744ad_8ccd37c1d4cde756')
-INFO:     127.0.0.1:57307 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57308 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57319 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57711 - "POST /api/news/init HTTP/1.1" 200 OK
-2026-04-18 19:21:40,806 [WARNING] backend.doris.connect: execute_write: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[article_id], the length of input is too long than schema. first 32 bytes of input str: [N76225804-238] schema length: 10; actual length: 13; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_49/error_log_insert_stmt_c12a00f046f43d4-be4bb2ce2b457a73_c12a00f046f43d4_be4bb2ce2b457a73')
-INFO:     127.0.0.1:57714 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57719 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57720 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57730 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57735 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57734 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57731 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:21:42,901 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 544; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_50/error_log_insert_stmt_108f2494327e4ea0-bccb5b1e6b4ae105_108f2494327e4ea0_bccb5b1e6b4ae105')
-WARNING:  StatReload detected changes in 'backend/service/news_service.py'. Reloading...
+INFO:     127.0.0.1:57609 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57643 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-18 22:16:32,009 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].')
+2026-04-18 22:16:32,223 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-18 22:16:32,458 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:57611 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_branch_metrics] does not exist in database [bank_cdp].(line 7, pos 17)')
+2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_trade_detail] does not exist in database [bank_cdp].(line 4, pos 17)')
+2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_account_snapshot] does not exist in database [bank_cdp].(line 9, pos 17)')
+2026-04-18 22:16:38,024 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_account_snapshot] does not exist in database [bank_cdp].(line 12, pos 17)')
+INFO:     127.0.0.1:57694 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57695 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57696 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57693 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-18 22:16:38,252 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_risk_snapshot] does not exist in database [bank_cdp].(line 4, pos 17)')
+INFO:     127.0.0.1:57708 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+2026-04-18 22:16:38,681 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_market_minute] does not exist in database [bank_cdp].(line 6, pos 17)')
+INFO:     127.0.0.1:57709 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+2026-04-18 22:16:38,686 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_position_snapshot] does not exist in database [bank_cdp].(line 7, pos 17)')
+2026-04-18 22:16:38,794 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_branch_metrics] does not exist in database [bank_cdp].(line 4, pos 17)')
+INFO:     127.0.0.1:57711 - "GET /api/sec/branches HTTP/1.1" 200 OK
+2026-04-18 22:16:38,900 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [sec_position_snapshot] does not exist in database [bank_cdp].(line 7, pos 17)')
+INFO:     127.0.0.1:57698 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "POST /api/sec/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58431 - "POST /api/sec/reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57783 - "POST /api/sec/batch?steps=18 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58513 - "POST /api/sec/batch?steps=12 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'backend/service/securities_service.py'. Reloading...
 INFO:     Shutting down
+INFO:     Waiting for connections to close. (CTRL+C to force quit)
+INFO:     127.0.0.1:57645 - "POST /api/fund/init HTTP/1.1" 200 OK
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [1450]
-INFO:     Started server process [4647]
+INFO:     Finished server process [77342]
+INFO:     Started server process [94682]
 INFO:     Waiting for application startup.
-2026-04-18 19:22:41,804 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 19:22:41,804 [INFO] backend.telemetry.collector: telemetry writer started
+2026-04-18 22:28:15,067 [INFO] backend.app: ✅ Doris 连接池就绪
+2026-04-18 22:28:15,068 [INFO] backend.telemetry.collector: telemetry writer started
 INFO:     Application startup complete.
-WARNING:  StatReload detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [4647]
-INFO:     Started server process [4811]
-INFO:     Waiting for application startup.
-2026-04-18 19:22:49,912 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 19:22:49,912 [INFO] backend.telemetry.collector: telemetry writer started
-INFO:     Application startup complete.
-INFO:     127.0.0.1:58283 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58284 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58307 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58308 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58310 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58304 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58349 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58351 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58363 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58364 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58366 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58360 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58393 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58396 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58394 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58399 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58410 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58413 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58406 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58414 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58424 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58422 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58469 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58409 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58477 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58661 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58658 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58662 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58669 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58672 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58670 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58668 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58688 - "POST /api/news/init HTTP/1.1" 200 OK
-2026-04-18 19:23:46,409 [WARNING] backend.doris.connect: execute_write: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[article_id], the length of input is too long than schema. first 32 bytes of input str: [ND666815A-BD1] schema length: 10; actual length: 13; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_51/error_log_insert_stmt_a48f7ee6f4f74de4-914b4e1e5105f59b_a48f7ee6f4f74de4_914b4e1e5105f59b')
-INFO:     127.0.0.1:58691 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58698 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58700 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58712 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58707 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58711 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58708 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:23:48,701 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 526; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_52/error_log_insert_stmt_c8ed28a576a245a8-a272cc0ec75233a1_c8ed28a576a245a8_a272cc0ec75233a1')
-INFO:     127.0.0.1:58741 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58738 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58742 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58752 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58750 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58748 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58746 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58966 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58962 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58965 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58973 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58972 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58975 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58971 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59748 - "POST /api/news/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59751 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59755 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59757 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59769 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59766 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59767 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:27:01,284 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 544; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_54/error_log_insert_stmt_ce866b740aee4929-a1944e3a61060db6_ce866b740aee4929_a1944e3a61060db6')
-INFO:     127.0.0.1:59765 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59816 - "POST /api/news/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59819 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59828 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59827 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59840 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59839 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59837 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59838 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:27:06,483 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 566; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_55/error_log_insert_stmt_3adaa65b22544795-ac5b65654f0d21f0_3adaa65b22544795_ac5b65654f0d21f0')
-INFO:     127.0.0.1:59856 - "GET /api/news/detail/N9E1B18A3-358 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59869 - "POST /api/news/run-all-ai HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59947 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59949 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59959 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59960 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59956 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59961 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60179 - "POST /api/news/add-manual HTTP/1.1" 422 Unprocessable Entity
-INFO:     127.0.0.1:60197 - "POST /api/news/add-manual HTTP/1.1" 422 Unprocessable Entity
-INFO:     127.0.0.1:60216 - "POST /api/news/add-manual HTTP/1.1" 422 Unprocessable Entity
-INFO:     127.0.0.1:60299 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60295 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60300 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60309 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60310 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60306 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60312 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60428 - "POST /api/news/add-manual HTTP/1.1" 422 Unprocessable Entity
-INFO:     127.0.0.1:60444 - "POST /api/news/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60447 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60454 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60453 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60468 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60467 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60464 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60463 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60474 - "GET /api/news/detail/NB9E4C3D7-F0B HTTP/1.1" 200 OK
-2026-04-18 19:28:44,376 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 538; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_56/error_log_insert_stmt_dbe988c8d83242d1-a55645460af9dd3a_dbe988c8d83242d1_a55645460af9dd3a')
-INFO:     127.0.0.1:60490 - "POST /api/news/run-all-ai HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60542 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60541 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60555 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60554 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60552 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60553 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60598 - "GET /api/news/detail/NB9E4C3D7-F0B HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60611 - "GET /api/news/detail/N9E1B18A3-358 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60617 - "GET /api/news/detail/NB9E4C3D7-F0B HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60724 - "POST /api/news/add-manual HTTP/1.1" 422 Unprocessable Entity
-WARNING:  StatReload detected changes in 'backend/api/routes.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [4811]
-INFO:     Started server process [13193]
-INFO:     Waiting for application startup.
-2026-04-18 19:30:12,986 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-18 19:30:12,986 [INFO] backend.telemetry.collector: telemetry writer started
-INFO:     Application startup complete.
-INFO:     127.0.0.1:61218 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61215 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61219 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61228 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61226 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61225 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61224 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61243 - "POST /api/news/add-manual HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61248 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61249 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61264 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61263 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61259 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-2026-04-18 19:31:37,135 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 608; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_57/error_log_insert_stmt_7883b80ac2364489-b80acabd41c4c5a2_7883b80ac2364489_b80acabd41c4c5a2')
-INFO:     127.0.0.1:61262 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61270 - "GET /api/news/detail/M86022412-F0C HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61279 - "GET /api/news/detail/M86022412-F0C HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61291 - "POST /api/news/run-all-ai HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61343 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61342 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61358 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61357 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61354 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61353 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61400 - "GET /api/news/detail/M86022412-F0C HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61458 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61466 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61472 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61478 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61484 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61495 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61490 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61519 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61548 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61557 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61556 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:32:58,909 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:61818 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 19:33:08,912 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:33:19,021 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:61952 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-2026-04-18 19:33:29,040 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:61954 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:33:39,044 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:61956 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-2026-04-18 19:34:11,848 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
-INFO:     127.0.0.1:61700 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 19:34:15,906 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
-INFO:     127.0.0.1:61698 - "GET /api/news/stats HTTP/1.1" 200 OK
-2026-04-18 19:34:17,529 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:34:27,532 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62123 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 19:34:29,717 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
-INFO:     127.0.0.1:61816 - "GET /api/news/stats HTTP/1.1" 200 OK
-2026-04-18 19:34:37,536 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62141 - "GET /api/news/stats HTTP/1.1" 200 OK
-2026-04-18 19:34:47,540 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62142 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 19:50:01,490 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:50:11,496 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62400 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-2026-04-18 19:50:12,880 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
-INFO:     127.0.0.1:61696 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 19:50:21,501 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62401 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:50:22,104 [WARNING] backend.doris.connect: execute_many: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
-2026-04-18 19:50:31,504 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62403 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-2026-04-18 19:50:41,507 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62426 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 19:50:51,510 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62429 - "GET /api/news/stats HTTP/1.1" 200 OK
-2026-04-18 19:51:01,513 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62430 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 19:51:11,517 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:51:21,520 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62434 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-2026-04-18 19:51:31,523 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62436 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:51:41,527 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:51:51,530 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63006 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-2026-04-18 19:52:01,532 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:52:11,534 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63013 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-2026-04-18 19:52:21,538 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63018 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:52:31,540 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63019 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-2026-04-18 19:52:41,543 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63023 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 19:52:51,546 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63025 - "GET /api/news/stats HTTP/1.1" 200 OK
-2026-04-18 19:53:01,549 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:61812 - "GET /api/system/health HTTP/1.1" 200 OK
-2026-04-18 19:53:11,552 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:53:21,555 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63391 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 19:53:31,558 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63398 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-2026-04-18 19:53:41,561 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:53:51,564 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63402 - "GET /api/news/signals HTTP/1.1" 200 OK
-2026-04-18 19:54:01,566 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63403 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-2026-04-18 19:54:11,568 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:54:21,572 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:54:31,575 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:61948 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:54:41,578 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:54:51,580 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:55:01,583 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:55:11,585 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:55:21,588 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:55:31,589 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:55:41,592 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62398 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:55:51,594 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:56:01,596 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:56:11,599 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:62433 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:56:21,602 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63011 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:56:31,604 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:63399 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-2026-04-18 19:56:41,607 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:56:51,610 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-2026-04-18 19:57:03,614 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
-INFO:     127.0.0.1:54504 - "POST /api/news/init HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54485 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54481 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54486 - "GET /api/news/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54559 - "POST /api/news/import HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54587 - "GET /api/news/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54586 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54585 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54583 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54589 - "GET /api/news/list HTTP/1.1" 200 OK
-2026-04-18 21:28:05,092 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Insert has filtered data in strict mode. first_error_msg: column_name[db_query], the length of input is too long than schema. first 32 bytes of input str: [\n            INSERT INTO news_ar] schema length: 500; actual length: 548; . Src line: . url: http://10.26.20.3:18041/api/_load_error_log?file=__shard_58/error_log_insert_stmt_c52db1222ae6426d-bbbee199f958960d_c52db1222ae6426d_bbbee199f958960d')
-INFO:     127.0.0.1:54605 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54604 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54602 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54580 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54617 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54899 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54913 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54942 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54921 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54949 - "GET /api/news/signals HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54951 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55015 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55159 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55166 - "GET /api/news/detail/N0AED1ABA-FBB HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55182 - "GET /api/news/detail/M86022412-F0C HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61400 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61392 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61397 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61398 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61643 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61644 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61395 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61390 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61837 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61841 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61840 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61850 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61847 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61830 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61846 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61835 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61834 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62147 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62151 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62153 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62159 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62162 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62150 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62165 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62146 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62351 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62356 - "GET /api/trace/1c6934f5647d4114 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63926 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63928 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63954 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63951 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63953 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63960 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63949 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63963 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63950 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63948 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64127 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64129 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64120 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64134 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64130 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64137 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64140 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64126 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64128 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49580 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49581 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49589 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49579 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49570 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49590 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49593 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49582 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49623 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49624 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49625 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49629 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49626 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49638 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49637 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49615 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49622 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62132 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49659 - "POST /api/sec/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49758 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49760 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49752 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49765 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49755 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49759 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49768 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49753 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49852 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49845 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49856 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49860 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49868 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49851 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49854 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49855 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49958 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49950 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49959 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49963 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49969 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49972 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49957 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49960 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50201 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50193 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50204 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50207 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50210 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50213 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50203 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50202 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50200 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51730 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51731 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51733 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51736 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51742 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51741 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51722 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51732 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51729 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51996 - "GET /api/news/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51997 - "GET /api/news/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52010 - "GET /api/news/signals HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52009 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52012 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52008 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52035 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52039 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52041 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52044 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52047 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52034 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "GET /api/sec/trades?limit=80 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52155 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52153 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52152 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52353 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52354 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52348 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52352 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52498 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52499 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52493 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52497 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52772 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52773 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52767 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52771 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52817 - "GET /api/sec/trades?limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52827 - "GET /api/sec/accounts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52838 - "GET /api/sec/sector-heat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52837 - "GET /api/sec/positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52852 - "GET /api/sec/risk-alerts HTTP/1.1" 200 OK

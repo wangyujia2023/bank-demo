@@ -18,6 +18,7 @@ const routes = [
   { path: '/satellite',     component: () => import('@/views/Satellite.vue'),           meta: { title: '卫星数据分析' } },
   { path: '/benchmark',     component: () => import('@/views/Benchmark.vue'),           meta: { title: '高并发点查' } },
   { path: '/manufacturing', component: () => import('@/views/Manufacturing.vue'),       meta: { title: '智能制造' } },
+  { path: '/securities',    component: () => import('@/views/Securities.vue'),          meta: { title: '证券经营与风控沙盘' } },
   { path: '/fund',          component: () => import('@/views/Fund.vue'),                meta: { title: '基金投研沙盘' } },
   { path: '/news',          component: () => import('@/views/NewsInsight.vue'),          meta: { title: '资讯 AI 分析' } },
   { path: '/config',        component: () => import('@/views/SysConfig.vue'),           meta: { title: '系统配置' } },

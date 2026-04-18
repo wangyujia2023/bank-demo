@@ -17,6 +17,7 @@ from backend.service.observe_service import ObserveService
 from backend.service.benchmark_service import BenchmarkService
 from backend.service.vector_search_service import VectorSearchService
 from backend.service.satellite_service import SatelliteService
+from backend.service.securities_service import SecuritiesService
 from backend.doris.connect import ping, get_doris_version
 
 router = APIRouter()
@@ -36,6 +37,7 @@ obs_svc   = ObserveService()
 bench_svc = BenchmarkService()
 vec_svc      = VectorSearchService()
 sat_svc      = SatelliteService()
+sec_svc      = SecuritiesService()
 portrait_svc = PortraitService()
 crowd_svc    = CrowdPackageService()
 cdp_tag_svc  = CdpTagAnalysisService()
@@ -620,6 +622,58 @@ async def benchmark_audit_stats(limit: int = Query(300, ge=100, le=500)):
 @router.post("/satellite/init")
 async def satellite_init():
     return await sat_svc.init_table()
+
+
+# ================================================================
+# 证券实时数仓沙盘
+# ================================================================
+@router.post("/sec/init")
+async def sec_init():
+    return await sec_svc.init_table()
+
+@router.post("/sec/generate")
+async def sec_generate():
+    return await sec_svc.generate_step()
+
+@router.post("/sec/batch")
+async def sec_batch(steps: int = Query(6, ge=1, le=24)):
+    return await sec_svc.batch_generate(steps)
+
+@router.post("/sec/reset")
+async def sec_reset():
+    return await sec_svc.reset()
+
+@router.get("/sec/overview")
+async def sec_overview():
+    return await sec_svc.get_overview()
+
+@router.get("/sec/trend")
+async def sec_trend():
+    return await sec_svc.get_trend()
+
+@router.get("/sec/trades")
+async def sec_trades(limit: int = Query(60, ge=20, le=200)):
+    return await sec_svc.get_trades(limit)
+
+@router.get("/sec/accounts")
+async def sec_accounts():
+    return await sec_svc.get_accounts()
+
+@router.get("/sec/positions")
+async def sec_positions():
+    return await sec_svc.get_positions()
+
+@router.get("/sec/sector-heat")
+async def sec_sector_heat():
+    return await sec_svc.get_sector_heat()
+
+@router.get("/sec/risk-alerts")
+async def sec_risk_alerts():
+    return await sec_svc.get_risk_alerts()
+
+@router.get("/sec/branches")
+async def sec_branches():
+    return await sec_svc.get_branches()
 
 
 # ================================================================
