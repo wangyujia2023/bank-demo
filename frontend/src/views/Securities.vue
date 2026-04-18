@@ -472,7 +472,7 @@ onMounted(loadAll)
   display: flex; align-items: center; gap: 8px; padding: 14px 16px; cursor: pointer;
   border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #303133;
 }
-.ch-title { font-size: 15px; font-weight: 700; color: #1f2937; }
+.ch-title { font-size: 15px; font-weight: 700; color: #1f2937; line-height: 1.6; padding: 2px 0; }
 .ch-tog { margin-left: auto; color: #909399; }
 .badge {
   font-size: 11px; padding: 3px 8px; border-radius: 999px; color: #fff;

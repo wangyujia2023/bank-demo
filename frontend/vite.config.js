@@ -19,9 +19,20 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return
-          if (id.includes('echarts') || id.includes('zrender') || id.includes('vue-echarts')) return 'vendor-echarts'
-          if (id.includes('element-plus') || id.includes('@element-plus')) return 'vendor-element-plus'
-          if (id.includes('vue') || id.includes('pinia') || id.includes('vue-router')) return 'vendor-vue'
+          if (
+            id.includes('/node_modules/vue/') ||
+            id.includes('/node_modules/@vue/') ||
+            id.includes('/node_modules/pinia/') ||
+            id.includes('/node_modules/vue-router/')
+          ) return 'vendor-vue'
+
+          if (id.includes('/node_modules/@element-plus/icons-vue/')) return 'vendor-ep-icons'
+          if (id.includes('/node_modules/element-plus/')) return
+
+          if (id.includes('/node_modules/echarts/')) return 'vendor-echarts'
+          if (id.includes('/node_modules/zrender/')) return 'vendor-echarts'
+          if (id.includes('/node_modules/vue-echarts/')) return 'vendor-echarts'
+
           return 'vendor-misc'
         }
       }

@@ -13,12 +13,15 @@ class Settings(BaseSettings):
     DORIS_USER: str = os.getenv("DORIS_USER", "root")
     DORIS_PASSWORD: str = os.getenv("DORIS_PASSWORD", "")
     DORIS_DATABASE: str = os.getenv("DORIS_DATABASE", "bank_cdp")
+    DB_WARMUP_ON_START: bool = os.getenv("DB_WARMUP_ON_START", "false").lower() == "true"
 
     # ── Doris 4.0 HASP 配置 ────────────────────────────────────
     # HASP = Hybrid Adaptive Storage and Processing
     DORIS_HASP_ENABLED: bool = True
 
     CORS_ORIGINS: list = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173"]
+    TELEMETRY_ENABLED: bool = os.getenv("TELEMETRY_ENABLED", "false").lower() == "true"
+    BEHAVIOR_SCAN_DAYS: int = int(os.getenv("BEHAVIOR_SCAN_DAYS", "120"))
 
     # ── 数据安全（脱敏） ────────────────────────────────────────
     MASK_ID_CARD: bool = True       # 身份证号脱敏
