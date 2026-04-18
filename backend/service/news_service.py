@@ -188,7 +188,7 @@ class NewsService:
                 ai_extract      VARCHAR(2000),
                 extracted       TINYINT       DEFAULT 0,
                 ai_method       VARCHAR(20)   DEFAULT 'PENDING'
-            ) DUPLICATE KEY(article_id, publish_ts)
+            ) UNIQUE KEY(article_id, publish_ts)
             DISTRIBUTED BY HASH(article_id) BUCKETS 4
             PROPERTIES("replication_num"="1")
         """)
