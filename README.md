@@ -7,7 +7,10 @@
 后续功能开发统一按以下规范执行：  
 [DEVELOPMENT_SPEC.md](./DEVELOPMENT_SPEC.md)
 
-重点：已内置“低 Token 开发细则”，要求先检索后读取、批量修改、最小验证、短结果输出。
+新项目复用模板：  
+[DEVELOPMENT_SPEC_TEMPLATE.md](./DEVELOPMENT_SPEC_TEMPLATE.md)
+
+重点：先检索后读取、批量修改、最小验证、短结果输出。
 
 ## 项目结构
 

@@ -96,7 +96,6 @@
 import { ref, computed, onMounted } from 'vue'
 import VChart from 'vue-echarts'
 import { dashboardApi, userApi } from '@/api'
-import { cachedRequest } from '@/utils/cache'
 // ✅ ECharts 已在 plugins/echarts.js 中全局导入，无需重复
 
 const data = ref({ user_stat: {}, log_stat: {}, segment_stat: {}, asset_level_dist: [], log_trend: [] })
@@ -151,13 +150,14 @@ const assetOption = computed(() => ({
 
 onMounted(async () => {
   // 先加载首页核心指标，避免被次要表格阻塞首屏
-  data.value = await cachedRequest('/dashboard', {}, () => dashboardApi.overview(), { ttl: 5 * 60 * 1000 })
+  try {
+    data.value = await dashboardApi.overview()
+  } catch {
+    // 保留默认结构，避免页面报错
+  }
 
   // 异常用户异步补齐，不影响首页主内容首屏渲染
-  cachedRequest('/user/wide', { anomaly_flag: 1, page_size: 5 },
-    () => userApi.queryWide({ anomaly_flag: 1, page_size: 5 }),
-    { ttl: 3 * 60 * 1000 }
-  )
+  userApi.queryWide({ anomaly_flag: 1, page_size: 5 })
     .then(res => { anomalyUsers.value = res.rows || [] })
     .catch(() => { anomalyUsers.value = [] })
 })

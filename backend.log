@@ -1,65 +1,309 @@
 INFO:     Will watch for changes in these directories: ['/Users/yujia/Desktop/workspace/bank-cdp-doris4']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [18482] using StatReload
-INFO:     Started server process [18512]
+INFO:     Started reloader process [71062] using StatReload
+INFO:     Started server process [71068]
 INFO:     Waiting for application startup.
-2026-04-19 00:18:55,001 [INFO] backend.app: ✅ Doris 连接池就绪
-2026-04-19 00:18:55,001 [INFO] backend.telemetry.collector: telemetry writer started
+2026-04-19 01:07:48,616 [INFO] backend.app: ℹ️ 跳过启动预热，Doris 连接池改为按需初始化
+2026-04-19 01:07:48,616 [INFO] backend.app: ℹ️ Telemetry writer 已关闭
 INFO:     Application startup complete.
-INFO:     127.0.0.1:60144 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60146 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60179 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60177 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60206 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60205 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60228 - "GET /api/user/wide?page=1&page_size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60258 - "GET /api/management HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60552 - "GET /api/cdp/wide/tag-meta HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60554 - "GET /api/cdp/wide/distribution HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60557 - "GET /api/cdp/etl/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60559 - "GET /api/cdp/crowd/list HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60577 - "GET /api/tag-analysis/cross HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60578 - "GET /api/tag-analysis/cooccurrence HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60574 - "GET /api/tag-analysis/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60580 - "GET /api/tag-analysis/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60573 - "GET /api/tag-analysis/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60651 - "GET /api/vector/dim-labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60649 - "GET /api/vector/users HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60648 - "GET /api/vector/labels HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60673 - "GET /api/satellite/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60674 - "GET /api/satellite/charts HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60676 - "GET /api/satellite/query?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60720 - "GET /api/report/overview HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60723 - "GET /api/report/risk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60722 - "GET /api/report/transaction HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60746 - "GET /api/metrics/definitions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60748 - "GET /api/metrics/templates HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60759 - "POST /api/metrics/query HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60767 - "GET /api/metrics/templates HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60776 - "GET /api/metrics/templates HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60806 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60845 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60855 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60876 - "POST /api/metrics/drilldown HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60900 - "GET /api/observe/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60903 - "GET /api/observe/logs?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60961 - "GET /api/observe/tag-stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60977 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60984 - "GET /api/trace/e92b426cd2864942 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61042 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61076 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61161 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61163 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61474 - "GET /api/trace/e92b426cd2864942 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62136 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62152 - "GET /api/trace/list?page=1&size=20 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62181 - "GET /api/trace/31c8e714baad4b0c HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62186 - "GET /api/trace/9929f156dfc3489d HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62271 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62270 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63428 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63432 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63430 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63496 - "GET /api/system/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63500 - "GET /api/user/wide?anomaly_flag=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63499 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64125 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64151 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64152 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64147 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64153 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64169 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64174 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64173 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64269 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64268 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64267 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:08:20,017 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:08:20,255 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:64128 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64383 - "GET /api/news/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64384 - "GET /api/news/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64393 - "GET /api/news/sector-metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64395 - "GET /api/news/signals HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64396 - "GET /api/news/hot-companies HTTP/1.1" 200 OK
+2026-04-19 01:08:30,816 [WARNING] backend.doris.connect: execute_write: (1105, 'errCode = 2, detailMessage = There are still some transactions in the COMMITTED state waiting to be completed. The table [fund_basic] cannot be dropped. If you want to forcibly drop(cannot be recovered), please use "DROP table FORCE".')
+INFO:     127.0.0.1:64410 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64392 - "GET /api/news/tag-analysis HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64412 - "GET /api/sec/branches HTTP/1.1" 200 OK
+2026-04-19 01:08:31,523 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = Table 'fund_basic' already exists")
+INFO:     127.0.0.1:64409 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64430 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64435 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64437 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64453 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64452 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64450 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:08:56,365 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:08:56,387 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:08:56,598 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:64400 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 01:08:56,819 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 14, pos 21)')
+2026-04-19 01:08:56,819 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 12, pos 21)')
+INFO:     127.0.0.1:64526 - "GET /api/fund/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64525 - "GET /api/fund/sector-stats HTTP/1.1" 200 OK
+2026-04-19 01:08:57,032 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 5, pos 21)')
+INFO:     127.0.0.1:64532 - "GET /api/fund/list HTTP/1.1" 200 OK
+2026-04-19 01:08:57,055 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:64296 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65116 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65126 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65125 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65138 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65141 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65150 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65151 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65175 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65177 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65182 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65202 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65204 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65210 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65213 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65181 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65220 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65219 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65227 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65229 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65234 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65233 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65261 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65262 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65279 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65280 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65258 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65274 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65294 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65293 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65288 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65310 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65322 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65324 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65335 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65302 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65337 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65318 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65331 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65278 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65292 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65334 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65308 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65321 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:10:28,539 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 7, detailMessage = unknown table, tableName=fund_nav_history')
+INFO:     127.0.0.1:64520 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65447 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65449 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65446 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:10:41,378 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].')
+2026-04-19 01:10:41,587 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:10:41,827 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:65404 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65501 - "GET /api/fund/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65503 - "GET /api/fund/sector-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65512 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65514 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65516 - "GET /api/fund/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65511 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:10:54,440 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:10:54,728 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:65494 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 01:10:54,978 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 14, pos 21)')
+2026-04-19 01:10:54,979 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 12, pos 21)')
+INFO:     127.0.0.1:49252 - "GET /api/fund/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49253 - "GET /api/fund/sector-stats HTTP/1.1" 200 OK
+2026-04-19 01:10:55,465 [WARNING] backend.doris.connect: execute_query: (1105, 'errCode = 2, detailMessage = Table [fund_basic] does not exist in database [bank_cdp].(line 5, pos 21)')
+INFO:     127.0.0.1:49258 - "GET /api/fund/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49355 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49363 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49364 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49480 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49482 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49489 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49487 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49496 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49498 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49505 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49510 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49512 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49503 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49520 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49522 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49527 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49529 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49534 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49541 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49543 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49548 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49536 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49550 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49555 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49562 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49564 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49572 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49574 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49557 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49579 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49581 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49586 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49588 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49592 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49591 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49626 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49627 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49625 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:11:53,786 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:11:54,025 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:49246 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49793 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49792 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49789 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49835 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49841 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49839 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49857 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49859 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49863 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49861 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49981 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49983 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49991 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49990 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50005 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50007 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50016 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50015 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50024 - "GET /api/benchmark/audit-stats?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50032 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50033 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50031 - "GET /api/sec/overview HTTP/1.1" 200 OK
+2026-04-19 01:13:12,976 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_position] does not exist in database [bank_cdp].')
+2026-04-19 01:13:13,235 [WARNING] backend.doris.connect: execute_many: (1105, 'errCode = 2, detailMessage = Table [fund_nav_history] does not exist in database [bank_cdp].')
+INFO:     127.0.0.1:49636 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50057 - "GET /api/sec/branches HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50058 - "GET /api/sec/trend HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50053 - "GET /api/sec/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50064 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50069 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50070 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+2026-04-19 01:29:57,266 [WARNING] backend.doris.connect: execute_write: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-19 01:29:58,271 [WARNING] backend.doris.connect: execute_query: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:50118 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 01:30:01,219 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:50556 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 01:30:01,457 [WARNING] backend.doris.connect: execute_write: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-19 01:30:03,574 [WARNING] backend.doris.connect: execute_write: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+2026-04-19 01:30:03,918 [WARNING] backend.doris.connect: execute_many: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-19 01:30:04,388 [WARNING] backend.doris.connect: execute_write: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-19 01:30:47,599 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:51269 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 01:31:16,444 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50121 - "POST /api/mfg/init HTTP/1.1" 200 OK
+2026-04-19 01:32:31,445 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:33:46,447 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:35:01,465 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50577 - "POST /api/mfg/init HTTP/1.1" 200 OK
+2026-04-19 01:36:16,469 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:36:16,997 [WARNING] backend.doris.connect: execute_write: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+2026-04-19 01:37:31,471 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50039 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 01:38:46,474 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:40:01,484 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:41:16,501 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:42:31,502 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:43:46,504 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:45:01,505 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:46:16,508 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:47:31,512 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:48:46,515 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:50:01,518 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:51:16,519 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:52:31,522 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:53:46,524 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:55:01,526 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:56:16,528 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:57:31,548 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 01:58:46,554 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50123 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 02:00:01,557 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 02:01:16,585 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:50561 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 11:03:03,473 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,484 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,486 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,487 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,490 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:62288 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 11:03:03,495 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,496 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,496 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,497 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,497 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,497 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,498 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,515 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,523 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,527 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:03:03,572 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:64516 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62303 - "POST /api/mfg/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62305 - "POST /api/fund/init HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64063 - "GET /api/system/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64066 - "POST /api/behavior/funnel HTTP/1.1" 200 OK
+2026-04-19 11:15:35,502 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:51575 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 11:15:39,733 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = Table 'fund_nav_history' already exists")
+2026-04-19 11:17:14,012 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:51224 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 11:17:14,251 [WARNING] backend.doris.connect: execute_write: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:51226 - "POST /api/mfg/init HTTP/1.1" 200 OK
+2026-04-19 11:22:52,761 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,762 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:55181 - "POST /api/mfg/init HTTP/1.1" 200 OK
+2026-04-19 11:22:52,768 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,769 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,774 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,775 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,775 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,775 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,775 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,775 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,776 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,778 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,781 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,824 [WARNING] backend.doris.connect: execute_many: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:55183 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 11:22:52,837 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,839 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:55197 - "GET /api/mfg/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55200 - "GET /api/mfg/machine-status HTTP/1.1" 200 OK
+2026-04-19 11:22:52,846 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 11:22:52,847 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:55207 - "GET /api/fund/sector-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55208 - "GET /api/fund/overview HTTP/1.1" 200 OK
+2026-04-19 11:22:52,858 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:55214 - "GET /api/fund/list HTTP/1.1" 200 OK
+2026-04-19 11:23:12,542 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:56924 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 12:11:20,187 [WARNING] backend.doris.connect: execute_query: (2013, 'Lost connection to MySQL server during query ([Errno 60] Operation timed out)')
+INFO:     127.0.0.1:55167 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 12:41:03,651 [WARNING] backend.doris.connect: execute_many: (2013, "Lost connection to MySQL server during query ([Errno 49] Can't assign requested address)")
+INFO:     127.0.0.1:51228 - "POST /api/fund/init HTTP/1.1" 200 OK
+2026-04-19 18:12:45,240 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:56375 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 18:29:18,087 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 18:45:18,883 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+2026-04-19 18:59:29,085 [WARNING] backend.doris.connect: execute_query: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:56501 - "GET /api/system/health HTTP/1.1" 200 OK
+2026-04-19 19:00:44,101 [WARNING] backend.doris.connect: execute_write: (2003, "Can't connect to MySQL server on '10.26.20.3'")
+INFO:     127.0.0.1:56382 - "POST /api/mfg/init HTTP/1.1" 200 OK
+2026-04-19 19:00:46,518 [WARNING] backend.doris.connect: execute_write: (1105, "errCode = 2, detailMessage = Table 'fund_nav_history' already exists")
+INFO:     Shutting down
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71068]
+INFO:     Stopping reloader process [71062]

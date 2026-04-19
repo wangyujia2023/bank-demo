@@ -469,18 +469,18 @@ onMounted(loadAll)
 .sec-wrap { display: flex; flex-direction: column; gap: 16px; }
 .collapse-card, .tabs-card, .filter-card { padding: 0; overflow: hidden; }
 .collapse-hd {
-  display: flex; align-items: center; gap: 8px; padding: 14px 16px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px; padding: 18px 18px; min-height: 76px; cursor: pointer;
   border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #303133;
 }
-.ch-title { font-size: 15px; font-weight: 700; color: #1f2937; line-height: 1.6; padding: 2px 0; }
-.ch-tog { margin-left: auto; color: #909399; }
+.ch-title { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.ch-tog { margin-left: auto; font-size: 12px; color: #c0c4cc; flex-shrink: 0; }
 .badge {
-  font-size: 11px; padding: 3px 8px; border-radius: 999px; color: #fff;
+  font-size: 11px; padding: 1px 8px; border-radius: 10px; font-weight: 500; color: #fff; flex-shrink: 0;
 }
 .badge.blue { background: #409eff; }
 .badge.green { background: #67c23a; }
 .badge.orange { background: #e6a23c; }
-.arch-body, .ctrl-body { padding: 16px; }
+.arch-body, .ctrl-body { padding: 0 16px 16px; border-top: 1px solid #f0f0f0; }
 .arch-flow {
   display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr 40px 1fr 40px 1fr;
   align-items: center; gap: 0; margin-bottom: 16px;

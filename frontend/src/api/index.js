@@ -14,6 +14,19 @@ http.interceptors.response.use(
   }
 )
 
+// 短超时实例（首页首屏优先）
+const httpFast = axios.create({
+  baseURL: '/api',
+  timeout: 8000,
+})
+httpFast.interceptors.response.use(
+  res => res.data,
+  err => {
+    ElMessage.error(err.response?.data?.detail || err.message || '请求失败')
+    return Promise.reject(err)
+  }
+)
+
 // 长超时实例（向量初始化等耗时操作，20分钟）
 const httpLong = axios.create({
   baseURL: '/api',
@@ -53,7 +66,7 @@ export const behaviorApi = {
 
 // ── 大盘 ─────────────────────────────────────────────────────────
 export const dashboardApi = {
-  overview: () => http.get('/dashboard'),
+  overview: () => httpFast.get('/dashboard'),
 }
 
 // ── 经营管理大屏 ──────────────────────────────────────────────────

@@ -748,7 +748,7 @@ onUnmounted(() => {
 .collapse-card { padding:0; overflow:hidden; }
 .collapse-hd {
   display:flex; align-items:center; gap:8px;
-  padding:12px 18px; cursor:pointer; user-select:none;
+  padding:18px 18px; min-height:76px; cursor:pointer; user-select:none;
 }
 .collapse-hd:hover { background:#fafafa; }
 .ch-title { font-size:14px; font-weight:600; color:#1a1a1a; }
